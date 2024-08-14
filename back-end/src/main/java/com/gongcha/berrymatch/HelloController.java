@@ -1,4 +1,4 @@
-package com.gongcha.practicalproject;
+package com.gongcha.berrymatch;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

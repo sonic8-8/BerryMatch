@@ -8,10 +8,10 @@ spring:
     default: local
 
   datasource:
-    url: jdbc:h2:mem:~/cafeKioskApplication
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: ${AZURE_MYSQL_SERVER_URL}
+    username: ${AZURE_MYSQL_SERVER_USERNAME}
+    password: ${AZURE_MYSQL_SERVER_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
@@ -31,10 +31,6 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true # (2.5~) Hibernate 초기화 이후 data.sql 실행
-
-  h2:
-    console:
-      enabled: true
 
 ---
 spring:
@@ -76,3 +72,7 @@ spring:
         bucket: ${AWS_S3_BUCKET_NAME}
       region:
         static: ${AWS_S3_BUCKET_REGION}
+
+---
+
+

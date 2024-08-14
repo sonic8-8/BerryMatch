@@ -1,4 +1,4 @@
-package com.gongcha.practicalproject.user;
+package com.gongcha.berrymatch.user;
 
 import jakarta.persistence.*;
 
