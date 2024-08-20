@@ -15,8 +15,9 @@ public class UserActivity {
     @ManyToOne
     private User user;
 
-    private LocalDateTime loginTime;
+    @Enumerated(EnumType.STRING)
+    private LogType logType;
 
-    private LocalDateTime logoutTime;
+    private LocalDateTime logTime;
 
 }
