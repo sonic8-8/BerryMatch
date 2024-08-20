@@ -1,5 +1,6 @@
-package com.gongcha.berrymatch.user;
+package com.gongcha.berrymatch.userActivity;
 
+import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
