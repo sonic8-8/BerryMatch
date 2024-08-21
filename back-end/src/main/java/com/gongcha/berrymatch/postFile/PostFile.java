@@ -13,12 +13,15 @@ public class PostFile {
     @ManyToOne
     private Post post;
 
-    private String name;
+    private String originalFileName;
 
-    private String url;
+    private String storedFileName;
 
-    @Enumerated(EnumType.STRING)
-    private PostFileType postFileType;
+    private String fileType;
 
-    private int size;
+    private Long size;
+
+    private String fileKey;
+
+    private String fileUrl;
 }

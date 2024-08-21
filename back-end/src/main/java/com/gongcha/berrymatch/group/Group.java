@@ -21,4 +21,7 @@ public class Group {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    private GroupStatus groupStatus;
 }
