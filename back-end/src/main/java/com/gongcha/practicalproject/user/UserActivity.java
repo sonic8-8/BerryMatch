@@ -1,6 +1,5 @@
-package com.gongcha.berrymatch.userActivity;
+package com.gongcha.practicalproject.user;
 
-import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -15,9 +14,8 @@ public class UserActivity {
     @ManyToOne
     private User user;
 
-    @Enumerated(EnumType.STRING)
-    private LogType logType;
+    private LocalDateTime loginTime;
 
-    private LocalDateTime logTime;
+    private LocalDateTime logoutTime;
 
 }

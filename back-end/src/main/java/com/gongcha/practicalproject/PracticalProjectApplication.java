@@ -1,13 +1,13 @@
-package com.gongcha.berrymatch;
+package com.gongcha.practicalproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BerryMatchApplication {
+public class PracticalProjectApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(BerryMatchApplication.class, args);
+        SpringApplication.run(PracticalProjectApplication.class, args);
     }
 
 }

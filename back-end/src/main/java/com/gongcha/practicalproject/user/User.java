@@ -1,12 +1,5 @@
-package com.gongcha.berrymatch.user;
+package com.gongcha.practicalproject.user;
 
-import com.gongcha.berrymatch.chatMessage.ChatMessage;
-import com.gongcha.berrymatch.chatRoom.ChatRoom;
-import com.gongcha.berrymatch.game.Game;
-import com.gongcha.berrymatch.group.Group;
-import com.gongcha.berrymatch.post.Post;
-import com.gongcha.berrymatch.postLike.PostLike;
-import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -49,24 +42,6 @@ public class User {
     private LocalDateTime createdAt;
 
     @OneToMany
-    private List<UserActivity> userActivities;
-
-    @ManyToOne
-    private Group group;
-
-    @ManyToOne
-    private Game game;
-
-    @ManyToOne
-    private ChatRoom chatRoom;
-
-    @OneToOne
-    private ChatMessage chatMessage;
-
-    @OneToOne
-    private Post post;
-
-    @OneToOne
-    private PostLike postLike;
+    private List<UserActivity> activities;
 
 }
