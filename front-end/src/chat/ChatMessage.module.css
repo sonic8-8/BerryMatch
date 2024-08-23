@@ -1,0 +1,5 @@
+.chat_message_container{
+    width: 100%;
+    display: flex;
+    padding: 1px;
+}
