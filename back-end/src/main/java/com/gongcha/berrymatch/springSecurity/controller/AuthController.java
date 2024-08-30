@@ -12,6 +12,7 @@ import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,11 @@ public class AuthController {
     @PostMapping("/auth")
     public ApiResponse<AuthResponse> generateToken(HttpServletResponse response,
                                              @RequestBody TokenRequest tokenRequest) {
-        User user = userService.findUserByUsername(tokenRequest.getUsername());
+
+        System.out.println("토큰 발행 요청 들어옴");
+
+        User user = userService.findUserByIdentifier(tokenRequest.getIdentifier());
+
         if (!user.isRegistered()) {
             throw new BusinessException(NOT_AUTHENTICATED_USER);
         }
@@ -38,7 +43,9 @@ public class AuthController {
         jwtFacade.generateRefreshToken(response, user);
         jwtFacade.setReissuedHeader(response);
 
-        AuthResponse authResponse = userService.getUserAuthInfo(user.getUsername());
+        AuthResponse authResponse = userService.getUserAuthInfo(user.getIdentifier());
+
+        System.out.println("토큰 발행함");
 
         return ApiResponse.ok(authResponse);
     }
@@ -49,9 +56,12 @@ public class AuthController {
             HttpServletResponse response) {
 
         LogoutResponse result = LogoutResponse.builder()
-                .message(jwtFacade.logout(response, userPrincipal.getUser().getUsername()))
+                .message(jwtFacade.logout(response, userPrincipal.getUser().getIdentifier()))
                 .build();
 
         return ApiResponse.ok(result);
     }
+
+
+
 }

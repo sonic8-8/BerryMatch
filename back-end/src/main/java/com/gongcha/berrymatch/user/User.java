@@ -8,6 +8,7 @@ import com.gongcha.berrymatch.match.Match;
 import com.gongcha.berrymatch.post.Post;
 import com.gongcha.berrymatch.postLike.PostLike;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
+import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,11 +33,9 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    private String username;
+    private String identifier;
 
     private String nickname;
-
-    private String password;
 
     @Enumerated(EnumType.STRING)
     private City city;
@@ -51,6 +50,7 @@ public class User {
 
     private String phoneNumber;
 
+    @Column(name = "profile_image_url", length = 512)
     private String profileImageUrl;
 
     private String introduction;
@@ -65,6 +65,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private ProviderInfo providerInfo;
+
+    @Enumerated(EnumType.STRING)
+    private UserMatchStatus userMatchStatus;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
@@ -98,10 +101,9 @@ public class User {
     private PostLike postLike;
 
     @Builder
-    public User(String username, String nickname, String password, City city, District district, Gender gender, int age, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo) {
-        this.username = username;
+    public User(String identifier, String nickname, City city, District district, Gender gender, int age, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+        this.identifier = identifier;
         this.nickname = nickname;
-        this.password = password;
         this.city = city;
         this.district = district;
         this.gender = gender;
@@ -109,30 +111,28 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.profileImageUrl = profileImageUrl;
         this.introduction = introduction;
-        this.email = email;
         this.role = role;
         this.createdAt = createdAt;
         this.providerInfo = providerInfo;
-    }
-
-    public Map<String, Object> toClaims() {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
-        claims.put("nickname", nickname);
-        claims.put("city", city);
-        claims.put("district", district);
-        claims.put("gender", gender);
-        claims.put("age", age);
-        claims.put("phoneNumber", phoneNumber);
-        claims.put("profileImageUrl", profileImageUrl);
-        claims.put("introduction", introduction);
-        claims.put("email", email);
-        claims.put("role", role);
-        claims.put("createdAt", createdAt);
-        return claims;
+        this.userMatchStatus = userMatchStatus;
     }
 
     public boolean isRegistered() {
         return this.role != Role.NOT_REGISTERED;
+    }
+
+    /**
+     * 회원가입 비즈니스 로직에 사용됨. 회원정보를 업데이트해주는 메서드
+     */
+    public void update(UserSignupServiceRequest request) {
+        this.nickname = request.getNickname();
+        this.city = request.getCity();
+        this.district = request.getDistrict();
+        this.gender = request.getGender();
+        this.age = request.getAge();
+        this.phoneNumber = request.getPhoneNumber();
+        this.profileImageUrl = request.getProfileImageUrl();
+        this.introduction = request.getIntroduction();
+        this.role = Role.USER;
     }
 }

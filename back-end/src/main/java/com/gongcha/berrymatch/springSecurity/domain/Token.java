@@ -11,13 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 public class Token {
     @Id
-    private String username;
+    private String identifier;
 
     private String token;
 
     @Builder
-    public Token(String username, String token) {
-        this.username = username;
+    public Token(String identifier, String token) {
+        this.identifier = identifier;
         this.token = token;
     }
 }

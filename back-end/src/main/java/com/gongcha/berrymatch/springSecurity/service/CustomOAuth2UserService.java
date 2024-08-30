@@ -36,29 +36,32 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         // OAuth2 로그인 진행 시 키가 되는 필드값. Primary Key와 같은 의미.
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint()
+        String userNameAttributeName = userRequest.getClientRegistration()
+                .getProviderDetails()
+                .getUserInfoEndpoint()
                 .getUserNameAttributeName();
 
         // 서비스를 구분하는 코드 ex) Github, Naver
-        String providerCode = userRequest.getClientRegistration().getRegistrationId();
+        String providerCode = userRequest.getClientRegistration()
+                .getRegistrationId();
 
         ProviderInfo providerInfo = ProviderInfo.from(providerCode);
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(providerInfo, attributes);
-        String userIdentifier = oAuth2UserInfo.getUsername();
+        String userIdentifier = oAuth2UserInfo.getIdentifier();
 
         User user = getUser(userIdentifier, providerInfo);
 
         return new UserPrincipal(user, attributes, userNameAttributeName);
     }
 
-    private User getUser(String username, ProviderInfo providerInfo) {
-        Optional<User> optionalUser = userRepository.findByOAuthInfo(username, providerInfo);
+    private User getUser(String identifier, ProviderInfo providerInfo) {
+        Optional<User> optionalUser = userRepository.findByOAuthInfo(identifier, providerInfo);
 
         if (optionalUser.isEmpty()) {
             User unregisteredUser = User.builder()
-                    .username(username)
+                    .identifier(identifier)
                     .role(Role.NOT_REGISTERED)
                     .providerInfo(providerInfo)
                     .build();

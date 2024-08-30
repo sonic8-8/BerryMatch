@@ -3,12 +3,12 @@ package com.gongcha.berrymatch.springSecurity.responseDTO;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class SignupResponse {
+public class CodeToTokenResponse {
     Long userId;
-    String username;
+    String identifier;
 
-    public SignupResponse(Long userId, String username) {
+    public CodeToTokenResponse(Long userId, String identifier) {
         this.userId = userId;
-        this.username = username;
+        this.identifier = identifier;
     }
 }

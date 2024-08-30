@@ -64,6 +64,7 @@ public class JwtFacadeService implements JwtFacade {
         response.setHeader(ACCESS_HEADER.getValue(), bearer);
         response.setHeader(ACCESS_REISSUED_HEADER.getValue(), "False");
 
+
         return accessToken;
     }
 
@@ -74,7 +75,7 @@ public class JwtFacadeService implements JwtFacade {
         ResponseCookie cookie = setTokenToCookie(REFRESH_PREFIX.getValue(), refreshToken, REFRESH_EXPIRATION / 1000);
         response.addHeader(REFRESH_ISSUE.getValue(), cookie.toString());
 
-        tokenService.save(new Token(requestUser.getUsername(), refreshToken));
+        tokenService.save(new Token(requestUser.getIdentifier(), refreshToken));
         return refreshToken;
     }
 
@@ -154,8 +155,8 @@ public class JwtFacadeService implements JwtFacade {
     }
 
     @Override
-    public String logout(HttpServletResponse response, String username) {
-        tokenService.deleteById(username);
+    public String logout(HttpServletResponse response, String identifier) {
+        tokenService.deleteById(identifier);
 
         Cookie refreshCookie = jwtUtil.resetCookie(REFRESH_PREFIX);
         response.addCookie(refreshCookie);

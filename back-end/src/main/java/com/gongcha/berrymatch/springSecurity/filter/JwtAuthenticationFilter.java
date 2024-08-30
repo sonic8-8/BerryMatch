@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String refreshToken = jwtFacade.resolveRefreshToken(request);
         User user = findUserByRefreshToken(refreshToken);
 
-        if (jwtFacade.validateRefreshToken(refreshToken, user.getUsername())) {
+        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier())) {
             String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
             jwtFacade.generateRefreshToken(response, user);
             jwtFacade.setReissuedHeader(response);
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwtFacade.logout(response, user.getUsername());
+        jwtFacade.logout(response, user.getIdentifier());
     }
 
     private boolean isPermittedURI(String requestURI) {
@@ -66,8 +66,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private User findUserByRefreshToken(String refreshToken) {
-        String username = jwtFacade.getIdentifierFromRefresh(refreshToken);
-        return userService.findUserByUsername(username);
+        String identifier = jwtFacade.getIdentifierFromRefresh(refreshToken);
+        return userService.findUserByIdentifier(identifier);
     }
 
     private void setAuthenticationToContext(String accessToken) {

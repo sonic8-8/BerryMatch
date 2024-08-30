@@ -36,12 +36,12 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String username = oAuth2User.getName();
+        String identifier = oAuth2User.getName();
 
-        User user = userRepository.findByUsername(username)
+        User user = userRepository.findByIdentifier(identifier)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
 
-        String redirectUrl = getRedirectUrlByRole(user.getRole(), username);
+        String redirectUrl = getRedirectUrlByRole(user.getRole(), identifier);
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 

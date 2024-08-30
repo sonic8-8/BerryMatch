@@ -19,11 +19,11 @@ public interface JwtFacade {
 
     boolean validateAccessToken(String accessToken);
 
-    boolean validateRefreshToken(String refreshToken, String username);
+    boolean validateRefreshToken(String refreshToken, String identifier);
 
     void setReissuedHeader(HttpServletResponse response);
 
-    String logout(HttpServletResponse response, String username);
+    String logout(HttpServletResponse response, String identifier);
 
     Authentication getAuthentication(String accessToken);
 }

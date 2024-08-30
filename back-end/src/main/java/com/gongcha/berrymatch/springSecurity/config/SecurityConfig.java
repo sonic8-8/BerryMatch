@@ -41,17 +41,20 @@ public class SecurityConfig {
         http.cors(corsCustomizer -> corsCustomizer
                         .configurationSource(customCorsConfigurationSource)
                 )
+                // csrf 비활성화
                 .csrf(CsrfConfigurer::disable)
+                // http basic 로그인 비활성화
                 .httpBasic(HttpBasicConfigurer::disable)
-                // OAuth 사용으로 인한 form login 비활성화
+                // form login 비활성화
                 .formLogin(FormLoginConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        // 특정 권한이 있어야만 특정 API에 접근할 수 있도록 설정
+                        // ADMIN만 접근 가능
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        // 안전하지 않은 HTTP 메서드 등은 PreFlight 요청을 보냄. 특정 요청을 허용할지 묻는 역할
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                        // 특정 API들은 별도의 인증/인가 과정 없이도 접근이 가능하도록 설정
+                        // PERMITTED_URI는 모두 접근 가능
                         .requestMatchers(PERMITTED_URI).permitAll()
-                        // 그 외의 요청들은 PERMITTED_ROLES 중 하나라도 가지고 있어야 접근이 가능하도록 설정
+                        // 그 외의 요청들은 PERMITTED_ROLES(USER, ADMIN) 중 하나라도 가지고 있어야 접근 가능
                         .anyRequest().hasAnyRole(PERMITTED_ROLES))
 
                 // JWT 사용으로 인한 세션 미사용
@@ -65,9 +68,10 @@ public class SecurityConfig {
 
                 // OAuth 로그인 설정
                 .oauth2Login(customConfigurer -> customConfigurer
+                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuthService))
                         .successHandler(successHandler)
                         .failureHandler(failureHandler)
-                        .userInfoEndpoint(endpointConfig -> endpointConfig.userService(customOAuthService))
+
                 );
 
         return http.build();

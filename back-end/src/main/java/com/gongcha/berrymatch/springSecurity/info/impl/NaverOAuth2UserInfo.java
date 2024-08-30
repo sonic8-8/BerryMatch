@@ -19,7 +19,7 @@ public class NaverOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getUsername() {
-        return (String) attributes.get(ProviderInfo.NAVER.getUsername());
+    public String getIdentifier() {
+        return (String) attributes.get(ProviderInfo.NAVER.getIdentifier());
     }
 }

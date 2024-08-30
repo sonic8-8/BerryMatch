@@ -12,8 +12,12 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
 
     public KakaoOAuth2UserInfo(Map<String, Object> attributes) {
         super((Map<String, Object>) attributes.get(ProviderInfo.KAKAO.getAttributeKey()));
-        this.providerId = String.valueOf(attributes.get(ProviderInfo.KAKAO.getUsername()));
+        this.providerId = String.valueOf(attributes.get(ProviderInfo.KAKAO.getIdentifier()));
     }
+
+//    public KakaoOAuth2UserInfo(Map<String, Object> attributes) {
+//        super(attributes);
+//    }
 
     @Override
     public String getProviderCode() {
@@ -21,7 +25,7 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
     }
 
     @Override
-    public String getUsername() {
-        return (String) attributes.get(ProviderInfo.KAKAO.getProviderCode());
+    public String getIdentifier() {
+        return (String) attributes.get(ProviderInfo.KAKAO.getIdentifier());
     }
 }

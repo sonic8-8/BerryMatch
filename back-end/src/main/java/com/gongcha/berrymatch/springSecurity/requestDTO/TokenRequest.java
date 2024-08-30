@@ -3,15 +3,14 @@ package com.gongcha.berrymatch.springSecurity.requestDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 public class TokenRequest {
-    private String username;
+    private String identifier;
 
     @Builder
-    public TokenRequest(String username) {
-        this.username = username;
+    public TokenRequest(String identifier,  String provider) {
+        this.identifier = identifier;
     }
 }

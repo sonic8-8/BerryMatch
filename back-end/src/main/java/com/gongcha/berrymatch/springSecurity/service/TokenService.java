@@ -20,11 +20,11 @@ public class TokenService {
     @Transactional
     public String save(Token token) {
         Token savedToken = tokenRepository.save(token);
-        return savedToken.getUsername();
+        return savedToken.getIdentifier();
     }
 
-    public Token findByIdentifier(String username) {
-        return tokenRepository.findById(username)
+    public Token findByIdentifier(String identifier) {
+        return tokenRepository.findById(identifier)
                 .orElseThrow(() -> new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB));
     }
 

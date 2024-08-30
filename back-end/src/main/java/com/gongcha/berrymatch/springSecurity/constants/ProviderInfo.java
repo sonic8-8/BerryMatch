@@ -15,7 +15,7 @@ public enum ProviderInfo {
 
     private final String attributeKey;
     private final String providerCode;
-    private final String username;
+    private final String Identifier;
 
     public static ProviderInfo from(String provider) {
         String upperCastedProvider = provider.toUpperCase();
