@@ -1,0 +1,18 @@
+.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.button_img {
+    width: 52px;
+    height: 52px;
+}
+
+.button_title {
+    font-size: 12px;
+}

@@ -1,31 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import './App.css';
+import styles from './App.module.css';
+import VideoUpload from './VideoUpload';
+import LoginPage from './auth/pages/LoginPage';
+import MainPage from './user/pages/MainPage';
+import GoogleLoginButton from './auth/components/GoogleLoginButton';
+import SignupPage from './auth/pages/SignupPage';
 
 function App() {
-  const [data, setData] = useState('여기에 데이터 받아올거임');
-  const [error, setError] = useState(null);
-
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('/api/hello');
-      setData(response.data.응답);
-      setError(null);
-    } catch (error) {
-      setError('통신 실패함');
-    }
-  };
 
   return (
-    <div className="container">
-      <div>
-        <h4>안녕하세요</h4>
-        <button onClick={fetchData}>서버에 요청보내기</button>
-        <p>{error ? error : data}</p>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />}/>
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/signup" element={<SignupPage/>}/>
+      </Routes>
+    </Router>
   );
 }
 
