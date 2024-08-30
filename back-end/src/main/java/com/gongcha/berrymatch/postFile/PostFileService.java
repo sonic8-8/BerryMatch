@@ -15,14 +15,16 @@ public class PostFileService {
 
     private final S3Service s3Service;
 
-    @Value("${AWS_S3_BUCKET_NAME}")
+    @Value("${AMAZON_S3_BUCKET_NAME}")
     private String bucketName;
-    @Value("${AWS_S3_BUCKET_REGION}")
+    @Value("${AMAZON_S3_BUCKET_REGION}")
     private String region;
 
     private final PostFileRepository postFileRepository;
 
-
+    /**
+     * 게시물 업로드 요청(DTO)와 S3 버킷 업로드 후 생성된 key를 매개변수로 받아 생성된 PostFile 데이터를 DB에 저장하는 메서드
+     */
     public PostFileUploadResponse savePostFile(PostFileUploadServiceRequest request, String key) {
 
         MultipartFile file = request.getFile();
