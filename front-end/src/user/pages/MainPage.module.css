@@ -19,11 +19,14 @@
     height: 100vh;
     background-color: #e8e8ed;;
     color: #6e6e73;
+    background-image: url(https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
   
 .layout_header {
     border: 1px solid #ccc;
-    padding: 10px;
     flex: 0 0 auto;
     background-color: #e8e8ed;;
     color: #6e6e73;
@@ -37,15 +40,13 @@
     align-items: center;
     border: 1px solid #ccc;
     flex: 1;
-    background-color: #e8e8ed;;
+
     color: #6e6e73;
 }
   
 .layout_footer {
     border: 1px solid #ccc;
-    padding: 10px;
     flex: 0 0 auto;
-    background-color: #e8e8ed;;
     color: #6e6e73;
     width: 100%;
 }
