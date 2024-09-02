@@ -4,25 +4,25 @@ function GroupSearchPage() {
     return (
 
 
-        <div className={styles.layout}>
+      <div className={styles.layout}>
     
 
-          <header className={styles.layout_header}>
-            
-
-          </header>
-    
-          <content className={styles.layout_content}>
-
-
-          </content>
+        <div className={styles.layout_header}>
           
-          <footer className={styles.layout_footer}>
 
-
-          </footer>
-    
         </div>
+
+        <div className={styles.layout_content}>
+
+
+        </div>
+        
+        <div className={styles.layout_footer}>
+
+
+        </div>
+
+    </div>
       );
 }
 

@@ -1,5 +1,35 @@
-.dashboard_container {
+@font-face {
+    font-family: 'Jalnan';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.ttf') format("truetype");
+    font-display: swap;
+}
 
+@font-face {
+    font-family: 'JalnanGothic';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.ttf') format("truetype");
+    font-display: swap;
+  }
+
+.dashboard_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,17 +42,72 @@
 
     width: 1366px;
     height: 768px;
+    /* width: 70vw;
+    height: calc(70vw / (16 / 9)); */
+
+
+    border-radius: 15px;
+    font-family: 'Jalnan';
+    font-size: 20px;
 }
 
 .dashboard_top {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     flex: 1;
-    background-color: red;
     width: 100%;
+    border-top-left-radius: 15px; /* 위쪽 왼쪽 모서리 둥글게 */
+    border-top-right-radius: 15px; /* 위쪽 오른쪽 모서리 둥글게 */
+
+    color: #6e6e73;
+    border: 1px solid #ccc;
 }
+
+.dashboard_top_logo_container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dashboard_top_logo {
+    width: 100px;
+    padding-left: 20px;
+
+    border: 1px solid #ccc;
+}
+
+.dashboard_top_identifier {
+    flex: 2;
+    
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #ccc;
+}
+
+.dashboard_top_logout {
+    flex: 1;
+
+    justify-content: flex-end;
+    padding-right: 20px;
+    cursor: pointer;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #ccc;
+}
+
 
 .dashboard_middle {
 
@@ -31,10 +116,11 @@
     justify-content: center;
     align-items: center;
     
-    background-color: blue;
+
     color: #6e6e73;
     flex: 6;
     width: 100%;
+    border: 1px solid #ccc;
 }
 
 .dashboard_middle_left {
@@ -44,10 +130,21 @@
     justify-content: center;
     align-items: center;
     
-    background-color: green;
     color: #6e6e73;
     flex: 3;
     height: 100%;
+
+}
+
+.dashboard_middle_left_content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #ccc;
 }
 
 .dashboard_middle_right {
@@ -56,7 +153,7 @@
     justify-content: center;
     align-items: center;
     
-    background-color: yellow;
+
     color: #6e6e73;
     flex: 7;
     height: 100%;
@@ -69,11 +166,19 @@
     align-items: center;
     flex: 1;
     width: 100%;
+    border: 1px solid #ccc;
 }
 
 .dashboard_middle_right_menu {
     text-align: center;
     flex: 1;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dashboard_bottom {
@@ -82,12 +187,23 @@
     justify-content: center;
     align-items: center;
     flex: 1;
-    background-color: purple;
     width: 100%;
+    border-bottom-left-radius: 15px; /* 아래쪽 왼쪽 모서리 둥글게 */
+    border-bottom-right-radius: 15px; /* 아래쪽 오른쪽 모서리 둥글게 */
+
+    color: #6e6e73;
 }
 
 .dashboard_bottom_menu {
     flex: 1;
     text-align: center;
-    background-color: aliceblue;
+    cursor: pointer;
+
+    border: 1px solid #ccc;
+
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }

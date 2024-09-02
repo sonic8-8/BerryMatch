@@ -1,0 +1,78 @@
+/* BackgroundMusic.module.css */
+.music_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.music_playing {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    margin-right: 20px;
+    flex: 1;
+}
+
+.music_playing h2 {
+    margin: 0;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.music_playing button {
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.music_playing button:hover {
+    color: #007bff;
+}
+
+.music_playlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    flex: 1;
+}
+
+.music_playlist h3 {
+    margin: 0;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.music_playlist button {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.music_playlist button:hover {
+    background-color: #0056b3;
+}
+
+

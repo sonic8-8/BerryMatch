@@ -1,24 +1,39 @@
 import styles from './Dashboard.module.css';
 import { Link } from 'react-router-dom';
+import useUserInfo from '../user/useUserInfo';
 
 function Dashboard() {
+
+    const { userInfo, loading, error } = useUserInfo();
+
+    if (loading) {
+      return <div>로딩중</div>;
+    }
+  
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    }
+    
 
     return (
         <div className={styles.dashboard_container}>
 
             <div className={styles.dashboard_top}>
-                <div>로고</div>
-                <div>환영합니다! 홍길동님</div>
-                <div>로그아웃</div>
+                <div className={styles.dashboard_top_logo_container}>
+                    <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
+                </div>
+                {/* <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : loading }님</div> */}
+                <div className={styles.dashboard_top_identifier}>환영합니다! OO님</div>
+                <div className={styles.dashboard_top_logout}>로그아웃</div>
             </div>
 
             <div className={styles.dashboard_middle}>
 
                 <div className={styles.dashboard_middle_left}>
-                    유저 정보 들어갈 자리
-                    <image src="">프로필사진</image>
-                    <div>전적</div>
-                    <div>최근 경기</div>
+                    {/* <img src={userInfo ? userInfo.profileImageUrl : ''}  className={styles.dashboard_middle_left_content} /> */}
+                    {/* <div>{userInfo ? userInfo.nickname : loading }</div> */}
+                    <div className={styles.dashboard_middle_left_content}>전적</div>
+                    <div className={styles.dashboard_middle_left_content}>최근 경기</div>
                     
                 </div>
 
@@ -51,32 +66,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-
-{/* <li className={styles.dashboard_button}>
-<Link to="/" className={styles.dashboard_link}>로고</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/match" className={styles.dashboard_link}>매칭</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/board" className={styles.dashboard_link}>게시판</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/rank" className={styles.dashboard_link}>랭킹</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/user" className={styles.dashboard_link}>마이페이지</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/alert" className={styles.dashboard_link}>알림</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/logout" className={styles.dashboard_link}>로그아웃</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/group/search" className={styles.dashboard_link}>그룹찾기</Link>
-</li>
-<li className={styles.dashboard_button}>
-<Link to="/group/generate" className={styles.dashboard_link}>그룹생성</Link>
-</li> */}

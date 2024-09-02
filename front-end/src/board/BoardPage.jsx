@@ -4,25 +4,24 @@ function BoardPage() {
     return (
 
 
-        <div className={styles.layout}>
-    
-
-          <header className={styles.layout_header}>
-            
-
-          </header>
-    
-          <content className={styles.layout_content}>
-
-
-          </content>
+      <div className={styles.layout}>
           
-          <footer className={styles.layout_footer}>
+        <div className={styles.layout_header}>
+          
 
-
-          </footer>
-    
         </div>
+
+        <div className={styles.layout_content}>
+
+
+        </div>
+        
+        <div className={styles.layout_footer}>
+
+
+        </div>
+
+      </div>
       );
 }
 

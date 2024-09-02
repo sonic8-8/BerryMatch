@@ -14,24 +14,24 @@ import GroupSearchPage from './group/GroupSearchPage';
 import BoardPage from './board/BoardPage';
 import MatchPage from './match/MatchPage';
 import LogoutPage from './auth/pages/LogoutPage';
+import PrivateRoute from './auth/components/PrivateRoute';
 
 function App() {
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage />}/>
-        <Route path="/login" element={<LoginPage />}/>
-        <Route path="/logout" element={<LogoutPage/>} />
-        <Route path="/signup" element={<SignupPage/>}/>
-        <Route path="/rank" element={<RankPage/>} />
-        <Route path="/mypage" element={<MyPage/>} />
-        <Route path="/match" element={<MatchPage/>} />
-        <Route path="/board" element={<BoardPage/>} />
-        <Route path="/group/create" element={<GroupCreatePage/>} />
-        <Route path="/group/search" element={<GroupSearchPage/>} />
-        <Route path="/alert" element={<RankPage/>} />
-        
+        <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/logout" element={<PrivateRoute><LogoutPage /></PrivateRoute>} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/rank" element={<PrivateRoute><RankPage /></PrivateRoute>} />
+        <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} />
+        <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
+        <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>} />
+        <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
+        <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
+        <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
       </Routes>
     </Router>
   );

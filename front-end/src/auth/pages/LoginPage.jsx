@@ -10,11 +10,11 @@ const LoginPage = () => {
 
     <div className={styles.layout}>
 
-      <header className={styles.layout_header}>
+      <div className={styles.layout_header}>
         
-      </header>
+      </div>
 
-      <content className={styles.layout_content}>
+      <div className={styles.layout_content}>
 
         <div className={styles.introduction_container}>
 
@@ -49,11 +49,11 @@ const LoginPage = () => {
           </div>
         </div>
         
-      </content>
+      </div>
       
-      <footer className={styles.layout_footer}>
+      <div className={styles.layout_footer}>
 
-      </footer>
+      </div>
 
     </div>
   );

@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from "axios";
 import styles from './MainPage.module.css'
-import Dashboard from '../../common/Dashboard';
+import Dashboard from '../../common/Dashboard'
+import BackgroundMusic from '../../common/components/BackgroundMusic';
 
 function MainPage() {
 
@@ -9,20 +10,21 @@ function MainPage() {
     
       <div className={styles.layout}>
         
-        <header className={styles.layout_header}>
-          
-        </header>
+        <div className={styles.layout_header}>
+          <BackgroundMusic />
+        </div>
 
-        <content className={styles.layout_content}>
+        <div className={styles.layout_content}>
 
           <Dashboard />
           
-        </content>
+          
+        </div>
         
-        <footer className={styles.layout_footer}>
+        <div className={styles.layout_footer}>
 
 
-        </footer>
+        </div>
 
       </div>
 

@@ -7,20 +7,20 @@ function LogoutPage() {
         <div className={styles.layout}>
     
 
-          <header className={styles.layout_header}>
+          <div className={styles.layout_header}>
             
 
-          </header>
+          </div>
     
-          <content className={styles.layout_content}>
+          <div className={styles.layout_content}>
 
 
-          </content>
+          </div>
           
-          <footer className={styles.layout_footer}>
+          <div className={styles.layout_footer}>
 
 
-          </footer>
+          </div>
     
         </div>
       );

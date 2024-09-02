@@ -82,7 +82,7 @@ function SignupPage() {
 
                     const accessToken = authorizationHeader.split(' ')[1];
                     
-                    Cookies.set('accessToken', accessToken);
+                    Cookies.set('accessToken', accessToken, { path: '/' });
 
                     console.log(loginData.role);
                     console.log(accessToken);
@@ -108,11 +108,11 @@ function SignupPage() {
 
     return (
         <div className={styles.layout}>
-            <header className={styles.layout_header}>
+            <div className={styles.layout_header}>
                 <h1>{formData.identifier}님 환영합니다!</h1>
-            </header>
+            </div>
     
-            <main className={styles.layout_content}>
+            <div className={styles.layout_content}>
 
                 <form onSubmit={handleSubmit} className={styles.signupForm}>
                     <label className={styles.signup_input_container}>
@@ -215,11 +215,11 @@ function SignupPage() {
 
                     <button className={styles.signupForm_button} type="submit">가입</button>
                 </form>
-            </main>
+            </div>
             
-            <footer className={styles.layout_footer}>
+            <div className={styles.layout_footer}>
                 
-            </footer>
+            </div>
         </div>
     );
 }

@@ -11,6 +11,7 @@
   }
   
 .layout {
+    font-family: 'GmarketSans';
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,16 +20,15 @@
     height: 100vh;
     background-color: #e8e8ed;;
     color: #6e6e73;
-    background-image: url(https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background.webp);
+    background-image: url(https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background3.jpg);
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* background-position: center;
+    background-repeat: no-repeat; */
 }
   
 .layout_header {
     border: 1px solid #ccc;
     flex: 0 0 auto;
-    background-color: #e8e8ed;;
     color: #6e6e73;
     width: 100%;
 }
@@ -40,7 +40,6 @@
     align-items: center;
     border: 1px solid #ccc;
     flex: 1;
-
     color: #6e6e73;
 }
   
@@ -49,6 +48,7 @@
     flex: 0 0 auto;
     color: #6e6e73;
     width: 100%;
+    opacity: 0.5;
 }
 
 
