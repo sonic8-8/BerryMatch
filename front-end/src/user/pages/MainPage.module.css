@@ -18,12 +18,21 @@
     align-items: center;
     border: 1px solid #ccc;
     height: 100vh;
-    background-color: #e8e8ed;;
     color: #6e6e73;
-    background-image: url(https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background3.jpg);
-    background-size: cover;
-    /* background-position: center;
-    background-repeat: no-repeat; */
+    /* background-image: url(https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background3.jpg);
+    background-size: cover; */
+    position: relative; /* 새로운 위치 기준 */
+    overflow: hidden; /* 비디오가 벗어나지 않도록 설정 */
+}
+
+.backgroundVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 비디오를 비율에 맞게 자르고 레이아웃에 맞춤 */
+    z-index: -1; /* 비디오가 다른 콘텐츠 뒤에 배치되도록 설정 */
 }
   
 .layout_header {
@@ -31,6 +40,9 @@
     flex: 0 0 auto;
     color: #6e6e73;
     width: 100%;
+
+    z-index: 1; /* 콘텐츠가 비디오 위에 표시되도록 설정 */
+    
 }
   
 .layout_content {
@@ -41,6 +53,8 @@
     border: 1px solid #ccc;
     flex: 1;
     color: #6e6e73;
+
+    z-index: 1; /* 콘텐츠가 비디오 위에 표시되도록 설정 */
 }
   
 .layout_footer {
@@ -49,6 +63,8 @@
     color: #6e6e73;
     width: 100%;
     opacity: 0.5;
+
+    z-index: 1; /* 콘텐츠가 비디오 위에 표시되도록 설정 */
 }
 
 

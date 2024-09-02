@@ -9,6 +9,10 @@ function MainPage() {
   return (
     
       <div className={styles.layout}>
+
+        <video autoPlay muted loop className={styles.backgroundVideo}>
+          <source src="https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/main_background_video.mp4" type="video/mp4" />
+        </video>
         
         <div className={styles.layout_header}>
           <BackgroundMusic />
