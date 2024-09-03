@@ -21,25 +21,29 @@ const LoginPage = () => {
           <img className={styles.introduction_image} src="https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/login_image.jpg" />
           
           <div className={styles.introduction_text}>
-            이번 경기의 주인공은
+            혼자라서 더
             <br/>
-            바로 당신입니다.
+            특별한 도전
             <br/>
             <span className={styles.introduction_text_berrymatch}>BerryMatch</span>
             <br/>
-            매칭을 시작해보세요
+            랜덤 매칭으로
+            <br/>
+            당신의 실력을 증명하세요
           </div>
 
         </div>
 
         <div className={styles.login_container}>
 
-          <div className={styles.login_text}>
-            소셜 로그인으로
-            <br/>
-            빠르게
-            <br/>
-            시작해보세요!
+          <div className={styles.login_text_container}>
+            <div className={styles.login_text}>
+              소셜 로그인으로
+              <br/>
+              빠르게
+              <br/>
+              시작해보세요
+            </div>
           </div>
         
           <div className={styles.login_button_container}>

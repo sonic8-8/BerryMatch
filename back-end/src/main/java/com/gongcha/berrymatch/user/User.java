@@ -55,8 +55,6 @@ public class User {
 
     private String introduction;
 
-    private String email;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 

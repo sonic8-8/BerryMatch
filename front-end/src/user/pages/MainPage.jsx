@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import styles from './MainPage.module.css'
 import Dashboard from '../../common/Dashboard'
 import BackgroundMusic from '../../common/components/BackgroundMusic';
+import { setToken } from '../../auth/setToken';
+import Cookies from 'js-cookie';
 
 function MainPage() {
-
+  
   return (
     
       <div className={styles.layout}>

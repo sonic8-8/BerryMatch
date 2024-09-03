@@ -93,7 +93,7 @@ url:
   base: http://localhost:3000
   path:
     signup: /signup
-    auth: /
+    auth: /token
 
 ---
 spring:

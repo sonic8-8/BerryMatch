@@ -1,19 +1,23 @@
 import styles from './Dashboard.module.css';
-import { Link } from 'react-router-dom';
 import useUserInfo from '../user/useUserInfo';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 
 function Dashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
 
     if (loading) {
-      return <div>로딩중</div>;
+        return <div>로딩중...</div>;
     }
-  
+
     if (error) {
-      return <div>Error: {error.message}</div>;
+        return <div>Error: {error.message}</div>;
     }
-    
+
 
     return (
         <div className={styles.dashboard_container}>
@@ -22,16 +26,22 @@ function Dashboard() {
                 <div className={styles.dashboard_top_logo_container}>
                     <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
                 </div>
-                {/* <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : loading }님</div> */}
-                <div className={styles.dashboard_top_identifier}>환영합니다! OO님</div>
-                <div className={styles.dashboard_top_logout}>로그아웃</div>
+                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }님</div>
+                <Link to="/logout" className={styles.dashboard_top_logout}>
+                        로그아웃
+                </Link>
+                
             </div>
 
             <div className={styles.dashboard_middle}>
 
                 <div className={styles.dashboard_middle_left}>
-                    {/* <img src={userInfo ? userInfo.profileImageUrl : ''}  className={styles.dashboard_middle_left_content} /> */}
-                    {/* <div>{userInfo ? userInfo.nickname : loading }</div> */}
+                    <div className={styles.dashboard_middle_left_content}>
+                        프로필사진
+                        <img src={userInfo ? userInfo.profileImageUrl : 'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar.png'} />
+                    </div>
+                    <div className={styles.dashboard_middle_left_content}>닉네임 : {userInfo ? userInfo.nickname : '' }</div>
+                    <div className={styles.dashboard_middle_left_content}>자기소개 : {userInfo ? userInfo.introduction : ''}</div>
                     <div className={styles.dashboard_middle_left_content}>전적</div>
                     <div className={styles.dashboard_middle_left_content}>최근 경기</div>
                     
@@ -46,8 +56,8 @@ function Dashboard() {
                         <div className={styles.dashboard_middle_right_menu}>하이라이트 게시판</div>
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
-                        <div className={styles.dashboard_middle_right_menu}>그룹찾기</div>
-                        <div className={styles.dashboard_middle_right_menu}>그룹생성</div>
+                        <div className={styles.dashboard_middle_right_menu}>길드</div>
+                        <div className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</div>
                     </div>
 
                 </div>

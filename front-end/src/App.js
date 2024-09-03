@@ -13,8 +13,9 @@ import GroupCreatePage from './group/GroupCreatePage';
 import GroupSearchPage from './group/GroupSearchPage';
 import BoardPage from './board/BoardPage';
 import MatchPage from './match/MatchPage';
-import LogoutPage from './auth/pages/LogoutPage';
+import LogoutPage from './auth/pages/LogoutPage'
 import PrivateRoute from './auth/components/PrivateRoute';
+import TokenPage from './auth/pages/TokenPage';
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
       <Routes>
         <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/logout" element={<PrivateRoute><LogoutPage /></PrivateRoute>} />
+        <Route path="/logout" element={<LogoutPage />} />
+        <Route path="/token" element={<TokenPage/>} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/rank" element={<PrivateRoute><RankPage /></PrivateRoute>} />
         <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} />

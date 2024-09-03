@@ -59,6 +59,8 @@ public class AuthController {
                 .message(jwtFacade.logout(response, userPrincipal.getUser().getIdentifier()))
                 .build();
 
+        System.out.println("와이라노 성공인데");
+
         return ApiResponse.ok(result);
     }
 

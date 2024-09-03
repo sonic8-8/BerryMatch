@@ -113,6 +113,7 @@ public class JwtFacadeService implements JwtFacade {
         if (bearerHeader == null || bearerHeader.isEmpty()) {
             throw new BusinessException(JWT_NOT_FOUND_IN_HEADER);
         }
+        System.out.println("엑세스 토큰 확인요");
         return bearerHeader.trim().substring(7);
     }
 
@@ -122,6 +123,7 @@ public class JwtFacadeService implements JwtFacade {
         if (cookies == null) {
             throw new BusinessException(JWT_NOT_FOUND_IN_COOKIE);
         }
+        System.out.println("리프레쉬 토큰 확인요");
         return jwtUtil.resolveTokenFromCookie(cookies, REFRESH_PREFIX);
     }
 

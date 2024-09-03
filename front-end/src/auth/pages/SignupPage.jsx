@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from './SignupPage.module.css';
 import { useParams } from "react-router-dom";
 import Cookies from 'js-cookie';
+import { setToken } from "../setToken";
 
 function SignupPage() {
     const location = useLocation();
@@ -83,11 +84,13 @@ function SignupPage() {
             if (signupCode === 200) {
                 console.log('회원가입 성공:', signupMessage);
 
+                const accessToken = Cookies.get('accessToken');
+
                 // 2. 로그인 요청 및 액세스 토큰, 리프레시 토큰 처리
                 const loginResponse = await axios.post("http://localhost:8085/api/auth", { identifier: signupData.identifier }, {
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": "Bearer " + localStorage.getItem('accessToken'), // 현재 액세스 토큰 (없을 수도 있음)
+                        "Authorization": accessToken ? `Bearer ${accessToken}` : '', // 현재 액세스 토큰 (없을 수도 있음)
                         "token-reissued": "False"
                     },
                     withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
@@ -139,16 +142,17 @@ function SignupPage() {
             <div className={styles.layout_content}>
 
                 <form onSubmit={handleSubmit} className={styles.signupForm}>
-                    <label className={styles.signup_input_container}>
+                    <label className={styles.signup_input_container_none}>
                         <input className={styles.signup_input}
                             type="hidden" 
-                            name="identifier" 
+                            name="identifier"
                             value={formData.identifier}
                         />
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        Nickname:
+                        <div className={styles.signup_input_title}>Nickname</div>
+                        <br/>
                         <input className={styles.signup_input}
                             type="text" 
                             name="nickname" 
@@ -159,7 +163,8 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        City:
+                        <div className={styles.signup_input_title}>City</div>
+                        <br/>
                         <select className={styles.signup_input}
                             name="city" 
                             value={formData.city} 
@@ -174,7 +179,8 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        District:
+                        <div className={styles.signup_input_title}>District</div>
+                        <br/>
                         <select className={styles.signup_input}
                             name="district" 
                             value={formData.district} 
@@ -189,7 +195,8 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        Gender:
+                        <div className={styles.signup_input_title}>Gender</div>
+                        <br/>
                         <select className={styles.signup_input}
                             name="gender" 
                             value={formData.gender} 
@@ -203,7 +210,8 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        Age:
+                        <div className={styles.signup_input_title}>Age</div>
+                        <br/>
                         <input className={styles.signup_input}
                             type="number" 
                             name="age" 
@@ -214,7 +222,8 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        Phone Number:
+                        <div className={styles.signup_input_title}>Phone Number</div>
+                        <br/>
                         <input className={styles.signup_input}
                             type="tel" 
                             name="phoneNumber" 
@@ -223,27 +232,6 @@ function SignupPage() {
                             required 
                         />
                     </label>
-
-                    {/* <label className={styles.signup_input_container}>
-                        Profile Image URL:
-                        <input className={styles.signup_input}
-                            type="url" 
-                            name="profileImageUrl" 
-                            value={formData.profileImageUrl} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                    </label>
-
-                    <label className={styles.signup_input_container}>
-                        Introduction:
-                        <textarea className={styles.signup_input}
-                            name="introduction" 
-                            value={formData.introduction} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                    </label> */}
 
                     <button className={styles.signupForm_button} type="submit">가입</button>
                 </form>

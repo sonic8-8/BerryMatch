@@ -1,5 +1,7 @@
 package com.gongcha.berrymatch.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -100,5 +102,20 @@ public enum District {
 
     private final City city;
     private final String text;
+
+    @JsonCreator
+    public static District fromString(String value) {
+        for (District district : District.values()) {
+            if (district.text.equals(value)) {
+                return district;
+            }
+        }
+        throw new IllegalArgumentException("Unknown enum type " + value);
+    }
+
+    @JsonValue
+    public String getText() {
+        return text;
+    }
 
 }

@@ -11,6 +11,8 @@
   }
   
 .layout {
+    font-family: 'GmarketSans';
+
     display: flex;
     flex-direction: column;
     justify-content: center;

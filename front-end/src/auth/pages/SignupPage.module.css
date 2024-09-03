@@ -21,20 +21,27 @@
         url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.ttf') format("truetype");
     font-display: swap;
 }
+
+@font-face {
+    font-family: 'NanumSquareNeoBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+  }
   
 .layout {
-    font-family: 'Jalnan';
+    font-family: 'NanumSquareNeoBold';
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid #ccc;
+    background-color: #e8e8ed;;
     height: 100vh;
 }
   
 .layout_header {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 10px;
     flex: 0 0 auto;
 }
@@ -44,12 +51,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     flex: 1;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    padding : 50px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+
 }
   
 .layout_footer {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 10px;
     flex: 0 0 auto;
 }
@@ -58,19 +70,47 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     flex: 1;
+
+
+    width: 300px;
 }
 
 .signup_input_container {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     flex: 1;
 }
 
+.signup_input_title {
+    font-size: 18px;
+    padding: 5px;
+}
+
 .signup_input {
-    border: 1px solid #ccc;
     flex: 1;
+
+    width: 100%; /* input 태그의 너비를 100%로 설정 */
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.signupForm_button {
+    width: 100%; /* 버튼 너비를 100%로 설정 */
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.signupForm_button:hover {
+    background-color: #3f9245; /* 버튼에 호버 효과 추가 */
 }
 
 
