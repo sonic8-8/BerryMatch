@@ -1,4 +1,5 @@
 import styles from './BoardPage.module.css';
+import BoardDashboard from './components/BoardDashboard';
 
 function BoardPage() {
     return (
@@ -13,6 +14,7 @@ function BoardPage() {
 
         <div className={styles.layout_content}>
 
+          <BoardDashboard/>
 
         </div>
         

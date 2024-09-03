@@ -66,7 +66,6 @@ public class JwtFacadeService implements JwtFacade {
         response.setHeader(ACCESS_HEADER.getValue(), bearer);
         response.setHeader(ACCESS_REISSUED_HEADER.getValue(), "False");
 
-
         return accessToken;
     }
 
@@ -125,19 +124,26 @@ public class JwtFacadeService implements JwtFacade {
         if (cookies == null) {
             throw new BusinessException(JWT_NOT_FOUND_IN_COOKIE);
         }
-        System.out.println("리프레쉬 토큰 확인요");
+        System.out.println("리프레쉬 토큰 가져오기 성공");
         return jwtUtil.resolveTokenFromCookie(cookies, REFRESH_PREFIX);
     }
 
     @Override
     public String getIdentifierFromRefresh(String refreshToken) {
         try {
-            return Jwts.parserBuilder()
+            Claims claims = Jwts.parserBuilder()
                     .setSigningKey(REFRESH_SECRET_KEY)
                     .build()
                     .parseClaimsJws(refreshToken)
-                    .getBody()
-                    .getSubject();
+                    .getBody();
+
+            String identifier = claims.get("identifier", String.class);
+            if (identifier == null) {
+                identifier = claims.get("Identifier", String.class);
+            }
+
+            System.out.println(identifier);
+            return identifier;
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.INVALID_JWT);
         }
@@ -190,5 +196,15 @@ public class JwtFacadeService implements JwtFacade {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("providerInfo가 적절한 형태가 아닙니다 : " + key);
         }
+    }
+
+    @Override
+    public void deleteRefreshToken(String identifier, ProviderInfo providerInfo) {
+        try {
+            tokenService.deleteByIdAndProviderInfo(identifier, providerInfo);
+        } catch (BusinessException e) {
+            throw new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB);
+        }
+
     }
 }

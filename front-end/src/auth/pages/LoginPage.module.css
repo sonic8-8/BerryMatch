@@ -50,6 +50,7 @@
     align-items: center;
     /* border: 1px solid #ccc; */
     height: 100vh;
+    width: 100vw;
     background-color: #e8e8ed;
     color: #6e6e73;
   }

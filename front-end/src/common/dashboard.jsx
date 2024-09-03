@@ -24,6 +24,7 @@ function Dashboard() {
             <div className={styles.dashboard_top}>
                 <div className={styles.dashboard_top_logo_container}>
                     <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
+                    <div className={styles.dashboard_top_logo_title}>BerryMatch</div>
                 </div>
                 <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }님</div>
                 <Link to="/logout" className={styles.dashboard_top_logout}>
@@ -43,20 +44,21 @@ function Dashboard() {
                     <div className={styles.dashboard_middle_left_content}>자기소개 : {userInfo ? userInfo.introduction : ''}</div>
                     <div className={styles.dashboard_middle_left_content}>전적</div>
                     <div className={styles.dashboard_middle_left_content}>최근 경기</div>
+                    <div></div>
                     
                 </div>
 
                 <div className={styles.dashboard_middle_right}>
                     <div className={styles.dashboard_middle_right_menu_container}>
-                        <div className={styles.dashboard_middle_right_menu}>매칭</div>
+                        <Link to="/match" className={styles.dashboard_middle_right_menu}>매칭</Link>
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
-                        <div className={styles.dashboard_middle_right_menu}>랭킹</div>
-                        <div className={styles.dashboard_middle_right_menu}>하이라이트 게시판</div>
+                        <Link to="/rank" className={styles.dashboard_middle_right_menu}>랭킹</Link>
+                        <Link to="/board" className={styles.dashboard_middle_right_menu}>하이라이트 게시판</Link>
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
-                        <div className={styles.dashboard_middle_right_menu}>길드</div>
-                        <div className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</div>
+                        <Link to="/guild" className={styles.dashboard_middle_right_menu}>길드</Link>
+                        <Link to="/group" className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</Link>
                     </div>
 
                 </div>
@@ -64,9 +66,9 @@ function Dashboard() {
             </div>
 
             <div className={styles.dashboard_bottom}>
-                <div className={styles.dashboard_bottom_menu}>Home</div>
-                <div className={styles.dashboard_bottom_menu}>알림</div>
-                <div className={styles.dashboard_bottom_menu}>마이페이지</div>
+                <Link to="/" className={styles.dashboard_bottom_menu}>Home</Link>
+                <Link to="/alert" className={styles.dashboard_bottom_menu}>알림</Link>
+                <Link to="/mypage" className={styles.dashboard_bottom_menu}>마이페이지</Link>
                 <div className={styles.dashboard_bottom_menu}>그룹정보</div>
             </div>
 

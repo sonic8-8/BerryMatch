@@ -133,7 +133,7 @@
     border: 1px solid #ccc;
 }
 
-.dashboard_middle_left {
+.dashboard_middle_menu_container {
 
     display: flex;
     flex-direction: column;
@@ -146,7 +146,7 @@
 
 }
 
-.dashboard_middle_left_content {
+.dashboard_middle_menu {
     flex: 1;
 
     display: flex;
@@ -159,7 +159,7 @@
     width: 100%;
 }
 
-.dashboard_middle_right {
+.dashboard_middle_content {
     display: flex;
     flex-direction: column;
     justify-content: center;

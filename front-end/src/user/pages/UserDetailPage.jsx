@@ -1,6 +1,6 @@
-import styles from './UserDetailPage.module.css';
+import styles from './UserDetailSubPage.module.css';
 
-function UserDetailPage() {
+function UserDetailSubPage() {
     return (
 
 
@@ -26,4 +26,4 @@ function UserDetailPage() {
       );
 }
 
-export default UserDetailPage;
+export default UserDetailSubPage;

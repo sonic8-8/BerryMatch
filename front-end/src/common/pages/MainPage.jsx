@@ -1,10 +1,12 @@
-import styles from './MyPage.module.css';
-import UserDashboard from '../components/UserDashboard';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import styles from './MainPage.module.css';
+import Dashboard from '../Dashboard';
 
-function Mypage() {
-    return (
-
-
+function MainPage() {
+  
+  return (
+    
       <div className={styles.layout}>
         
         <div className={styles.layout_header}>
@@ -12,10 +14,8 @@ function Mypage() {
         </div>
 
         <div className={styles.layout_content}>
-
           
-          <UserDashboard/>
-          
+          <Dashboard />
           
         </div>
         
@@ -24,7 +24,9 @@ function Mypage() {
         </div>
 
       </div>
-      );
-}
 
-export default Mypage;
+  );
+};
+
+export default MainPage;
+

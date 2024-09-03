@@ -133,7 +133,7 @@
     border: 1px solid #ccc;
 }
 
-.dashboard_middle_left {
+.dashboard_middle_menu_container {
 
     display: flex;
     flex-direction: column;
@@ -146,7 +146,7 @@
 
 }
 
-.dashboard_middle_left_content {
+.dashboard_middle_menu {
     flex: 1;
 
     display: flex;
@@ -159,7 +159,7 @@
     width: 100%;
 }
 
-.dashboard_middle_right {
+.dashboard_middle_content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -234,7 +234,7 @@
 /* 마우스를 올렸을 때의 스타일 */
 .dashboard_top_logout:hover,
 .dashboard_bottom_menu:hover,
-.dashboard_middle_right_menu:hover,
+.dashboard_middle_menu:hover,
 .dashboard_top_logo_container:hover {
     background-color: #f0f0f0; /* 마우스를 올렸을 때 배경색 */
     color: #333; /* 마우스를 올렸을 때 텍스트 색상 */
@@ -248,7 +248,7 @@
     color: #000;
 }
 
-.dashboard_middle_right_menu:hover {
+.dashboard_middle_menu:hover {
     background-color: #e0e0e0;
     color: #000;
 }

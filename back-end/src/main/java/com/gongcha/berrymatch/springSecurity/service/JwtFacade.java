@@ -29,4 +29,6 @@ public interface JwtFacade {
     String logout(HttpServletResponse response, String identifier, ProviderInfo providerInfo);
 
     Authentication getAuthentication(String accessToken);
+
+    void deleteRefreshToken(String identifier, ProviderInfo providerInfo);
 }
