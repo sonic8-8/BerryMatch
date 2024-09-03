@@ -5,6 +5,7 @@ import com.gongcha.berrymatch.ApiResponse;
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.springSecurity.domain.UserPrincipal;
 import com.gongcha.berrymatch.springSecurity.requestDTO.TokenRequest;
+import com.gongcha.berrymatch.springSecurity.requestDTO.TokenServiceRequest;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
 import com.gongcha.berrymatch.springSecurity.responseDTO.LogoutResponse;
 import com.gongcha.berrymatch.springSecurity.service.JwtFacade;
@@ -29,11 +30,11 @@ public class AuthController {
 
     @PostMapping("/auth")
     public ApiResponse<AuthResponse> generateToken(HttpServletResponse response,
-                                             @RequestBody TokenRequest tokenRequest) {
+                                             @RequestBody TokenRequest request) {
 
         System.out.println("토큰 발행 요청 들어옴");
 
-        User user = userService.findUserByIdentifier(tokenRequest.getIdentifier());
+        User user = userService.findUserByOAuthInfo(request.toTokenServiceRequest().getIdentifier(), request.toTokenServiceRequest().getProviderInfo());
 
         if (!user.isRegistered()) {
             throw new BusinessException(NOT_AUTHENTICATED_USER);
@@ -43,7 +44,7 @@ public class AuthController {
         jwtFacade.generateRefreshToken(response, user);
         jwtFacade.setReissuedHeader(response);
 
-        AuthResponse authResponse = userService.getUserAuthInfo(user.getIdentifier());
+        AuthResponse authResponse = userService.getUserAuthInfo(user.getIdentifier(), user.getProviderInfo());
 
         System.out.println("토큰 발행함");
 
@@ -56,10 +57,8 @@ public class AuthController {
             HttpServletResponse response) {
 
         LogoutResponse result = LogoutResponse.builder()
-                .message(jwtFacade.logout(response, userPrincipal.getUser().getIdentifier()))
+                .message(jwtFacade.logout(response, userPrincipal.getUser().getIdentifier(), userPrincipal.getUser().getProviderInfo()))
                 .build();
-
-        System.out.println("와이라노 성공인데");
 
         return ApiResponse.ok(result);
     }

@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.springSecurity.filter;
 
 
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.service.JwtFacade;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserService;
@@ -44,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String refreshToken = jwtFacade.resolveRefreshToken(request);
         User user = findUserByRefreshToken(refreshToken);
 
-        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier())) {
+        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier(), user.getProviderInfo())) {
             String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
             jwtFacade.generateRefreshToken(response, user);
             jwtFacade.setReissuedHeader(response);
@@ -54,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwtFacade.logout(response, user.getIdentifier());
+        jwtFacade.logout(response, user.getIdentifier(), user.getProviderInfo());
     }
 
     private boolean isPermittedURI(String requestURI) {
@@ -67,7 +68,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private User findUserByRefreshToken(String refreshToken) {
         String identifier = jwtFacade.getIdentifierFromRefresh(refreshToken);
-        return userService.findUserByIdentifier(identifier);
+        ProviderInfo providerInfo = jwtFacade.getProviderInfoFromRefresh(refreshToken);
+        return userService.findUserByOAuthInfo(identifier, providerInfo);
     }
 
     private void setAuthenticationToContext(String accessToken) {

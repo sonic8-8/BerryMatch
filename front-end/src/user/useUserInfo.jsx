@@ -12,8 +12,6 @@ const useUserInfo = () => {
     const fetchUserInfo = async () => {
       const accessToken = Cookies.get('accessToken');
 
-      console.log(accessToken);
-
       if (!accessToken) {
         setError(new Error('Access token not found'));
         setLoading(false);
@@ -22,16 +20,15 @@ const useUserInfo = () => {
 
       try {
         const decodedToken = jwtDecode(accessToken);
-        console.log(decodedToken);
         const identifier = decodedToken.Identifier;
-        console.log(identifier);
+        const providerInfo = decodedToken.providerInfo;
 
         if (!identifier) {
           throw new Error('Identifier not found in access token');
         }
 
         const response = await axios.get('http://localhost:8085/api/user-info', {
-          params: { identifier: identifier },
+          params: { identifier: identifier, providerInfo: providerInfo },
           headers: {
             'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
           },
@@ -57,11 +54,13 @@ const useUserInfo = () => {
           const accessToken = Cookies.get('accessToken');
           const decodedToken = accessToken ? jwtDecode(accessToken) : null;
           const identifier = decodedToken ? decodedToken.Identifier : null;
+          const providerInfo = decodedToken ? decodedToken.ProviderInfo : null;
+
 
           console.log(identifier);
   
           // 새 액세스 토큰 발급 요청
-          const response = await axios.post('http://localhost:8085/api/auth', { identifier }, {
+          const response = await axios.post('http://localhost:8085/api/auth', { identifier: identifier, providerInfo: providerInfo }, {
             headers: {
               'Authorization': `Bearer ${accessToken}`,
               'Content-Type': 'application/json'

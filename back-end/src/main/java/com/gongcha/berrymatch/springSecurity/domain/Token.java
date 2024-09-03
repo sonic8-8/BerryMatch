@@ -1,5 +1,6 @@
 package com.gongcha.berrymatch.springSecurity.domain;
 
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,9 +16,12 @@ public class Token {
 
     private String token;
 
+    private ProviderInfo providerInfo;
+
     @Builder
-    public Token(String identifier, String token) {
+    public Token(String identifier, String token, ProviderInfo providerInfo) {
         this.identifier = identifier;
         this.token = token;
+        this.providerInfo = providerInfo;
     }
 }

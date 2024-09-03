@@ -4,27 +4,31 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const TokenPage = () => {
-    const location = useLocation();
+  const location = useLocation();
   const [identifier, setIdentifier] = useState('');
+  const [providerInfo, setProviderInfo] = useState('');
+
 
   useEffect(() => {
       // URL의 쿼리 파라미터에서 identifier 추출
       const params = new URLSearchParams(location.search);
       const identifierValue = params.get('identifier'); // 임시 변수로 identifier 값을 가져옵니다.
+      const providerInfoValue = params.get('providerInfo');
 
-      if (identifierValue) {
+      if (identifierValue && providerInfoValue) {
           setIdentifier(identifierValue); // 상태를 업데이트합니다.
+          setProviderInfo(providerInfoValue);
       }
+
   }, [location]);
 
 
   useEffect(() => {
-    console.log(identifier);
-    if (identifier) {
-
+  
+    if (identifier && providerInfo) {
       const accessToken = Cookies.get('accessToken');
 
-      axios.post("http://localhost:8085/api/auth", { identifier: identifier }, {
+      axios.post("http://localhost:8085/api/auth", { identifier: identifier, providerInfo: providerInfo }, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": accessToken ? `Bearer ${accessToken}` : '', // 현재 액세스 토큰 (없을 수도 있음)
@@ -62,6 +66,7 @@ const TokenPage = () => {
         window.location.href = "http://localhost:3000/login"; // 오류 발생 시 로그인 페이지로 리다이렉트
       });
     }
+    
   }, [identifier]);
 
     return (

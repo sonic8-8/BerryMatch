@@ -1,20 +1,19 @@
-package com.gongcha.berrymatch.user.ResponseDTO;
+package com.gongcha.berrymatch.springSecurity.requestDTO;
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.user.Role;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class UserSignupResponse {
+@NoArgsConstructor
+public class TokenServiceRequest {
     private String identifier;
-    private Role role;
     private ProviderInfo providerInfo;
 
     @Builder
-    public UserSignupResponse(String identifier, Role role, ProviderInfo providerInfo) {
+    public TokenServiceRequest(String identifier, ProviderInfo providerInfo) {
         this.identifier = identifier;
-        this.role = role;
         this.providerInfo = providerInfo;
     }
 }

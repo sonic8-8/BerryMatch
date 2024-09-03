@@ -2,17 +2,20 @@ package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static com.gongcha.berrymatch.exception.ErrorCode.MEMBER_NOT_FOUND;
-import static com.gongcha.berrymatch.exception.ErrorCode.MEMBER_NOT_UPDATED;
+import static com.gongcha.berrymatch.exception.ErrorCode.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,21 +23,27 @@ import static com.gongcha.berrymatch.exception.ErrorCode.MEMBER_NOT_UPDATED;
 public class UserService {
 
     private final UserRepository userRepository;
+//    private final UserDetailsServiceAutoConfiguration userDetailsServiceAutoConfiguration;
 
     public User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
     }
 
-    public User findUserByIdentifier(String identifier) {
-        return userRepository.findByIdentifier(identifier)
+    public User findUserByIdentifier(String identifier, ProviderInfo providerInfo) {
+        return userRepository.findByOAuthInfo(identifier, providerInfo)
                 .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
     }
 
-    public AuthResponse getUserAuthInfo(String identifier) {
-        User user = userRepository.findByIdentifier(identifier)
+    public AuthResponse getUserAuthInfo(String identifier, ProviderInfo providerInfo) {
+        User user = userRepository.findByOAuthInfo(identifier, providerInfo)
                 .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
         return new AuthResponse(user.getRole());
+    }
+
+    public User findUserByOAuthInfo(String identifier, ProviderInfo providerInfo) {
+        return userRepository.findByOAuthInfo(identifier, providerInfo)
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
     }
 
     /**
@@ -45,21 +54,15 @@ public class UserService {
 
         System.out.println("업데이트 하려고 들어옴");
 
-        User user = userRepository.findByIdentifier(request.getIdentifier())
-                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+        System.out.println(request.getIdentifier());
+        System.out.println(request.getProviderInfo());
 
-        System.out.println("찾아오긴 함");
-        System.out.println(user.getRole());
+        User user = userRepository.findByOAuthInfo(request.getIdentifier(), request.getProviderInfo())
+                        .orElseThrow(() -> new BusinessException(NOT_AUTHENTICATED_USER));
 
         user.update(request);
 
-        System.out.println("업데이트 됨");
-        System.out.println(user.getRole());
-        System.out.println(user.getIdentifier());
-
         User savedUser = userRepository.save(user);
-
-        System.out.println(savedUser.getRole());
 
         if (user.getRole() == Role.USER) {
             return UserSignupResponse.builder()

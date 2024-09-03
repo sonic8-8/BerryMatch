@@ -18,7 +18,6 @@ function Dashboard() {
         return <div>Error: {error.message}</div>;
     }
 
-
     return (
         <div className={styles.dashboard_container}>
 
@@ -38,7 +37,7 @@ function Dashboard() {
                 <div className={styles.dashboard_middle_left}>
                     <div className={styles.dashboard_middle_left_content}>
                         프로필사진
-                        <img src={userInfo ? userInfo.profileImageUrl : 'https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar.png'} />
+                        <img src={userInfo ? userInfo.profileImageUrl : ''} />
                     </div>
                     <div className={styles.dashboard_middle_left_content}>닉네임 : {userInfo ? userInfo.nickname : '' }</div>
                     <div className={styles.dashboard_middle_left_content}>자기소개 : {userInfo ? userInfo.introduction : ''}</div>

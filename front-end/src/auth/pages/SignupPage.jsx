@@ -10,6 +10,7 @@ function SignupPage() {
     const location = useLocation();
     const [formData, setFormData] = useState({
         identifier: '',
+        providerInfo: '',
         nickname: '',
         city: '',
         district: '',
@@ -27,10 +28,12 @@ function SignupPage() {
         // URL의 쿼리 파라미터에서 identifier 추출
         const params = new URLSearchParams(location.search);
         const identifier = params.get('identifier');
+        const providerInfo = params.get('providerInfo');
 
         setFormData((prevData) => ({
             ...prevData,
-            identifier: identifier || ''
+            identifier: identifier || '',
+            providerInfo: providerInfo || '',
         }));
     }, [location]);
 
@@ -60,11 +63,13 @@ function SignupPage() {
         // 변환된 값을 기반으로 데이터 준비
         const cityEnum = CityMapping[formData.city] || '';
         const districtEnum = DistrictMapping[cityEnum]?.[formData.district] || '';
+        
 
         const requestData = {
             ...formData,
             city: cityEnum,
-            district: districtEnum
+            district: districtEnum,
+           
         };
 
         try {
@@ -81,13 +86,15 @@ function SignupPage() {
             const signupCode = signupApiResponse.code;
             const signupStatus = signupApiResponse.status;
 
+            console.log(signupData);
+
             if (signupCode === 200) {
                 console.log('회원가입 성공:', signupMessage);
 
                 const accessToken = Cookies.get('accessToken');
 
                 // 2. 로그인 요청 및 액세스 토큰, 리프레시 토큰 처리
-                const loginResponse = await axios.post("http://localhost:8085/api/auth", { identifier: signupData.identifier }, {
+                const loginResponse = await axios.post("http://localhost:8085/api/auth", { identifier: signupData.identifier, providerInfo: signupData.providerInfo }, {
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": accessToken ? `Bearer ${accessToken}` : '', // 현재 액세스 토큰 (없을 수도 있음)
@@ -147,6 +154,14 @@ function SignupPage() {
                             type="hidden" 
                             name="identifier"
                             value={formData.identifier}
+                        />
+                    </label>
+
+                    <label className={styles.signup_input_container_none}>
+                        <input className={styles.signup_input}
+                            type="hidden" 
+                            name="providerInfo"
+                            value={formData.providerInfo}
                         />
                     </label>
 
@@ -290,6 +305,12 @@ const Districts = {
     ]
 };
 
+const providerInfo = {
+    KAKAO: "카카오",
+    NAVER: "네이버",
+    GOOGLE: "구글"
+}
+
 const CityMapping = {
     "서울": "SEOUL",
     "부산": "BUSAN",
@@ -393,4 +414,10 @@ const DistrictMapping = {
     SEJONG: {
         "세종특별자치시": "SEJONG"
     }
+};
+
+const ProviderInfoMapping = {
+    "카카오": "KAKAO",
+    "네이버": "NAVER",
+    "구글": "GOOGLE"
 };

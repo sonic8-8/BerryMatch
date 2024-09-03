@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupRequest;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
 
@@ -20,13 +21,15 @@ public class UserController {
     @PostMapping("/auth/signup")
     public ApiResponse<UserSignupResponse> signup(@RequestBody UserSignupRequest userSignupRequest) {
 
+        System.out.println("회원가입 요청 들어옴");
+
         return ApiResponse.ok(userService.signup(userSignupRequest.toService()));
     }
 
     @GetMapping("/user-info")
-    public ApiResponse<User> getUserInfo(@RequestParam String identifier) {
+    public ApiResponse<User> getUserInfo(@RequestParam String identifier, @RequestParam String providerInfo) {
         System.out.println("요청들어옴");
-        return ApiResponse.ok(userService.findUserByIdentifier(identifier));
+        return ApiResponse.ok(userService.findUserByOAuthInfo(identifier, ProviderInfo.valueOf(providerInfo.toUpperCase())));
     }
 
 
