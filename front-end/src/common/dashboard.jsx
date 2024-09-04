@@ -4,15 +4,11 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
 
 function Dashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
-
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -51,6 +47,8 @@ function Dashboard() {
                 <div className={styles.dashboard_middle_right}>
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <Link to="/match" className={styles.dashboard_middle_right_menu}>매칭</Link>
+                        <MatchSetupSubPage className={styles.dashboard_middle_right_menu} />
+                        
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <Link to="/rank" className={styles.dashboard_middle_right_menu}>랭킹</Link>
