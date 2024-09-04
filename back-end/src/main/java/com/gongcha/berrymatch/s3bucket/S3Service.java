@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class S3Service {
 
-    @Value("${AWS_S3_BUCKET_NAME}")
+    @Value("${AMAZON_S3_BUCKET_NAME}")
     private String bucketName;
 
     private final S3Template s3Template;

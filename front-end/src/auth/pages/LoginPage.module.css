@@ -1,0 +1,208 @@
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.ttf') format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Jalnan';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.ttf') format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+  font-family: 'NanumSquareNeoLight';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-aLt.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-aLt.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-aLt.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-aLt.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumSquareNeo';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'NanumSquareNeoBold';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+}
+
+  
+  .layout {
+    font-family: 'NanumSquareNeo';
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    height: 100vh;
+    width: 100vw;
+    background-color: #e8e8ed;
+    color: #6e6e73;
+  }
+  
+  .layout_header {
+    /* border: 1px solid #ccc; */
+    flex: 0 0 auto;
+    background-color: #fff;
+    color: #1d1d1f;
+  }
+  
+  .layout_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    flex: 1;
+    width: 60vw;
+  }
+  
+  .layout_footer {
+    /* border: 1px solid #ccc; */
+    flex: 0 0 auto;
+  }
+
+
+.introduction_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #ccc; */
+    min-height: 650px;
+    min-width: 600px;
+
+}
+
+.introduction_image {
+  width: 100%;
+  border-radius: 5%;
+}
+
+.introduction_text {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  padding: 40px;
+
+}
+
+.introduction_text_berrymatch {
+  font-size: 36px;
+  letter-spacing: 1px;
+  letter-spacing: 0.3px;
+  color: #1D1D1F;
+  font-family: 'Jalnan';
+}
+
+.login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  min-height: 650px;
+  min-width: 450px;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  margin: 80px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+
+}
+
+.login_text_container {
+  display: flex;
+  align-items: center; /* 텍스트 수직 중앙 정렬 */
+  justify-content: center; /* 텍스트 수평 중앙 정렬 */
+  margin-bottom: 50px;
+}
+
+.login_text {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  padding: 10px;
+
+}
+
+.login_button_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 모바일 화면 */
+@media screen and (max-width: 768px) {
+
+    .layout_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* border: 1px solid #ccc; */
+      
+      width: 100%;
+
+    }
+
+    .introduction_container {
+      display: none;
+    }
+    
+    .introduction_image {
+      width: 100%;
+      border-radius: 5%;
+      display: none;
+    }
+    
+    .introduction_text {
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+      padding: 40px;
+    
+    }
+    
+    .introduction_text_berrymatch {
+      font-size: 18px;
+      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      color: #1D1D1F;
+    }
+
+    .login_container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #ccc;
+      min-height: 650px;
+      width: 40%;
+      min-width: 450px;
+      background-color: #FFFFFF;
+      border-radius: 15px;
+      margin: 80px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+    
+      /* border: 1px solid #ccc; */
+    }
+}
