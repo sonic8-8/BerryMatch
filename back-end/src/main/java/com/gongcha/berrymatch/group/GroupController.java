@@ -41,10 +41,10 @@ public class GroupController {
         }
     }
 
-    @PostMapping("/{groupCord}/leave")
-    public ApiResponse<GroupResponse> leaveGroup(@PathVariable String groupCord,@RequestBody GroupRequest groupRequest){
+    @PostMapping("/{groupCode}/leave")
+    public ApiResponse<GroupResponse> leaveGroup(@PathVariable String groupCode,@RequestBody GroupRequest groupRequest){
         System.out.println(groupRequest);
-        groupRequest.setGroupCord(groupCord);
+        groupRequest.setGroupCode(groupCode);
         GroupResponse groupResponse = groupService.leaveGroup(groupRequest);
         return ApiResponse.ok(groupResponse);
     }
@@ -52,9 +52,9 @@ public class GroupController {
 
 
 
-    @GetMapping("/{groupCord}/state")
-    public ApiResponse<GroupResponse> getGroupState(@PathVariable String groupCord ,GroupRequest groupRequest  ) {
-         GroupResponse groupResponse  = groupService.getGroupByCord(groupCord);
+    @GetMapping("/{groupCode}/state")
+    public ApiResponse<GroupResponse> getGroupState(@PathVariable String groupCode ,GroupRequest groupRequest  ) {
+         GroupResponse groupResponse  = groupService.getGroupByCode(groupCode);
         return ApiResponse.ok(groupResponse);
     }
 }

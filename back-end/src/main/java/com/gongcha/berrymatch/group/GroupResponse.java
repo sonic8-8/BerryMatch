@@ -14,7 +14,7 @@ import java.util.List;
 public class GroupResponse {
 
     private Long groupId;
-    private String groupCord;
+    private String groupCode;
     private int maxMembers;
     private Timestamp groupCreatedAt;
     private List<User> members;
@@ -23,7 +23,7 @@ public class GroupResponse {
     public static GroupResponse fromUserGroup(UserGroup userGroup) {
         return GroupResponse.builder()
                 .groupId(userGroup.getId())
-                .groupCord(userGroup.getGroupCord())
+                .groupCode(userGroup.getGroupCode())
                 .maxMembers(userGroup.getMaxMembers())
                 .groupCreatedAt(userGroup.getGroupCreatedAt())
                 .members(userGroup.getMembers())
