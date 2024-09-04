@@ -47,7 +47,7 @@ function Dashboard() {
                 <div className={styles.dashboard_middle_right}>
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <Link to="/match" className={styles.dashboard_middle_right_menu}>매칭</Link>
-                        <MatchSetupSubPage className={styles.dashboard_middle_right_menu} />
+                        <MatchSetupSubPage />
                         
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
