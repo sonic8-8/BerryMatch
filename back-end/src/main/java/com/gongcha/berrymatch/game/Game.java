@@ -1,6 +1,6 @@
 package com.gongcha.berrymatch.game;
 
-import com.gongcha.berrymatch.match.Match;
+import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
