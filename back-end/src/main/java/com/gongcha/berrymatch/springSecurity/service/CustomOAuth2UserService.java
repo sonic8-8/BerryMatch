@@ -2,6 +2,7 @@ package com.gongcha.berrymatch.springSecurity.service;
 
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
+import com.gongcha.berrymatch.springSecurity.domain.CustomOAuth2User;
 import com.gongcha.berrymatch.springSecurity.domain.UserPrincipal;
 import com.gongcha.berrymatch.springSecurity.info.OAuth2UserInfo;
 import com.gongcha.berrymatch.springSecurity.info.OAuth2UserInfoFactory;
@@ -53,7 +54,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         User user = getUser(userIdentifier, providerInfo);
 
-        return new UserPrincipal(user, attributes, userNameAttributeName);
+//        return new UserPrincipal(user, attributes, userNameAttributeName, providerInfo);
+        return new CustomOAuth2User(oAuth2User, providerInfo, userIdentifier);
     }
 
     private User getUser(String identifier, ProviderInfo providerInfo) {

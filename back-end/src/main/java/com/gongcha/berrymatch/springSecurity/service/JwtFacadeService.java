@@ -2,9 +2,11 @@ package com.gongcha.berrymatch.springSecurity.service;
 
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.constants.TokenStatus;
 import com.gongcha.berrymatch.springSecurity.domain.Token;
 import com.gongcha.berrymatch.user.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -64,7 +66,6 @@ public class JwtFacadeService implements JwtFacade {
         response.setHeader(ACCESS_HEADER.getValue(), bearer);
         response.setHeader(ACCESS_REISSUED_HEADER.getValue(), "False");
 
-
         return accessToken;
     }
 
@@ -75,7 +76,7 @@ public class JwtFacadeService implements JwtFacade {
         ResponseCookie cookie = setTokenToCookie(REFRESH_PREFIX.getValue(), refreshToken, REFRESH_EXPIRATION / 1000);
         response.addHeader(REFRESH_ISSUE.getValue(), cookie.toString());
 
-        tokenService.save(new Token(requestUser.getIdentifier(), refreshToken));
+        tokenService.save(new Token(requestUser.getIdentifier(), refreshToken, requestUser.getProviderInfo()));
         return refreshToken;
     }
 
@@ -95,9 +96,9 @@ public class JwtFacadeService implements JwtFacade {
     }
 
     @Override
-    public boolean validateRefreshToken(String token, String identifier) {
+    public boolean validateRefreshToken(String token, String identifier, ProviderInfo providerInfo) {
         boolean isRefreshValid = jwtUtil.getTokenStatus(token, REFRESH_SECRET_KEY) == TokenStatus.AUTHENTICATED;
-        boolean isHijacked = tokenService.isRefreshHijacked(identifier, token);
+        boolean isHijacked = tokenService.isRefreshHijacked(identifier, token, providerInfo);
 
         return isRefreshValid && !isHijacked;
     }
@@ -113,6 +114,7 @@ public class JwtFacadeService implements JwtFacade {
         if (bearerHeader == null || bearerHeader.isEmpty()) {
             throw new BusinessException(JWT_NOT_FOUND_IN_HEADER);
         }
+        System.out.println("엑세스 토큰 확인요");
         return bearerHeader.trim().substring(7);
     }
 
@@ -122,18 +124,42 @@ public class JwtFacadeService implements JwtFacade {
         if (cookies == null) {
             throw new BusinessException(JWT_NOT_FOUND_IN_COOKIE);
         }
+        System.out.println("리프레쉬 토큰 가져오기 성공");
         return jwtUtil.resolveTokenFromCookie(cookies, REFRESH_PREFIX);
     }
 
     @Override
     public String getIdentifierFromRefresh(String refreshToken) {
         try {
-            return Jwts.parserBuilder()
+            Claims claims = Jwts.parserBuilder()
                     .setSigningKey(REFRESH_SECRET_KEY)
                     .build()
                     .parseClaimsJws(refreshToken)
-                    .getBody()
-                    .getSubject();
+                    .getBody();
+
+            String identifier = claims.get("identifier", String.class);
+            if (identifier == null) {
+                identifier = claims.get("Identifier", String.class);
+            }
+
+            System.out.println(identifier);
+            return identifier;
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.INVALID_JWT);
+        }
+    }
+
+    @Override
+    public ProviderInfo getProviderInfoFromRefresh(String refreshToken) {
+        try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(REFRESH_SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+
+            String providerInfo = claims.get("providerInfo", String.class);
+            return ProviderInfo.valueOf(providerInfo.toUpperCase());
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.INVALID_JWT);
         }
@@ -155,12 +181,30 @@ public class JwtFacadeService implements JwtFacade {
     }
 
     @Override
-    public String logout(HttpServletResponse response, String identifier) {
-        tokenService.deleteById(identifier);
+    public String logout(HttpServletResponse response, String identifier, ProviderInfo providerInfo) {
+        tokenService.deleteByIdAndProviderInfo(identifier, providerInfo);
 
         Cookie refreshCookie = jwtUtil.resetCookie(REFRESH_PREFIX);
         response.addCookie(refreshCookie);
 
         return "로그아웃 성공";
+    }
+
+    public ProviderInfo toProviderInfo(String key) {
+        try {
+            return ProviderInfo.valueOf(key.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("providerInfo가 적절한 형태가 아닙니다 : " + key);
+        }
+    }
+
+    @Override
+    public void deleteRefreshToken(String identifier, ProviderInfo providerInfo) {
+        try {
+            tokenService.deleteByIdAndProviderInfo(identifier, providerInfo);
+        } catch (BusinessException e) {
+            throw new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB);
+        }
+
     }
 }

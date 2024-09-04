@@ -1,6 +1,8 @@
 package com.gongcha.berrymatch.springSecurity.filter;
 
 
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
+import com.gongcha.berrymatch.springSecurity.repository.TokenRepository;
 import com.gongcha.berrymatch.springSecurity.service.JwtFacade;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserService;
@@ -41,20 +43,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
+        System.out.println("access 토큰이 유효하지 않아서 refresh 토큰으로 재발급 시도");
+
         String refreshToken = jwtFacade.resolveRefreshToken(request);
+
         User user = findUserByRefreshToken(refreshToken);
 
-        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier())) {
+        System.out.println("refresh 토큰으로 유저 정보까지 가져옴");
+
+
+        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier(), user.getProviderInfo())) {
+
+            System.out.println("refresh 토큰 검사 통과");
+
             String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
-            jwtFacade.generateRefreshToken(response, user);
+            jwtFacade.deleteRefreshToken(user.getIdentifier(), user.getProviderInfo()); // MongoDB에서 삭제
+            jwtFacade.generateRefreshToken(response, user); // 재발급
             jwtFacade.setReissuedHeader(response);
 
             setAuthenticationToContext(reissuedAccessToken);
+
+            System.out.println("발급 성공요");
+
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwtFacade.logout(response, user.getIdentifier());
+        System.out.println("refresh 토큰도 유효하지 않아서 로그아웃 처리함");
+
+        jwtFacade.logout(response, user.getIdentifier(), user.getProviderInfo());
     }
 
     private boolean isPermittedURI(String requestURI) {
@@ -67,7 +84,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private User findUserByRefreshToken(String refreshToken) {
         String identifier = jwtFacade.getIdentifierFromRefresh(refreshToken);
-        return userService.findUserByIdentifier(identifier);
+        System.out.println("identifier: " + identifier);
+        ProviderInfo providerInfo = jwtFacade.getProviderInfoFromRefresh(refreshToken);
+        System.out.println("providerInfo: " + providerInfo);
+        return userService.findUserByOAuthInfo(identifier, providerInfo);
     }
 
     private void setAuthenticationToContext(String accessToken) {

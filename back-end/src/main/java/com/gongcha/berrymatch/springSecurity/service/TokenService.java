@@ -3,6 +3,7 @@ package com.gongcha.berrymatch.springSecurity.service;
 
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.domain.Token;
 import com.gongcha.berrymatch.springSecurity.repository.TokenRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +24,17 @@ public class TokenService {
         return savedToken.getIdentifier();
     }
 
-    public Token findByIdentifier(String identifier) {
-        return tokenRepository.findById(identifier)
+    public Token findByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo) {
+        return tokenRepository.findByIdentifierAndProviderInfo(identifier, providerInfo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB));
     }
 
-    public boolean isRefreshHijacked(String identifier, String refreshToken) {
-        Token token = findByIdentifier(identifier);
+    public boolean isRefreshHijacked(String identifier, String refreshToken, ProviderInfo providerInfo) {
+        Token token = findByIdentifierAndProviderInfo(identifier, providerInfo);
         return !token.getToken().equals(refreshToken);
     }
 
-    public void deleteById(String identifier) {
-        tokenRepository.deleteById(identifier);
+    public void deleteByIdAndProviderInfo(String identifier, ProviderInfo providerInfo) {
+        tokenRepository.deleteByIdentifierAndProviderInfo(identifier, providerInfo);
     }
 }

@@ -1,14 +1,12 @@
 package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupRequest;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -23,9 +21,16 @@ public class UserController {
     @PostMapping("/auth/signup")
     public ApiResponse<UserSignupResponse> signup(@RequestBody UserSignupRequest userSignupRequest) {
 
+        System.out.println("회원가입 요청 들어옴");
+
         return ApiResponse.ok(userService.signup(userSignupRequest.toService()));
     }
 
+    @GetMapping("/user-info")
+    public ApiResponse<User> getUserInfo(@RequestParam String identifier, @RequestParam String providerInfo) {
+        System.out.println("요청들어옴");
+        return ApiResponse.ok(userService.findUserByOAuthInfo(identifier, ProviderInfo.valueOf(providerInfo.toUpperCase())));
+    }
 
 
 }

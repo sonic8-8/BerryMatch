@@ -23,4 +23,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByOAuthInfo(@Param("identifier") String identifier,
                                    @Param("providerInfo") ProviderInfo providerInfo);
 
+    @Query("select u from User u where u.identifier = :identifier and u.role = :role")
+    Optional<User> findByIdentifierAndRole(@Param("identifier") String identifier,
+                                           @Param("role") Role role);
+
+
+
+
+
 }

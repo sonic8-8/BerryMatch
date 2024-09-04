@@ -1,26 +1,23 @@
 package com.gongcha.berrymatch.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gongcha.berrymatch.chatMessage.ChatMessage;
 import com.gongcha.berrymatch.chatRoom.ChatRoom;
 import com.gongcha.berrymatch.game.Game;
-import com.gongcha.berrymatch.group.Group;
-import com.gongcha.berrymatch.match.Match;
+
+import com.gongcha.berrymatch.group.UserGroup;
+import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.post.Post;
 import com.gongcha.berrymatch.postLike.PostLike;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -55,8 +52,6 @@ public class User {
 
     private String introduction;
 
-    private String email;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -72,9 +67,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_group_id")
-    private Group group;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
@@ -84,9 +76,27 @@ public class User {
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "matches_id")
+
+
+
+    @ManyToOne(fetch = FetchType.EAGER) // 즉시 로딩으로 변경
+    @JoinColumn(name = "match_id") // 외래 키 컬럼 추가
     private Match match;
+
+    @Setter
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER) // 지연 로딩을 즉시 로딩으로 변경
+    @JoinColumn(name = "group_id")
+    private UserGroup userGroup;
+
+    @Enumerated(EnumType.STRING)
+    private UserMatchStatus matchStatus;
+
+    public void updateMatchStatus(UserMatchStatus status) {
+        this.matchStatus = status;
+    }
+
+
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "chat_message_id")
@@ -99,6 +109,7 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_like_id")
     private PostLike postLike;
+
 
     @Builder
     public User(String identifier, String nickname, City city, District district, Gender gender, int age, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
@@ -135,4 +146,12 @@ public class User {
         this.introduction = request.getIntroduction();
         this.role = Role.USER;
     }
+
+    public User(Long id, City city, District district) {
+        this.id = id;
+        this.city = city;
+        this.district = district;
+    }
+
+
 }

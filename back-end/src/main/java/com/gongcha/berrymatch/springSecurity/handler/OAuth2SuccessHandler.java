@@ -2,6 +2,8 @@ package com.gongcha.berrymatch.springSecurity.handler;
 
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
+import com.gongcha.berrymatch.springSecurity.domain.CustomOAuth2User;
 import com.gongcha.berrymatch.user.Role;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserRepository;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -35,26 +39,32 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String identifier = oAuth2User.getName();
+        CustomOAuth2User customOAuth2User = (CustomOAuth2User) authentication.getPrincipal();
 
-        User user = userRepository.findByIdentifier(identifier)
+        String identifier = customOAuth2User.getIdentifier();
+        ProviderInfo providerInfo = customOAuth2User.getProviderInfo();
+
+        System.out.println(customOAuth2User);
+
+        User user = userRepository.findByOAuthInfo(identifier, providerInfo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
 
-        String redirectUrl = getRedirectUrlByRole(user.getRole(), identifier);
+        String redirectUrl = getRedirectUrlByRole(user.getRole(), identifier, user.getProviderInfo());
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 
-    private String getRedirectUrlByRole(Role role, String identifier) {
+    private String getRedirectUrlByRole(Role role, String identifier, ProviderInfo providerInfo) {
         if (role == Role.NOT_REGISTERED) {
             return UriComponentsBuilder.fromUriString(SIGNUP_URL)
                     .queryParam("identifier", identifier)
+                    .queryParam("providerInfo", providerInfo)
                     .build()
                     .toUriString();
         }
 
         return UriComponentsBuilder.fromHttpUrl(AUTH_URL)
                 .queryParam("identifier", identifier)
+                .queryParam("providerInfo", providerInfo)
                 .build()
                 .toUriString();
     }

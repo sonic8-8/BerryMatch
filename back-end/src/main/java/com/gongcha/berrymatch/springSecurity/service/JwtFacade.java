@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.springSecurity.service;
 
 
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,13 +18,17 @@ public interface JwtFacade {
 
     String getIdentifierFromRefresh(String refreshToken);
 
+    ProviderInfo getProviderInfoFromRefresh(String refreshToken);
+
     boolean validateAccessToken(String accessToken);
 
-    boolean validateRefreshToken(String refreshToken, String identifier);
+    boolean validateRefreshToken(String refreshToken, String identifier, ProviderInfo providerInfo);
 
     void setReissuedHeader(HttpServletResponse response);
 
-    String logout(HttpServletResponse response, String identifier);
+    String logout(HttpServletResponse response, String identifier, ProviderInfo providerInfo);
 
     Authentication getAuthentication(String accessToken);
+
+    void deleteRefreshToken(String identifier, ProviderInfo providerInfo);
 }

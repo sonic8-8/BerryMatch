@@ -41,6 +41,7 @@ public class JwtGenerator {
 
         return Jwts.builder()
                 .setHeader(createHeader())
+                .setClaims(createClaims(user))
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + REFRESH_EXPIRATION))
                 .signWith(REFRESH_SECRET, SignatureAlgorithm.HS256)
@@ -59,8 +60,9 @@ public class JwtGenerator {
 
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("Identifier", user.getIdentifier());
-        claims.put("Role", user.getRole());
+        claims.put("identifier", user.getIdentifier());
+        claims.put("providerInfo", user.getProviderInfo());
+        claims.put("role", user.getRole());
         return claims;
     }
 

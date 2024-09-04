@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.springSecurity.domain;
 
 
+import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,17 +20,19 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     private String nameAttributeKey;
     private Map<String, Object> attributes;
     private Collection<? extends GrantedAuthority> authorities;
+    private ProviderInfo providerInfo;
 
     public UserPrincipal(User user) {
         this.user = user;
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getKey()));
     }
 
-    public UserPrincipal(User user, Map<String, Object> attributes, String nameAttributeKey) {
+    public UserPrincipal(User user, Map<String, Object> attributes, String nameAttributeKey, ProviderInfo providerInfo) {
         this.user = user;
         this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getKey()));
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
+        this.providerInfo = providerInfo;
     }
 
     /**
@@ -72,4 +75,9 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return true;
     }
+
+    public ProviderInfo getProviderInfo() {
+        return providerInfo;
+    }
 }
+
