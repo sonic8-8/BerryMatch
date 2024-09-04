@@ -1,0 +1,50 @@
+.chat_room_container{
+    width: 70%;
+    height:80%;
+    padding: 0.2%;
+    border-radius: 3px;
+    background-color: #ffffff;
+    box-shadow: 1px 1px 2px 0.5px #c5c5c5;
+}
+
+.chat_room_container > div{
+    margin: 1%;
+}
+
+.chat_header{
+    height: 25%;
+    display: flex;
+}
+
+.chat_option > button{
+    border-radius: 3px;
+    border-width: 0px;
+    text-align: center;
+}
+
+.game_accept{
+    background-color: #00712d;
+    color: #ffffff
+}
+
+.game_end{
+    background-color: #ff9100;
+    color: #ffffff
+}
+
+.chat_content {
+    height: 65%;
+}
+
+.chat_input {
+    height:10%;
+    display: flex;
+}
+
+.chat_input input{
+    width:80%
+}
+
+.chat_input button{
+    width:20%
+}

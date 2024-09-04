@@ -1,0 +1,188 @@
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
+
+const userStates = {}; // 방 별로 유저들의 준비 상태를 저장하는 객체
+
+// JWT를 이용한 토큰 검증 함수
+const verifyToken = (token) => {
+    try {
+        const decoded = jwt.verify(token, "your-secret-key"); // 토큰 디코딩
+        return decoded; // 유효한 경우 디코딩된 사용자 정보 반환
+    } catch (err) {
+        return null; // 유효하지 않은 경우 null 반환
+    }
+};
+
+module.exports = (io, socket) => {
+
+    // 채팅방 정보(타이틀, 채팅방 멤버 정보) 가져오기
+    socket.on("send matching info", (data) => {
+        axios.get("http://localhost:8085/api/match/completed")
+        .then(res=>{
+            io.to(room).emit("matching info to client", {
+                date:data.date,
+                members: data.members.map(member => ({
+                    img:member.img,
+                    id: member.id,
+                    record: member.record,
+                    state: member.state
+                }))
+            });
+        })
+        .catch(error =>{
+            console.log("cannot load matching info");            
+        })
+    });
+    
+    // 채팅방 입장: 사용자가 해당 방에 접근 권한이 있는지 확인
+    socket.on("join Room", async ({ room, token }) => {
+        const user = verifyToken(token);
+        
+        if (user && user.rooms && user.rooms.includes(room)) {
+            socket.join(room);
+            socket.room = roomName;             
+            socket.emit("roomJoined", { room: roomName });
+
+            if (!userStates[room]) {
+                userStates[room] = {}; // 방 상태 초기화
+            }
+
+            try {
+                // Spring Boot 서버에서 매칭 성사 시간 & 채팅 내역 불러오기
+                const responseTimer = await axios.get("http://localhost:8085/api/chat/match/completed");
+                const responseHistory = await axios.get(`http://localhost:8085/api/chat/chatHistory?room=${room}`);
+                
+                const startTime = new Date(responseTimer.data.startTime); // 매칭 성사 시간
+                const endTime = new Date(startTime.getTime() + 30 * 60 * 1000); 
+
+                const chatHistory = responseHistory.data;
+                socket.emit("load all msgs", chatHistory);
+
+                // 현재 시간 기준으로 남은 시간 계산하여 타이머 설정
+                const timeRemaining = endTime - new Date();
+
+                if (timeRemaining > 0) {
+                    // 남은 시간 내에 준비 상태를 확인하기 위한 타이머 설정
+                    setTimeout(() => {
+                        const allReady = Object.values(userStates[room] || {}).every(user => user.ready);
+
+                        if (!allReady) {
+                            io.in(room).emit("room disbanded"); // 방 폭파 이벤트 전송
+                            delete userStates[room]; // 방 상태 삭제
+                            io.socketsLeave(room); // 방에 있는 모든 사용자 퇴장
+                        }
+                    }, timeRemaining);
+
+
+                } else {
+                    // 시간이 이미 지난 경우 바로 방 폭파
+                    io.in(room).emit("room disbanded");
+                    delete userStates[room];
+                    io.socketsLeave(room);
+                }
+
+            } catch (error) {
+                console.error("Error fetching start time:", error);
+            }
+
+        } else {
+            socket.emit("join error"); // 접근 권한이 없는 경우 에러 전송
+        }
+    });
+    
+    // 사용자 준비 완료 on
+    socket.on("ready on", ({ room }) => {
+        if (!userStates[room]) {
+            userStates[room] = {};
+        }
+
+        userStates[room][socket.id] = { ready: true };
+
+        io.to(room).emit("user ready on", {
+            userId: socket.id,
+            ready: true
+        });
+
+        axios.post("http://localhost:8085/api/chatRoom/ready", {
+            userId: socket.id,
+            isReady: true // 또는 false, 사용자의 준비 상태에 따라 변경
+        })
+        .then(res => {
+            // 서버에서 응답 받은 후 처리 로직
+            console.log("유저 준비 상태 전달 성공:", res.data);
+        })
+        .catch(error => {
+            console.error("유저 준비 상태 전달 실패:", error);
+        });
+
+        // 모든 사용자가 준비 완료 상태인지 확인
+        const allReady = Object.values(userStates[room]).every(user => user.ready);
+        if (allReady) {
+            io.to(room).emit("all users ready");
+        }
+    });
+
+    // 사용자 준비 완료 off
+    socket.on("ready off", ({ room }) => {
+        if (userStates[room] && userStates[room][socket.id]) {
+            userStates[room][socket.id].ready = false;
+
+            io.to(room).emit("user ready off", {
+                userId: socket.id,
+                ready: false
+            });
+
+            axios.post("http://localhost:8085/api/chatRoom/ready", {
+                userId: socket.id,
+                isReady: false
+            })
+            .then(res => {
+                console.log("유저 준비 상태 전달 성공:", res.data);
+            })
+            .catch(error => {
+                console.error("유저 준비 상태 전달 실패:", error);
+            });
+        }
+    });
+
+    socket.on("send msg", (data) => {
+        // 받은 메시지를 클라이언트에게 전송
+        io.to(data.room).emit("receive msg", {
+            author: data.author,
+            msg: data.msg,
+            time: data.time
+        });
+
+        // 받은 메시지를 DB에 저장하기 위해 SpringBoot 서버로 전송
+        axios.post("http://localhost:8085/api/chat/save-msg",{
+            user: data.author,
+            chatRoom:data.room,
+            message: data.msg,
+            createdAt: data.time
+        })
+        .then(res =>{
+            console.log("DB 저장 위한 메시지 메인 서버로 전송 성공");
+        })
+        .catch(error => {
+            console.log("DB 저장 위한 메시지 메인 서버로 전송 실패");
+        })
+    });
+
+    // 경기 시간 알려주기(종료 버튼 활성화)
+    io.to(room).emit("game time");
+
+    // 게임 종료 처리
+    socket.on("end game", () => {
+        axios.post("http//localhost:8085/api/chat/end",{
+            user:data.author,
+            chatRoom:data.room
+        })
+        .then(res =>{
+            console.log("메인 서버로 경기 종료 확인 요청 완료");            
+        })
+        .catch(error => {
+            console.log("메인 서버로 경기 종료 확인 요청 실패");        
+        });
+
+    });
+};

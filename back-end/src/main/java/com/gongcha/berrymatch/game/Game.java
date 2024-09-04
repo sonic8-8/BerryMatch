@@ -1,8 +1,10 @@
 package com.gongcha.berrymatch.game;
 
 import com.gongcha.berrymatch.match.domain.Match;
+import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
+import lombok.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,8 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Getter
+@NoArgsConstructor
 @Table(name = "game")
 public class Game {
 
@@ -25,9 +29,12 @@ public class Game {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
+    @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
-    private String gameResult;
+    private int resultTeamA;
+
+    private int resultTeamB;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -35,4 +42,6 @@ public class Game {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "game_id")
     private Match match;
+
+
 }
