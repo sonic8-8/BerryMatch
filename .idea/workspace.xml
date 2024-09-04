@@ -4,65 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="develop pull 이후 최초 커밋">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/BerryMatch.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameRecordTempStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameResultTemp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameResultTempRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Service/MatchCancellationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Service/MatchStatusUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Service/MatchingQueueUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Service/MatchingStatusUpdateService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/DataLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/Modal.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/Modal.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/chat/ChatRoom.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/chat/ChatRoom.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/record/Record.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/record/Record.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/record/RecordPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/record/RecordPage.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/socket.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real-time-server/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real-time-server/src/chat/chat.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real-time-server/src/matching/matching.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real-time-server/src/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real-time-server/src/socket.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="chat 기능 병합 이후 출돌 해결">
       <change beforePath="$PROJECT_DIR$/.idea/modules/BerryMatch.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/BerryMatch.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/chat/ChatMember.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/chat/ChatMember.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/chat/ChatMembersList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/chat/ChatMembersList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real-time-server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/real-time-server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real-time-server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/real-time-server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real-time-server/server.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +26,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/back-end">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -127,10 +79,10 @@
     &quot;accountId&quot;: &quot;55e269e6-d20c-4ee2-8bb5-1c81a59b76f4&quot;
   }
 }</component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -144,25 +96,36 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.back-end 빌드.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.BerryMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feature/temp-chat-main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.back-end 빌드.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.BerryMatchApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/temp-chat-main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BerryMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="BerryMatch.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gongcha.berrymatch.BerryMatchApplication" />
@@ -188,7 +151,8 @@
       <option name="presentableId" value="Default" />
       <updated>1725368305031</updated>
       <workItem from="1725368307498" duration="29000" />
-      <workItem from="1725406799917" duration="12430000" />
+      <workItem from="1725406799917" duration="12904000" />
+      <workItem from="1725420426301" duration="1100000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -214,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725418824453</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="chat 기능 병합 이후 출돌 해결">
+      <option name="closed" value="true" />
+      <created>1725420062251</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725420062251</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,6 +219,7 @@
     <MESSAGE value="메인 페이지 데이터 받아오기 기능 개발 및 JWT 받아오기 수정" />
     <MESSAGE value="채팅 관련 기능 DTO 관련 수정" />
     <MESSAGE value="develop pull 이후 최초 커밋" />
-    <option name="LAST_COMMIT_MESSAGE" value="develop pull 이후 최초 커밋" />
+    <MESSAGE value="chat 기능 병합 이후 출돌 해결" />
+    <option name="LAST_COMMIT_MESSAGE" value="chat 기능 병합 이후 출돌 해결" />
   </component>
 </project>
