@@ -33,13 +33,13 @@ public class GroupService {
         }
 
         // 8자리 랜덤 코드 생성
-        String groupCord = generateGroupCord();
+        String groupCode = generateGroupCode();
 
         // 그룹 엔티티 생성
         UserGroup userGroup = UserGroup.builder()
                 .maxMembers(2)
                 .groupCreatedAt(Timestamp.from(Instant.now()))
-                .groupCord(groupCord)
+                .groupCode(groupCode)
                 .leader(user)  // 생성자를 리더로 설정
                 .members(new ArrayList<>())  // List<User>로 초기화
                 .build();
@@ -68,8 +68,8 @@ public class GroupService {
         }
 
         // 그룹 코드로 그룹 조회
-        UserGroup userGroup = groupRepository.findByGroupCord(groupRequest.getGroupCord())
-                .orElseThrow(() -> new IllegalArgumentException("Group not found with code: " + groupRequest.getGroupCord()));
+        UserGroup userGroup = groupRepository.findByGroupCode(groupRequest.getGroupCode())
+                .orElseThrow(() -> new IllegalArgumentException("Group not found with code: " + groupRequest.getGroupCode()));
 
         // 그룹에 사용자 추가
         userGroup.addMember(user);
@@ -103,7 +103,7 @@ public class GroupService {
             groupRepository.delete(userGroup);
             return GroupResponse.builder()
                     .groupId(null)
-                    .groupCord(userGroup.getGroupCord())
+                    .groupCode(userGroup.getGroupCode())
                     .maxMembers(userGroup.getMaxMembers())
                     .groupCreatedAt(userGroup.getGroupCreatedAt())
                     .members(new ArrayList<>())
@@ -119,31 +119,31 @@ public class GroupService {
             groupResponse = GroupResponse.fromUserGroup(updatedGroup);
 
             // Node.js 서버에 그룹 나가기 정보 전송
-//            sendToSubServer(userGroup.getGroupCord(), groupResponse);
+//            sendToSubServer(userGroup.getGroupCode(), groupResponse);
 
             return groupResponse;
         }
     }
 
 
-    public GroupResponse getGroupByCord(String groupCord) {
+    public GroupResponse getGroupByCode(String groupCode) {
         //그룹코드 기반으로 그룹정보 조회 메서드
-        UserGroup userGroup = groupRepository.findByGroupCord(groupCord)
-                .orElseThrow(() -> new IllegalArgumentException("Group not found with code: " + groupCord));
+        UserGroup userGroup = groupRepository.findByGroupCode(groupCode)
+                .orElseThrow(() -> new IllegalArgumentException("Group not found with code: " + groupCode));
 
         //그룹 정보를 GroupResponse에 반환
         return GroupResponse.fromUserGroup(userGroup);
     }
 
 //    //노드로 통신설정
-//    private void sendToSubServer(String groupCord, GroupResponse groupResponse) {
+//    private void sendToSubServer(String groupCode, GroupResponse groupResponse) {
 //        RestTemplate restTemplate = new RestTemplate();
 //        //그룹코드를 엔드포인트로 읽어해서 이렇게 보냄
-//        String subServerUrl = "http://localhost:9000/api/groups/" + groupCord + "/handle-leave";
+//        String subServerUrl = "http://localhost:9000/api/groups/" + groupCode + "/handle-leave";
 //        restTemplate.postForEntity(subServerUrl, groupResponse, String.class);
 //    }
 
-    private String generateGroupCord() {
+    private String generateGroupCode() {
         return UUID.randomUUID().toString().substring(0, 8);  // UUID로부터 8자리 랜덤 코드 생성
     }
 }

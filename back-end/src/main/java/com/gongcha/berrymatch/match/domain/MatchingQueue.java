@@ -49,7 +49,7 @@ public class MatchingQueue {
     private Sport sport;
 
     //그룹코드
-    private String groupCord;
+    private String groupCode;
 
     //그룹매칭인지 개인매칭인지 상태
     @Enumerated(EnumType.STRING)

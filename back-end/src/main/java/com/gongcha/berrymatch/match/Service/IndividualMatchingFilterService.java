@@ -78,7 +78,7 @@ public class IndividualMatchingFilterService {
 
                     // 매칭 대기 상태에 있고 그룹이 지정되지 않은 대기열을 필터링하여 가져옴
                     List<MatchingQueue> pendingMatches = matchingQueueRepository
-                            .findByStatusAndGroupCordIsNullOrderByEnqueuedAtAsc(MatchQueueStatus.PENDING).stream()
+                            .findByStatusAndGroupCodeIsNullOrderByEnqueuedAtAsc(MatchQueueStatus.PENDING).stream()
                             .filter(queue -> !matchedUserIds.contains(queue.getUser().getId()))
                             .collect(Collectors.toList());
 
@@ -99,7 +99,7 @@ public class IndividualMatchingFilterService {
                 queue.getDistrict(),
                 queue.getMatchTime(),
                 queue.getSport(),
-                queue.getGroupCord(),
+                queue.getGroupCode(),
                 queue.getMatchType(),
                 queue.getEnqueuedAt()
         );

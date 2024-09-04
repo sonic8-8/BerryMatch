@@ -25,7 +25,7 @@ public class MatchingQueueDTO {
     private District district;        // 유저의 구
     private LocalDateTime matchTime;  // 매칭 시간
     private Sport sport;              // 스포츠 종목
-    private String groupCord;         // 그룹 코드 (없을 수 있음)
+    private String groupCode;         // 그룹 코드 (없을 수 있음)
     private MatchType matchType;      // 매칭 타입 (개인 또는 그룹)
     private LocalDateTime enqueuedAt; // 매칭 대기열에 추가된 시간
 

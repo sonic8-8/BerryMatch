@@ -52,7 +52,7 @@ public class MatchRequestProcessingService {
         matchLock.lock();  // 매칭 요청을 처리할 때 동시성 문제를 방지하기 위한 잠금 설정
         try {
             if (getQueueSize() < QUEUE_LIMIT) {  // 대기열 크기가 제한 이하일 때만 처리
-                if (matchRequest.getGroupCord() != null && !matchRequest.getGroupCord().isEmpty()) {
+                if (matchRequest.getGroupCode() != null && !matchRequest.getGroupCode().isEmpty()) {
                     handleGroupMatching(matchRequest);  // 그룹 매칭 처리
                 } else {
                     handleIndividualMatching(matchRequest);  // 개인 매칭 처리
@@ -73,7 +73,7 @@ public class MatchRequestProcessingService {
 
     // 그룹 매칭을 처리하는 메소드
     private void handleGroupMatching(MatchRequest matchRequest) {
-        Optional<UserGroup> optionalGroup = groupRepository.findByGroupCord(matchRequest.getGroupCord());
+        Optional<UserGroup> optionalGroup = groupRepository.findByGroupCode(matchRequest.getGroupCode());
 
         if (optionalGroup.isPresent()) {
             UserGroup userGroup = optionalGroup.get();
@@ -87,7 +87,7 @@ public class MatchRequestProcessingService {
                 }
             }
         } else {
-            throw new IllegalArgumentException("유효하지 않은 그룹 코드: " + matchRequest.getGroupCord());  // 유효하지 않은 그룹 코드에 대한 예외 처리
+            throw new IllegalArgumentException("유효하지 않은 그룹 코드: " + matchRequest.getGroupCode());  // 유효하지 않은 그룹 코드에 대한 예외 처리
         }
     }
 
@@ -145,7 +145,7 @@ public class MatchRequestProcessingService {
                 .sport(sport)
                 .city(city)
                 .district(district)
-                .groupCord(matchType == MatchType.GROUP ? matchRequest.getGroupCord() : null)
+                .groupCode(matchType == MatchType.GROUP ? matchRequest.getGroupCode() : null)
                 .matchTime(LocalDateTime.parse(matchRequest.getDate() + "T" + matchRequest.getTime()))
                 .status(MatchQueueStatus.PENDING)
                 .enqueuedAt(LocalDateTime.now())

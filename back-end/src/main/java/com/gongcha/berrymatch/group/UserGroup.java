@@ -28,7 +28,7 @@ public class UserGroup {
     private Timestamp groupCreatedAt;
 
     @Column(length = 8)
-    private String groupCord;
+    private String groupCode;
 
     @OneToMany(mappedBy = "userGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     @BatchSize(size = 12)
