@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="chat 기능 병합 이후 출돌 해결">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat 관련 프론트 수정 중" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +101,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BerryMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feature/temp-chat-main",
+    "git-widget-placeholder": "feature/merged-chat-main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/back-end/src/main/java/com/gongcha/berrymatch/game",
     "node.js.detected.package.eslint": "true",
@@ -170,6 +168,7 @@
       <workItem from="1725437765577" duration="414000" />
       <workItem from="1725438190840" duration="322000" />
       <workItem from="1725438524418" duration="2471000" />
+      <workItem from="1725442506105" duration="322000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -203,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725420062251</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Chat 관련 프론트 수정 중">
+      <option name="closed" value="true" />
+      <created>1725442812790</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725442812790</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,7 +227,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/temp-chat-main" />
+                        <option value="feature/merged-chat-main" />
                       </list>
                     </value>
                   </entry>
@@ -237,7 +244,8 @@
     <MESSAGE value="채팅 관련 기능 DTO 관련 수정" />
     <MESSAGE value="develop pull 이후 최초 커밋" />
     <MESSAGE value="chat 기능 병합 이후 출돌 해결" />
-    <option name="LAST_COMMIT_MESSAGE" value="chat 기능 병합 이후 출돌 해결" />
+    <MESSAGE value="Chat 관련 프론트 수정 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat 관련 프론트 수정 중" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

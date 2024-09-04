@@ -5,7 +5,6 @@
     border-radius: 3px;
     box-shadow: 1px 1px 2px 0.5px #c5c5c5;
     background-color: rgba(85, 85, 85, 0.9);
-    border-radius: 10px;
     overflow-y: auto;
     margin-bottom: 15px;
     color: #fff;
@@ -17,7 +16,6 @@
 @media screen and (max-width:768px){
     .chat_room_container{
         width: 100%;    
-        
     }
 }
 
