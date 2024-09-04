@@ -14,7 +14,6 @@ public class UserSignupServiceRequest {
     private City city;
     private District district;
     private Gender gender;
-    private int age;
     private String phoneNumber;
     private String profileImageUrl;
     private String introduction;
@@ -27,7 +26,6 @@ public class UserSignupServiceRequest {
         this.city = city;
         this.district = district;
         this.gender = gender;
-        this.age = age;
         this.phoneNumber = phoneNumber;
         this.profileImageUrl = profileImageUrl;
         this.introduction = introduction;
@@ -41,7 +39,6 @@ public class UserSignupServiceRequest {
                 .city(city)
                 .district(district)
                 .gender(gender)
-                .age(age)
                 .phoneNumber(phoneNumber)
                 .profileImageUrl(profileImageUrl)
                 .introduction(introduction)

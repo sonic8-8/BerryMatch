@@ -1,6 +1,5 @@
 package com.gongcha.berrymatch.game;
 
-import com.gongcha.berrymatch.match.domain.Match;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,25 +16,26 @@ public class GameService {
     private final GameResultTempRepository gameResultTempRepository;
 
     // 해당 경기에 대한 경기 진행 여부 반환
-    public String loadGameSatatus(Match match){
-        return gameRepository.findGameStatusByMatch(match);
+    public GameStatus loadGameSatatus(GameDTO game){
+        return gameRepository.findGameStatusByGame(game.getGame());
     }
 
     // 경기 기록이 들어오면 임시 결과 DB에 저장
     @Transactional
     public void saveInputRecord(GameDTO gameResultTemp){
-        GameResultTemp gameRecordInput = GameDTO.builder()
+        GameResultTemp gameRecordInput = GameResultTemp.builder()
                 .game(gameResultTemp.getGame())
                 .user(gameResultTemp.getUser())
                 .resultTeamA(gameResultTemp.getResultTeamA())
                 .resultTeamB(gameResultTemp.getResultTeamB())
+                .gameRecordTempStatus(GameRecordTempStatus.PERSONNAL_UPDATE)
                 .build();
         gameResultTempRepository.save(gameRecordInput);
     }
 
     // 유저의 모든 경기 리턴
     public List<Game> loadAllGames(Long userId){
-        return gameRepository.findAllByMatchUser(userId);
+        return gameRepository.findAllByUser(userId);
     }
 
     // 해당 경기에 등록된 모든 점수 기록 리턴
@@ -45,12 +45,12 @@ public class GameService {
 
     // 경기 기록 가능 상태 확인
     public GameStatus checkReadyInput(GameDTO game) {
-        return gameRepository.findGameStatusBy(game.getGame());
+        return gameRepository.findGameStatusByGame(game.getGame());
     }
 
-    // 경기 투표 가능 상태 확인: 모든 유저의 경기기록 완료 or 경기 시간으로부터 24시간 넘었을 경우
+    // 경기 투표 가능 상태 확인: 모든 유저의 경기기록 완료 or 경기 시간으로부터 24시간 넘었으면 임시경기기록상태 변경
     public GameRecordTempStatus checkReadyVote(GameDTO gameResultTemp) {
-        GameDTO gameInfo = gameRepository.findAllByGame(gameResultTemp.getGame());
+        Game gameInfo = gameRepository.findAllByGame(gameResultTemp.getGame());
         List<GameResultTemp> recordTempList = gameResultTempRepository.findAllByGame(gameResultTemp.getGame());
         int recordCnt = 0;
         for(GameResultTemp r : recordTempList){
@@ -58,11 +58,13 @@ public class GameService {
         }
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime gameTime = gameInfo.getMatch().getMatchedAt();
-        long duration = Duration.between(gameTime,now).toHours() % 24;
+        long duration = Duration.between(gameTime,now).toHours();
         if(recordCnt == 12 || duration > 24){
+            recordTempList.forEach(record -> record.setGameRecordTempStatus(GameRecordTempStatus.FINALLY_UPDATE));
+            gameResultTempRepository.saveAll(recordTempList);
             return GameRecordTempStatus.FINALLY_UPDATE;
         }else{
-            return GameRecordTempStatus.PERSONNAL_UPDATE;
+            return null;
         }
     }
 
@@ -83,7 +85,7 @@ public class GameService {
             }
         }
         // 투표수가 가장 많은 기록을 해당 경기의 경기 기록으로 저장
-        GameDTO gameRecord = gameRepository.findAllByGame(game.getGame());
+        Game gameRecord = gameRepository.findAllByGame(game.getGame());
         gameRecord.setResultTeamA(maxVotesResultTeamA);
         gameRecord.setResultTeamB(maxVotesResultTeamB);
         gameRepository.save(gameRecord);
@@ -93,7 +95,7 @@ public class GameService {
     // 게시물 작성 가능 상태 확인(경기 기록 투표 제출 Data 정리 후, 최종 경기 결과 등록 되어 있으면)
     public GameStatus checkReadyPost(GameDTO game) {
         // 로직: 게시물 작성 가능 상태인지 확인
-        GameDTO gameRecord = gameRepository.findAllByGame(game.getGame());
+        Game gameRecord = gameRepository.findAllByGame(game.getGame());
         if(gameRecord.getResultTeamA() == 0 && gameRecord.getResultTeamB() == 0){
             return GameStatus.END;
         }else{
@@ -104,12 +106,12 @@ public class GameService {
     // 경기 기록 DB 등록
     @Transactional
     public void submitRecord(GameDTO gameResultTemp) {
-        GameResultTemp gameRecordInput = GameDTO.builder()
+        GameResultTemp gameRecordInput = GameResultTemp.builder()
                         .game(gameResultTemp.getGame())
                         .user(gameResultTemp.getUser())
                         .resultTeamA(gameResultTemp.getResultTeamA())
                         .resultTeamB(gameResultTemp.getResultTeamB())
-                        .getClass()
+                        .gameRecordTempStatus(GameRecordTempStatus.PERSONNAL_UPDATE)
                         .build();
         gameResultTempRepository.save(gameRecordInput);
     }

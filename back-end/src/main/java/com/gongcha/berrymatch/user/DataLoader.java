@@ -20,14 +20,11 @@ public class DataLoader {
 
             for (int i = 0; i < 100; i++) {
                 User user = User.builder()
-                        .id((long) i)
-                        .username("user"+ i)
+                        .identifier("id"+ i)
                         .nickname("nickname" + i)
-                        .password("password" + i)
                         .city(City.values()[random.nextInt(City.values().length)])
                         .district(District.values()[random.nextInt(District.values().length)])
                         .gender(Gender.values()[random.nextInt(Gender.values().length)])
-                        .age(random.nextInt(50) + 20) // 20 to 69 years old
                         .phoneNumber("010-" + (random.nextInt(9000) + 1000) + "-" + (random.nextInt(9000) + 1000))
                         .profileImageUrl("http://example.com/profile/image" + i)
                         .introduction("Hello, I am user " + i)

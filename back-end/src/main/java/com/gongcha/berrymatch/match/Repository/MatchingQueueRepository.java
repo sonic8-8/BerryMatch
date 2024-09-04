@@ -2,6 +2,7 @@ package com.gongcha.berrymatch.match.Repository;
 
 import com.gongcha.berrymatch.match.domain.MatchQueueStatus;
 import com.gongcha.berrymatch.match.domain.MatchingQueue;
+import com.gongcha.berrymatch.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,5 +39,5 @@ public interface MatchingQueueRepository extends JpaRepository<MatchingQueue, Lo
     List<MatchingQueue> findByStatus(MatchQueueStatus status);
 
 
-
+    Optional<MatchingQueue> findByUserAndStatus(User user, MatchQueueStatus matchQueueStatus);
 }

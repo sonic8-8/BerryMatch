@@ -1,10 +1,8 @@
 package com.gongcha.berrymatch.game;
 
 import com.gongcha.berrymatch.match.domain.Match;
-import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
-import lombok.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Getter
-@NoArgsConstructor
 @Table(name = "game")
 public class Game {
 
@@ -43,5 +39,16 @@ public class Game {
     @JoinColumn(name = "game_id")
     private Match match;
 
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public void setResultTeamA(int resultTeamA) {
+        this.resultTeamA = resultTeamA;
+    }
+
+    public void setResultTeamB(int resultTeamB) {
+        this.resultTeamB = resultTeamB;
+    }
 
 }

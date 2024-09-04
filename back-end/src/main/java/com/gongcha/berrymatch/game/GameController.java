@@ -35,7 +35,7 @@ public class GameController {
 
     /**
      * 경기 종료 후 경기 기록 작성 가능 상태 확인
-     * @param game
+     * @param game (경기 정보)
      * @return GameStatus 경기 진행 상태 (DURING, END)
      */
     @GetMapping("/check-ready-input")
@@ -45,7 +45,7 @@ public class GameController {
 
     /**
      * 경기 기록 제출 후 투표 가능 상태 확인
-     * @param gameResultTemp (
+     * @param gameResultTemp (경기 임시 기록 정보)
      * @return GameRecordTempStatus (최종 결과를 업데이트)
      */
     @GetMapping("/check-ready-vote")

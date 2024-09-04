@@ -1,20 +1,14 @@
 package com.gongcha.berrymatch.game;
 
-import com.gongcha.berrymatch.match.domain.Match;
-import com.gongcha.berrymatch.match.domain.MatchUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface GameRepository extends JpaRepository<Game,Long> {
 
-    String findGameStatusByMatch(Match match);
+    GameStatus findGameStatusByGame(Game game);
 
-    GameDTO findAllByMatchId(MatchUser user);
+    Game findAllByGame(Game game);
 
-    GameStatus findGameStatusBy(Game game);
-
-    GameDTO findAllByGame(Game game);
-
-    List<Game> findAllByMatchUser(Long userId);
+    List<Game> findAllByUser(Long userId);
 }
