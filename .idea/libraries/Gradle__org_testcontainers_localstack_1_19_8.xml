@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: org.testcontainers:localstack:1.19.8" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="org.testcontainers" artifactId="localstack" version="1.19.8" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.testcontainers/localstack/1.19.8/c6440cee01710f46bb0bee712b3e52a4d273d992/localstack-1.19.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
