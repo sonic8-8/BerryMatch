@@ -92,7 +92,7 @@ const ChatRoom = ({ token, roomName }) => {
     const sendMsgHandler = () => {
         if (userInputMsg.trim()) {
             socket.current.emit("send msg", {
-                author: userId,
+                sender: userId,
                 msg: userInputMsg,
                 time: new Date().toLocaleTimeString(),
                 room: currentRoom,
@@ -108,7 +108,7 @@ const ChatRoom = ({ token, roomName }) => {
 
     return (
       <div className={Styles.chat_page}>
-        <ChatMembersList team="A"/>
+        <ChatMembersList team="A" roomId={currentRoom}/>
         <div className={Styles.chat_container}>
             <div className={Styles.chat_header}>
                 <div className={Styles.chat_info}>
@@ -136,9 +136,10 @@ const ChatRoom = ({ token, roomName }) => {
                     <ChatMessage
                         key={index}
                         time={msgContent.time}
-                        author={msgContent.author}
+                        sender={msgContent.sender}
                         msg={msgContent.msg}
                     />
+                  
                 ))}
             </div>
             <div className={Styles.chat_input}>
@@ -154,7 +155,7 @@ const ChatRoom = ({ token, roomName }) => {
                 <button onClick={sendMsgHandler}>전송</button>
             </div>
         </div>
-        <ChatMembersList team="B"/>
+        <ChatMembersList team="B" roomId={currentRoom}/>
       </div>
     );
 };

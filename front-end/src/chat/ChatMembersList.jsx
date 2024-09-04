@@ -3,8 +3,8 @@ import ChatMember from "./ChatMember";
 import Styles from "./ChatMembersList.module.css";
 import { io } from "socket.io-client";
 
-const ChatMembersList = () => {
-    let roomId 
+const ChatMembersList = ({roomId}) => {
+    // let roomId 
 
     const socket = io.connect("http://localhost:8085/chat/"+roomId,{
         cors:{
