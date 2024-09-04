@@ -48,23 +48,36 @@ public class MatchRequestProcessingService {
     }
 
     // 매칭 요청을 처리하는 메소드
-    public void processMatchRequest(MatchRequest matchRequest) {
+    public void processMatchRequest(MatchRequest matchRequest) throws Exception {
         matchLock.lock();  // 매칭 요청을 처리할 때 동시성 문제를 방지하기 위한 잠금 설정
         try {
-            if (getQueueSize() < QUEUE_LIMIT) {  // 대기열 크기가 제한 이하일 때만 처리
-                if (matchRequest.getGroupCord() != null && !matchRequest.getGroupCord().isEmpty()) {
+            Long userId = matchRequest.getId();
+
+            // 이미 매칭된 유저나 대기 중인 유저의 ID 목록을 가져옴
+            List<Long> excludedUserIds = getExcludedUserIds();
+
+            // 만약 유저가 이미 매칭 대기 중이거나 매칭된 상태라면 예외를 던짐
+            if (excludedUserIds.contains(userId)) {
+                System.out.println("사용자 " + userId + "는 이미 대기열에 있거나 매칭되었습니다. 건너뜁니다.");
+                throw new Exception("이미 매칭 중입니다.");
+            }
+
+            // 대기열 크기가 제한 이하일 때만 처리
+            if (getQueueSize() < QUEUE_LIMIT) {
+                if (matchRequest.getGroupCode() != null && !matchRequest.getGroupCode().isEmpty()) {
                     handleGroupMatching(matchRequest);  // 그룹 매칭 처리
                 } else {
                     handleIndividualMatching(matchRequest);  // 개인 매칭 처리
                 }
             } else {
-                System.out.println("Queue limit reached. Pausing request processing.");  // 대기열이 가득 찬 경우 처리 중단
+                System.out.println("Queue limit reached. Pausing request processing.");
                 // 대기열이 꽉 찼을 때 추가적인 처리 로직을 구현할 수 있음
             }
         } finally {
             matchLock.unlock();  // 매칭 요청 처리가 끝난 후 잠금 해제
         }
     }
+
 
     // 현재 대기열의 크기를 반환하는 메소드
     private int getQueueSize() {
@@ -73,7 +86,7 @@ public class MatchRequestProcessingService {
 
     // 그룹 매칭을 처리하는 메소드
     private void handleGroupMatching(MatchRequest matchRequest) {
-        Optional<UserGroup> optionalGroup = groupRepository.findByGroupCord(matchRequest.getGroupCord());
+        Optional<UserGroup> optionalGroup = groupRepository.findByGroupCode(matchRequest.getGroupCode());
 
         if (optionalGroup.isPresent()) {
             UserGroup userGroup = optionalGroup.get();
@@ -87,7 +100,7 @@ public class MatchRequestProcessingService {
                 }
             }
         } else {
-            throw new IllegalArgumentException("유효하지 않은 그룹 코드: " + matchRequest.getGroupCord());  // 유효하지 않은 그룹 코드에 대한 예외 처리
+            throw new IllegalArgumentException("유효하지 않은 그룹 코드: " + matchRequest.getGroupCode());  // 유효하지 않은 그룹 코드에 대한 예외 처리
         }
     }
 
@@ -109,7 +122,7 @@ public class MatchRequestProcessingService {
     }
 
     // 이미 매칭된 유저와 대기열에 있는 유저의 ID를 반환하는 메소드
-    private List<Long> getExcludedUserIds() {
+    public List<Long> getExcludedUserIds() {
         List<Long> queueUserIds = matchingQueueRepository.findAll().stream()
                 .map(matchingQueue -> matchingQueue.getUser().getId())
                 .collect(Collectors.toList());
@@ -145,7 +158,7 @@ public class MatchRequestProcessingService {
                 .sport(sport)
                 .city(city)
                 .district(district)
-                .groupCord(matchType == MatchType.GROUP ? matchRequest.getGroupCord() : null)
+                .groupCode(matchType == MatchType.GROUP ? matchRequest.getGroupCode() : null)
                 .matchTime(LocalDateTime.parse(matchRequest.getDate() + "T" + matchRequest.getTime()))
                 .status(MatchQueueStatus.PENDING)
                 .enqueuedAt(LocalDateTime.now())

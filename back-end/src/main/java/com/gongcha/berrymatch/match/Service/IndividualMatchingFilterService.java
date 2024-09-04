@@ -45,7 +45,7 @@ public class IndividualMatchingFilterService {
 
     // 비동기 메소드로, 일정 시간 간격으로 매칭 작업을 수행
     @Async("taskScheduler")
-    @Scheduled(fixedRate = 5000, initialDelay = 3000)//매칭 대기열 돌아가는시간
+    @Scheduled(fixedRate = 50000, initialDelay = 3000)//매칭 대기열 돌아가는시간
     public void runScheduledMatching() {
         List<MatchingQueueDTO> pendingMatches = null;
         matchLock.lock();  // 데이터베이스 조회를 위한 잠금
@@ -78,7 +78,7 @@ public class IndividualMatchingFilterService {
 
                     // 매칭 대기 상태에 있고 그룹이 지정되지 않은 대기열을 필터링하여 가져옴
                     List<MatchingQueue> pendingMatches = matchingQueueRepository
-                            .findByStatusAndGroupCordIsNullOrderByEnqueuedAtAsc(MatchQueueStatus.PENDING).stream()
+                            .findByStatusAndGroupCodeIsNullOrderByEnqueuedAtAsc(MatchQueueStatus.PENDING).stream()
                             .filter(queue -> !matchedUserIds.contains(queue.getUser().getId()))
                             .collect(Collectors.toList());
 
@@ -99,7 +99,7 @@ public class IndividualMatchingFilterService {
                 queue.getDistrict(),
                 queue.getMatchTime(),
                 queue.getSport(),
-                queue.getGroupCord(),
+                queue.getGroupCode(),
                 queue.getMatchType(),
                 queue.getEnqueuedAt()
         );

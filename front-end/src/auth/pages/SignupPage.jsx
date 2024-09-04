@@ -15,7 +15,7 @@ function SignupPage() {
         city: '',
         district: '',
         gender: '',
-        age: '',
+        birthdate: '',
         phoneNumber: '',
         profileImageUrl: '',
         introduction: ''
@@ -225,12 +225,12 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>Age</div>
+                        <div className={styles.signup_input_title}>Birthdate</div>
                         <br/>
                         <input className={styles.signup_input}
-                            type="number" 
-                            name="age" 
-                            value={formData.age} 
+                            type="date" 
+                            name="birthdate" 
+                            value={formData.birthdate} 
                             onChange={handleChange} 
                             required 
                         />

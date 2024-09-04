@@ -13,7 +13,7 @@ public class GroupRequest {
 
     private Long Id;
 //    private Long userId;
-    private String groupCord;
+    private String groupCode;
 //    private Set<String> members;
 
 

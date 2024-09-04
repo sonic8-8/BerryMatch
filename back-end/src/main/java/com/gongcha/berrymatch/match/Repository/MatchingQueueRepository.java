@@ -18,8 +18,8 @@ public interface MatchingQueueRepository extends JpaRepository<MatchingQueue, Lo
      * @param status 매칭대기열 유저상태
      * @return  매칭대기중인 유저 항목
      */
-    @Query("SELECT mq FROM MatchingQueue mq WHERE mq.status = :status AND mq.groupCord IS NULL ORDER BY mq.enqueuedAt ASC")
-    List<MatchingQueue> findByStatusAndGroupCordIsNullOrderByEnqueuedAtAsc(@Param("status") MatchQueueStatus status);
+    @Query("SELECT mq FROM MatchingQueue mq WHERE mq.status = :status AND mq.groupCode IS NULL ORDER BY mq.enqueuedAt ASC")
+    List<MatchingQueue> findByStatusAndGroupCodeIsNullOrderByEnqueuedAtAsc(@Param("status") MatchQueueStatus status);
 
 
     /**

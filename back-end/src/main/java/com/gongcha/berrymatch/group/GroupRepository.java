@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface GroupRepository  extends JpaRepository<UserGroup,Long> {
 
-    Optional<UserGroup> findByGroupCord(String groupCord);
+    Optional<UserGroup> findByGroupCode(String groupCode);
 
 
 

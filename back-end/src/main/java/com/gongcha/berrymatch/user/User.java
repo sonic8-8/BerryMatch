@@ -43,7 +43,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private int age;
+
 
     private String phoneNumber;
 
@@ -112,13 +112,13 @@ public class User {
 
 
     @Builder
-    public User(String identifier, String nickname, City city, District district, Gender gender, int age, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+    public User(String identifier, String nickname, City city, District district, Gender gender, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
         this.identifier = identifier;
         this.nickname = nickname;
         this.city = city;
         this.district = district;
         this.gender = gender;
-        this.age = age;
+
         this.phoneNumber = phoneNumber;
         this.profileImageUrl = profileImageUrl;
         this.introduction = introduction;
@@ -140,7 +140,6 @@ public class User {
         this.city = request.getCity();
         this.district = request.getDistrict();
         this.gender = request.getGender();
-        this.age = request.getAge();
         this.phoneNumber = request.getPhoneNumber();
         this.profileImageUrl = request.getProfileImageUrl();
         this.introduction = request.getIntroduction();

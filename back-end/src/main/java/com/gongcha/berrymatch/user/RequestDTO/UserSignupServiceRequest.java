@@ -41,7 +41,7 @@ public class UserSignupServiceRequest {
                 .city(city)
                 .district(district)
                 .gender(gender)
-                .age(age)
+
                 .phoneNumber(phoneNumber)
                 .profileImageUrl(profileImageUrl)
                 .introduction(introduction)

@@ -4,14 +4,10 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import MatchComparison from '../test/MatchComparison';
 function MatchDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
-
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -34,12 +30,14 @@ function MatchDashboard() {
 
             <div className={styles.dashboard_middle}>
                 <div className={styles.dashboard_middle_menu_container}>
-                    <Link to="setup" className={styles.dashboard_middle_menu}>매칭 조건 설정 / 테스트용</Link>
-                    <Link to="queue" className={styles.dashboard_middle_menu}>매칭 대기열 / 테스트용</Link>
-                    <Link to="/match/lobby" className={styles.dashboard_middle_menu}>매칭 로비 / 테스트용</Link>
+                <MatchComparison />
                 </div>
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />
+                    <div>
+                        
+                    </div>
+
                 </div>
             </div>
 
