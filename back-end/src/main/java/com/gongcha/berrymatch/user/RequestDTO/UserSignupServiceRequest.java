@@ -4,6 +4,9 @@ import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.*;
 import lombok.Builder;
 import lombok.Getter;
+import com.gongcha.berrymatch.user.City;
+import com.gongcha.berrymatch.user.District;
+import com.gongcha.berrymatch.user.Gender;
 
 import java.time.LocalDate;
 

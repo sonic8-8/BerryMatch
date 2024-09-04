@@ -1,0 +1,82 @@
+.post_list_box{
+
+    display: flex;
+
+    background-color: blanchedalmond;
+
+    /* 채워지는 게시물들 가운데 정렬 */
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    height: 100%;
+    width: 75%;
+
+}
+
+/* 각 게시글을 감싸고 있는 박스 */
+.post_box{
+
+    display: flex;
+    flex-direction: column; /* flexbox 내 요소들을 세로 방향으로 정렬 */
+    
+    background-color: gray;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 323px;
+    width: 314px;
+}
+
+.post_thumbnail{
+
+    border-radius: 10px;
+
+    height: 200px;
+    width: 250px;
+
+}
+
+.post_detail_box{
+    /* background-color: blue; */
+}
+
+.post_title{
+    margin-top: 5px;
+}
+
+.post_date{
+    margin-top: 5px;
+}
+
+.post_writer{
+    margin-top: 5px;
+}
+
+.like_size{
+    height: 45px;
+    width: 45px;
+}
+
+.page_change_button_container{
+    display: flex;
+    position: absolute;
+
+    margin-top: 750px;
+}
+
+
+.page_change_button{
+
+    /* all: unset; */
+
+    margin-right: 20px;
+
+    font-size: 30px;
+
+    height: 35px;
+    width: 35px;
+
+    cursor: pointer;
+}

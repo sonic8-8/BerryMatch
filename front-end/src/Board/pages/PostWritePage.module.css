@@ -1,0 +1,89 @@
+
+.container{
+    background-color: #1d1f21;
+    color: white;
+    margin: 0;
+    padding: 0;
+
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
+
+.title_h3{
+    display: inline;
+    margin-right: 20px;
+}
+
+.content_h3{
+    display: inline;
+    margin-right: 20px;
+}
+
+.container_input{
+
+    margin-top: 30px;
+
+        .title_input{
+
+            border-radius: 10px;
+
+            width: 250px;
+            height: 30px;
+
+            margin-right: 50px;
+        }
+
+        .content_textarea{
+            border-radius: 10px;
+
+            width: 500px;
+            height: 30px;
+
+
+            resize: none;
+        }
+
+        .upload_button{
+            margin-left: 50px;
+
+            height: 37px;
+            width: 100px;
+        
+            border-radius: 10px;
+        }
+}
+
+.container_files{
+
+    display: flex; /* flex는 기본적으로 줄바꿈을 안함 */
+    justify-content: left;
+
+        .thumbnail_div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+            margin-right: 100px;
+        }
+        .highlight_div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .file_input{
+            margin-bottom: 20px;
+        }
+
+        .size_img{
+            height: 300px;
+            width: 300px;
+        }
+}
+
+

@@ -33,11 +33,11 @@ function BoardDashboard() {
             </div>
 
             <div className={styles.dashboard_middle}>
-                <div className={styles.dashboard_middle_menu_container}>
-                    <div className={styles.dashboard_middle_menu}>메뉴1</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴2</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴3</div>
-                </div>
+                {/* <div className={styles.dashboard_middle_menu_container}>
+                    <div className={styles.dashboard_middle_menu}>최신순</div>
+                    <div className={styles.dashboard_middle_menu}>인기순</div>
+                    <div className={styles.dashboard_middle_menu}>내 게시물 보기</div>
+                </div> */}
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />
                 </div>
