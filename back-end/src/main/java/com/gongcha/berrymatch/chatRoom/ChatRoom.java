@@ -3,7 +3,6 @@ package com.gongcha.berrymatch.chatRoom;
 import com.gongcha.berrymatch.chatMessage.ChatMessage;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
-import lombok.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

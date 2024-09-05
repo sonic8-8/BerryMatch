@@ -1,6 +1,5 @@
 package com.gongcha.berrymatch.chatMessage;
 
-import com.gongcha.berrymatch.chatRoom.ChatRoomDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
