@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat 관련 프론트 수정 중">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat 기능 메인 서버 코드 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatMessage/ChatMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameResultTempRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameResultTempRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/RequestDTO/UserSignupRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/RequestDTO/UserSignupRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/RequestDTO/UserSignupServiceRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/RequestDTO/UserSignupServiceRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,6 +125,11 @@
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\윤슬아\Desktop\BerryMatch\back-end\src\main\java\com\gongcha\berrymatch\user\RequestDTO" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -201,7 +203,7 @@
       <workItem from="1725442506105" duration="322000" />
       <workItem from="1725443045618" duration="1281000" />
       <workItem from="1725454262771" duration="1224000" />
-      <workItem from="1725494519406" duration="6654000" />
+      <workItem from="1725494519406" duration="10701000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -251,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725443475999</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Chat 기능 메인 서버 코드 수정">
+      <option name="closed" value="true" />
+      <created>1725502583892</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725502583893</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +284,8 @@
     <MESSAGE value="develop pull 이후 최초 커밋" />
     <MESSAGE value="chat 기능 병합 이후 출돌 해결" />
     <MESSAGE value="Chat 관련 프론트 수정 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chat 관련 프론트 수정 중" />
+    <MESSAGE value="Chat 기능 메인 서버 코드 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat 기능 메인 서버 코드 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
