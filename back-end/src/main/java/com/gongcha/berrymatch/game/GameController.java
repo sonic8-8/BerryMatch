@@ -35,32 +35,32 @@ public class GameController {
 
     /**
      * 경기 종료 후 경기 기록 작성 가능 상태 확인
-     * @param game (경기 정보)
+     * @param gameId (경기 ID)
      * @return GameStatus 경기 진행 상태 (DURING, END)
      */
-    @GetMapping("/check-ready-input")
-    public ApiResponse<GameStatus> checkReadyInput(@RequestParam GameDTO game) {
-        return ApiResponse.ok(gameService.checkReadyInput(game));
+    @GetMapping("/check-ready-input/{gameId}")
+    public ApiResponse<GameStatus> checkReadyInput(@PathVariable Long gameId) {
+        return ApiResponse.ok(gameService.checkReadyInput(gameId));
     }
 
     /**
      * 경기 기록 제출 후 투표 가능 상태 확인
-     * @param gameResultTemp (경기 임시 기록 정보)
+     * @param gameId (경기 임시 기록 정보)
      * @return GameRecordTempStatus (최종 결과를 업데이트)
      */
-    @GetMapping("/check-ready-vote")
-    public ApiResponse<GameRecordTempStatus> checkReadyVote(@RequestParam GameDTO gameResultTemp) {
-        return ApiResponse.ok(gameService.checkReadyVote(gameResultTemp));
+    @GetMapping("/check-ready-vote/{gameId}")
+    public ApiResponse<GameRecordTempStatus> checkReadyVote(@PathVariable Long gameId) {
+        return ApiResponse.ok(gameService.checkReadyVote(gameId));
     }
 
     /**
      * 게시글 작성 가능 상태 확인
-     * @param game (경기 결과 기록)
+     * @param gameId (경기 결과 기록)
      * @return GameStatus (경기 기록 상태)
      */
-    @GetMapping("/check-ready-post")
-    public ApiResponse<GameStatus> checkReadyPost(@RequestParam GameDTO game) {
-        return ApiResponse.ok(gameService.checkReadyPost(game));
+    @GetMapping("/check-ready-post/{gameId}")
+    public ApiResponse<GameStatus> checkReadyPost(@PathVariable Long gameId) {
+        return ApiResponse.ok(gameService.checkReadyPost(gameId));
     }
 
     /**

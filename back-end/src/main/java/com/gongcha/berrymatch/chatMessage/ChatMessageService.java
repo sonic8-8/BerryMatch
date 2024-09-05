@@ -26,7 +26,7 @@ public class ChatMessageService {
 
     // 해당하는 채팅방의 모든 채팅 내역 불러오기
     public List<ChatMessage> loadAllMessages(Long roomId) {
-        return chatMessageRepository.findAllByChatRoomOrderByCreatedAtAsc(roomId);
+        return chatMessageRepository.findAllByChatRoomIdOrderByCreatedAtAsc(roomId);
     }
 
 }
