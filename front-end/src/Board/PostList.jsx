@@ -5,6 +5,7 @@ import PostDetail from './PostDetail';
 import { setModalSwitch, setLikeSwitch} from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // 좋아요 버튼 갖고옴
 import { AiOutlineLike } from "react-icons/ai";
@@ -14,6 +15,8 @@ import { AiFillLike } from "react-icons/ai";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function PostList() {
+
+  const accessToken = Cookies.get("accessToken");
 
   let nav = useNavigate();
 
@@ -28,6 +31,36 @@ function PostList() {
   console.log("현재 몇번째 페이지? : ", currentPage);
 
 
+   /**
+   * 하이라이트 페이지를 들어왔을 때 DB에 저장되어 있는 게시글들 보여주기
+   */
+  let data;
+  useEffect(() => {
+    axios.get(`http://localhost:8085/api/postpage/${currentPage}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    })
+    .then(
+      response=>{
+        const apiResponse = response.data;
+        data = apiResponse.data;
+        const message = apiResponse.message;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+        console.log("게시글 및 총 페이지 수 값 : ", data);
+        setPostList(data.postDataList);
+        setTotalPages(data.totalPages);
+        nav(`/board/${currentPage}`);
+      })
+    .catch(
+      error=>{
+        console.log("오류남 -> ", error);
+      }
+    )
+  }, [currentPage]);    
+
 
   // store.js로 요청 보내주는 함수
   let dispatch = useDispatch();
@@ -39,30 +72,7 @@ function PostList() {
   let modalSwitch = storeState.modalSwitch;
   let likeSwitch = storeState.likeSwitch;
 
-  /**
-   * 하이라이트 페이지를 들어왔을 때 DB에 저장되어 있는 게시글들 보여주기
-   */
-  let data;
-  useEffect(() => {
-    axios.post(`http://localhost:8085/api/postpage/${currentPage}`)
-      .then(
-        response=>{
-          const apiResponse = response.data;
-          data = apiResponse.data;
-          const message = apiResponse.message;
-          const code = apiResponse.code;
-          const status = apiResponse.status;
-          console.log("게시글 및 총 페이지 수 값 : ", data);
-          setPostList(data.postDataList);
-          setTotalPages(data.totalPages);
-          nav(`/postpage/postlist/${currentPage}`);
-        })
-      .catch(
-        error=>{
-          console.log("오류남 -> ", error);
-        }
-      )
-  }, [currentPage]);    
+ 
 
 
 

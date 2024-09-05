@@ -48,7 +48,8 @@ public class Post {
     private int view;
 
     @Builder
-    public Post(String title, String content) {
+    public Post(User user ,String title, String content) {
+        this.user = user;
         this.title = title;
         this.content = content;
     }

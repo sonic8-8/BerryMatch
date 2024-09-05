@@ -3,6 +3,7 @@ import styles from './PostWritePage.module.css';
 import axios from 'axios';
 import defaultImg from '../img/defaultImg.png';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
 
 function PostWritePage() {
 
@@ -78,12 +79,17 @@ function PostWritePage() {
     event.preventDefault();
 
 
-    let post_id
+    const decodedToken = jwtDecode(accessToken);
+    const id = decodedToken.id;
+    console.log(id);
+
+    let post_id = null;
 
     // 제목과 내용 데이터 묶음
     const postData = {
       "title" : title,
-      "content" : content
+      "content" : content,
+      "id" : id
     }
 
     await axios.post('http://localhost:8085/api/post/upload', postData, {
@@ -162,9 +168,9 @@ function PostWritePage() {
       
       <div className={styles.container_input}>
         <h3 className={styles.title_h3}>제목</h3>
-        <input type='text' className={styles.title_input}></input>
+        <input type='text' className={styles.title_input}  onBlur={ handleTitleBlur }></input>
         <h3 className={styles.content_h3}>내용</h3>
-        <input className={styles.content_textarea}></input>
+        <input className={styles.content_textarea}  onBlur={ handleContentBlur }></input>
         <button className={styles.upload_button} onClick={ submitFile }>업로드</button>
       </div>
 

@@ -57,9 +57,8 @@ function App() {
         <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
         <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>}>
-        <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
+          <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
           <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} />
-          
         </Route>
         
 

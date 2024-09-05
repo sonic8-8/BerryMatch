@@ -29,7 +29,7 @@ public class PostController {
     @PostMapping("/post/upload")
     public ApiResponse<PostResponse> post(@RequestBody PostRequest request) {
 
-        System.out.println("게시글 업로드 중 ...");
+        System.out.println("PostRequest값 : " + request.toString());
 
         return ApiResponse.ok(postService.postSave(request));
     }
@@ -37,11 +37,9 @@ public class PostController {
     /**
      * 현재 접속한 페이지의 게시물들이랑 총 페이지 수를 보내줌.
      */
-    @PostMapping("/postpage/{currentPage}")
+    @GetMapping("/postpage/{currentPage}")
     public ApiResponse<PostDataResponse> postList(@PathVariable int currentPage) {
-
         System.out.println("넘어온 페이지 값 : " + currentPage);
-
         return ApiResponse.ok(postService.getPosts(currentPage));
     }
 
