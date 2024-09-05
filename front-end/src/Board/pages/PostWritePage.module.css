@@ -12,6 +12,8 @@
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
+
+
 }
 
 .title_h3{
@@ -29,33 +31,25 @@
     margin-top: 30px;
 
         .title_input{
-
+            
             border-radius: 10px;
 
-            width: 250px;
+            width: 630px;
             height: 30px;
-
+            
+            margin-bottom: 30px;
             margin-right: 50px;
         }
 
         .content_textarea{
             border-radius: 10px;
 
-            width: 500px;
+            width: 630px;
             height: 30px;
-
 
             resize: none;
         }
 
-        .upload_button{
-            margin-left: 50px;
-
-            height: 37px;
-            width: 100px;
-        
-            border-radius: 10px;
-        }
 }
 
 .container_files{
@@ -63,6 +57,7 @@
     display: flex; /* flex는 기본적으로 줄바꿈을 안함 */
     justify-content: left;
 
+    overflow-y: auto;
         .thumbnail_div{
             display: flex;
             flex-direction: column;
@@ -86,4 +81,13 @@
         }
 }
 
+.upload_button{
+    margin-left: 50px;
 
+    height: 37px;
+    width: 100px;
+
+
+    
+    border-radius: 10px;
+}

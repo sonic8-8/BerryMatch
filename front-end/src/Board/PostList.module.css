@@ -1,82 +1,97 @@
-.post_list_box{
-
+.postpage_container{
+    
     display: flex;
-
-    background-color: blanchedalmond;
-
-    /* 채워지는 게시물들 가운데 정렬 */
+    align-items: center;
     justify-content: center;
+    /* background-color: bisque; */
 
-    flex-wrap: wrap;
+    flex-direction: column;
 
     height: 100%;
-    width: 75%;
+    width: 100%;
 
-}
+        .posts_container{
+            height: 85%;
+            width: 60%;
 
-/* 각 게시글을 감싸고 있는 박스 */
-.post_box{
+            /* background-color: aqua; */
 
-    display: flex;
-    flex-direction: column; /* flexbox 내 요소들을 세로 방향으로 정렬 */
-    
-    background-color: gray;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            
+            gap: 10px 100px;
 
-    justify-content: center;
-    align-items: center;
+                
+        }
 
-    height: 323px;
-    width: 314px;
+        .post_container{
+            display: flex;
+            height: 50%;
+                .post_detail_container{
+                    /* background-color: aqua; */
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                        
+                        .post_title{
+                            margin-top: 5px;
+                        }
+                        .post_date{
+                            margin-top: 5px;
+                        }
+                        .post_writer{
+                            margin-top: 5px;
+                        }
+                        
+                }
+        }
+
 }
 
 .post_thumbnail{
+    height: 150px;
+    width: 150px;
 
     border-radius: 10px;
-
-    height: 200px;
-    width: 250px;
-
-}
-
-.post_detail_box{
-    /* background-color: blue; */
-}
-
-.post_title{
-    margin-top: 5px;
-}
-
-.post_date{
-    margin-top: 5px;
-}
-
-.post_writer{
-    margin-top: 5px;
-}
-
-.like_size{
-    height: 45px;
-    width: 45px;
 }
 
 .page_change_button_container{
+    margin-top: 20px;
     display: flex;
-    position: absolute;
+    justify-content: center;
+    align-items: center;
 
-    margin-top: 750px;
+        .page_change_button{
+            
+            background-color: d;
+
+            border-radius: 10px;
+
+            height: 30px;
+            width: 30px;
+
+            margin-right: 20px;
+        }
 }
 
-
-.page_change_button{
-
-    /* all: unset; */
-
-    margin-right: 20px;
-
-    font-size: 30px;
-
-    height: 35px;
-    width: 35px;
-
-    cursor: pointer;
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50vh;
+    color: aliceblue;
 }
+  
+.modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* 검정색 배경에 50% 투명도 */
+    z-index: 999; /* 다른 요소 위에 표시 */
+    /* display: none; 기본적으로 숨김 */
+}
+  

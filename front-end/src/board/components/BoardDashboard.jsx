@@ -9,13 +9,7 @@ function BoardDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
 
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+    console.log(loading);
 
     return (
         <div className={styles.dashboard_container}>

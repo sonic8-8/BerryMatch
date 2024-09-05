@@ -103,14 +103,12 @@ public class User {
     @JoinColumn(name = "chat_message_id")
     private ChatMessage chatMessage;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_like_id")
     private PostLike postLike;
-
 
     @Builder
     public User(Long id, String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {

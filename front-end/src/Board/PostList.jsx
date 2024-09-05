@@ -6,6 +6,8 @@ import { setModalSwitch, setLikeSwitch} from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import img from './img/defaultImg.png'
+import Modal from 'react-modal';
 
 // 좋아요 버튼 갖고옴
 import { AiOutlineLike } from "react-icons/ai";
@@ -15,6 +17,7 @@ import { AiFillLike } from "react-icons/ai";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function PostList() {
+
 
   const accessToken = Cookies.get("accessToken");
 
@@ -50,6 +53,7 @@ function PostList() {
         const code = apiResponse.code;
         const status = apiResponse.status;
         console.log("게시글 및 총 페이지 수 값 : ", data);
+        console.log(apiResponse);
         setPostList(data.postDataList);
         setTotalPages(data.totalPages);
         nav(`/board/${currentPage}`);
@@ -124,31 +128,47 @@ console.log("내가 클릭한 페이지 : ", parseInt(event.target.value));
 
 
   return (
-    <div className={styles.post_list_box}>
+    <div className={styles.postpage_container}>
       
-      
+      <div className={styles.posts_container}>
         {
          postList.map(function(_, i){
             return (
-                <div className={styles.post_box} key={i} onClick={ () => handleModalSwitch(i) }>
-                  <div className={styles.post_detail_box}>
+                <div className={styles.post_container} key={i} onClick={ () => handleModalSwitch(i) }>
+                  <div className={styles.post_detail_container}>
                     <img src={postList[i].thumbnailUrl} className={styles.post_thumbnail}></img>
                     <div className={styles.post_title}>{postList[i].title}</div>
                     <div className={styles.post_date}>{postList[i].createAt}</div>
-                    <div className={styles.post_writer}>null</div>
+                    <div className={styles.post_writer}>{postList[i].nickname}</div>
                   </div>
                 </div>
               )
           })
         }
-      
+      </div>
      
       
   
-      {
+      {/* {
         modalSwitch == true ? <PostDetail postList={postDetailData}></PostDetail> : null
+      } */}
+
+      {
+        modalSwitch ? (
+          <Modal isOpen={true} ariaHideApp={false} onRequestClose={() => 
+            dispatch(setModalSwitch())
+          }
+          overlayClassName={styles.modal_overlay}
+          contentClassName={styles.modal_content}
+          className={styles.modal}
+          >
+            <PostDetail postList={postDetailData}></PostDetail>
+          </Modal>
+        ) : null
       }
       
+      
+
       <div className={styles.page_change_button_container}>
         {
           createButton(totalPages).map((data)=>(

@@ -58,20 +58,19 @@ public class PostService {
     // 페이징
     public PostDataResponse getPosts(int currentPage) {
 
-        System.out.println("여기1");
-
         Page<Post> posts = postRepository.findPageBy(PageRequest.of(currentPage - 1, 6));
-
-        System.out.println("여기2");
 
         List<PostData> postDataList = new ArrayList<>();
 
         for (Post post : posts.getContent()) {
             Long postId = post.getId();
-            String thumbnailUrl = postFileRepository.findByPostId(post.getId()).get().getThumbFileUrl();
-            String fileUrl = postFileRepository.findByPostId(post.getId()).get().getFileUrl();
+            String thumbnailUrl = postFileRepository.findByPostId(post.getId()).
+            orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getThumbFileUrl();
+            String fileUrl = postFileRepository.findByPostId(post.getId()).
+            orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getFileUrl();
+            String nickname = post.getUser().getNickname();
             String title = post.getTitle();
-            String createAt = post.getCreatedAt().toString();
+            String createAt = post.getCreatedAt().toString().substring(0, 10);
 
 
 
@@ -80,6 +79,7 @@ public class PostService {
                     .thumbnailUrl(thumbnailUrl)
                     .fileUrl(fileUrl)
                     .title(title)
+                    .nickname(nickname)
                     .createAt(createAt)
                     .build());
         }

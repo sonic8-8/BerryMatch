@@ -167,11 +167,15 @@ function PostWritePage() {
     <div className={styles.container}>
       
       <div className={styles.container_input}>
-        <h3 className={styles.title_h3}>제목</h3>
-        <input type='text' className={styles.title_input}  onBlur={ handleTitleBlur }></input>
-        <h3 className={styles.content_h3}>내용</h3>
-        <input className={styles.content_textarea}  onBlur={ handleContentBlur }></input>
-        <button className={styles.upload_button} onClick={ submitFile }>업로드</button>
+        <div>
+          <h3 className={styles.title_h3}>제목</h3> <br></br>
+          <input type='text' className={styles.title_input}  onBlur={ handleTitleBlur }></input>
+        </div>
+
+        <div>
+          <h3 className={styles.content_h3}>내용</h3><br></br>
+          <input className={styles.content_textarea}  onBlur={ handleContentBlur }></input>
+        </div>
       </div>
 
       <br></br>
@@ -190,10 +194,9 @@ function PostWritePage() {
           <img src={ inputFile ? inputFile : defaultImg } className={styles.size_img}></img>
         </div>
       </div>
-      
 
-      
-    
+      <button className={styles.upload_button} onClick={ submitFile }>업로드</button>
+
     </div>
   )
 }

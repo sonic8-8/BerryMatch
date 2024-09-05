@@ -8,7 +8,7 @@
     position: absolute; /* 모달창이 다른 요소를 덮어씌우기 위해 */
 
     height: 700px;
-    width: 800px;
+    width: 1200px;
     
     background-color: #1d1f21;
 
@@ -17,17 +17,23 @@
 }
 
 
-.file_size{
+.highlight_file{
     height: 500px;
-    width: 500px;
+    width: 800px;
     
+    border-radius: 10px;
 }
 
-.like_size{
+.like_button{
+    margin-top: 50%;
+
     height: 50px;
     width: 50px;
 }
 
 .close_btn{
-    margin-left: 780px;
+    font-size: 30px;
+
+    margin-top: 2%;
+    margin-left: 90%;
 }

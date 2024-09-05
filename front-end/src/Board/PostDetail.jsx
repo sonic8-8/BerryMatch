@@ -88,11 +88,11 @@ function PostDetail(props) {
       
       <div>{props.postList.title}</div>
       <div>{props.postList.createAt}</div>
-      <video className={styles.file_size} controls autoPlay><source src={props.postList.fileUrl}></source></video>
+      <video className={styles.highlight_file} controls autoPlay><source src={props.postList.fileUrl}></source></video>
       
       <div onClick={ handleLikeClick }>
       {
-        likeSwitch ? <AiFillLike className={styles.like_size}/> : <AiOutlineLike className={styles.like_size}/>
+        likeSwitch ? <AiFillLike className={styles.like_button}/> : <AiOutlineLike className={styles.like_button}/>
       }
       </div>
     </div>
