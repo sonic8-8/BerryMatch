@@ -10,4 +10,6 @@ public interface TokenRepository extends MongoRepository<Token, String> {
     Optional<Token> findByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo);
 
     void deleteByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo);
+
+    void deleteAllByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo);
 }

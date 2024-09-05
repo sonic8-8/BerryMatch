@@ -9,10 +9,6 @@ function MatchDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
 
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
-
     if (error) {
         return <div>Error: {error.message}</div>;
     }
@@ -40,6 +36,10 @@ function MatchDashboard() {
                 </div>
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />
+                    <div>
+                        
+                    </div>
+
                 </div>
             </div>
 

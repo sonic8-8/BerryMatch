@@ -1,22 +1,26 @@
 package com.gongcha.berrymatch.user.ResponseDTO;
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.user.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserSignupResponse {
+public class UserProfileUpdateResponse {
+
+    private Long id;
     private String identifier;
-    private Role role;
     private ProviderInfo providerInfo;
+    private String profileImageUrl;
+    private String introduction;
 
     @Builder
-    public UserSignupResponse(String identifier, Role role, ProviderInfo providerInfo) {
+    public UserProfileUpdateResponse(Long id, String identifier, ProviderInfo providerInfo, String profileImageUrl, String introduction) {
+        this.id = id;
         this.identifier = identifier;
-        this.role = role;
         this.providerInfo = providerInfo;
+        this.profileImageUrl = profileImageUrl;
+        this.introduction = introduction;
     }
 }

@@ -61,7 +61,13 @@ public class AuthController {
             @AuthenticationPrincipal UserPrincipal userPrincipal,
             HttpServletResponse response) {
 
-        Token token = tokenService.findByIdentifierAndProviderInfo(userPrincipal.getUser().getIdentifier(), userPrincipal.getUser().getProviderInfo());
+        Token token = null;
+
+        try {
+            token = tokenService.findByIdentifierAndProviderInfo(userPrincipal.getUser().getIdentifier(), userPrincipal.getUser().getProviderInfo());
+        } catch (Exception e) {
+            tokenService.deleteAllByIdentifierAndProviderInfo(userPrincipal.getUser().getIdentifier(), userPrincipal.getUser().getProviderInfo());
+        }
 
         System.out.println("token" + token);
 

@@ -37,4 +37,8 @@ public class TokenService {
     public void deleteByIdAndProviderInfo(String identifier, ProviderInfo providerInfo) {
         tokenRepository.deleteByIdentifierAndProviderInfo(identifier, providerInfo);
     }
+
+    public void deleteAllByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo) {
+        tokenRepository.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
+    }
 }

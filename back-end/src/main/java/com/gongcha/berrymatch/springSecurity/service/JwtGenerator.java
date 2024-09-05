@@ -60,6 +60,7 @@ public class JwtGenerator {
 
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
         claims.put("identifier", user.getIdentifier());
         claims.put("providerInfo", user.getProviderInfo());
         claims.put("role", user.getRole());

@@ -99,5 +99,24 @@ public class S3Service {
 
     }
 
+    /**
+     * S3 버킷에 하이라이트 사진을 업로드해주는 메서드
+     */
+    public String uploadProfileImage(PostFileUploadServiceRequest request) throws IOException {
+
+        ValidateImageFilter(request);
+
+        MultipartFile file = request.getFile();
+
+        String directory = "profile_image/";
+        String storedFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String key = directory + storedFilename;
+
+        s3Template.upload(bucketName, key, file.getInputStream());
+
+        return key;
+
+    }
+
 }
 
