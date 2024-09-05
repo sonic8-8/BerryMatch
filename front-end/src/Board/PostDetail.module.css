@@ -8,7 +8,7 @@
     position: absolute; /* 모달창이 다른 요소를 덮어씌우기 위해 */
 
     height: 700px;
-    width: 1200px;
+    width: 1000px;
     
     background-color: #1d1f21;
 
@@ -16,6 +16,25 @@
 
 }
 
+.post_header{
+
+}
+
+.close_btn{
+
+
+    font-size: 30px;
+    border-radius: 10px;
+
+    margin-top: 2%;
+    margin-left: 90%;
+
+    cursor: pointer;
+}
+
+.close_btn:hover{    
+    background-color: darkslategrey;
+}
 
 .highlight_file{
     height: 500px;
@@ -31,9 +50,3 @@
     width: 50px;
 }
 
-.close_btn{
-    font-size: 30px;
-
-    margin-top: 2%;
-    margin-left: 90%;
-}

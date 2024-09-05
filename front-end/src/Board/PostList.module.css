@@ -65,7 +65,7 @@
 
         .page_change_button{
             
-            background-color: d;
+            /* background-color: d; */
 
             border-radius: 10px;
 
@@ -73,6 +73,12 @@
             width: 30px;
 
             margin-right: 20px;
+
+            cursor: pointer;
+        }
+
+        .page_change_button:hover{
+            background-color: bisque;
         }
 }
 

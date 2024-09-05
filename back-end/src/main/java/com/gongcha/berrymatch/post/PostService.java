@@ -70,6 +70,7 @@ public class PostService {
             orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getFileUrl();
             String nickname = post.getUser().getNickname();
             String title = post.getTitle();
+            String content = post.getContent();
             String createAt = post.getCreatedAt().toString().substring(0, 10);
 
 
@@ -79,6 +80,7 @@ public class PostService {
                     .thumbnailUrl(thumbnailUrl)
                     .fileUrl(fileUrl)
                     .title(title)
+                    .content(content)
                     .nickname(nickname)
                     .createAt(createAt)
                     .build());

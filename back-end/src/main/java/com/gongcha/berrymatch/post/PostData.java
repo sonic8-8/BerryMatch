@@ -13,17 +13,19 @@ public class PostData {
     private String thumbnailUrl;
     private String fileUrl;
     private String title;
+    private String content;
     private String nickname;
     private String createAt;
 
 
 
     @Builder
-    private PostData(Long postId, String thumbnailUrl, String fileUrl, String title, String nickname,String createAt) {
+    private PostData(Long postId, String thumbnailUrl, String fileUrl, String title, String content, String nickname,String createAt) {
         this.postId = postId;
         this.thumbnailUrl = thumbnailUrl;
         this.fileUrl = fileUrl;
         this.title = title;
+        this.content = content;
         this.nickname = nickname;
         this.createAt = createAt;
     }
