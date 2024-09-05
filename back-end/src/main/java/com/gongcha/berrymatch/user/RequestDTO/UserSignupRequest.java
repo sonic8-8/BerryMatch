@@ -6,10 +6,12 @@ import com.gongcha.berrymatch.user.District;
 import com.gongcha.berrymatch.user.Gender;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 public class UserSignupRequest {
 
     private String identifier;

@@ -58,12 +58,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
             jwtFacade.deleteRefreshToken(user.getIdentifier(), user.getProviderInfo()); // MongoDB에서 삭제
+
+            System.out.println("refresh 토큰 mongoDB에서 삭제");
+
             jwtFacade.generateRefreshToken(response, user); // 재발급
+
+            System.out.println("refresh 토큰 재발급");
+
             jwtFacade.setReissuedHeader(response);
 
             setAuthenticationToContext(reissuedAccessToken);
-
-            System.out.println("발급 성공요");
 
             filterChain.doFilter(request, response);
             return;
