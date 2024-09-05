@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 const ChatMembersList = ({roomId}) => {
     // let roomId 
 
-    const socket = io.connect("http://localhost:8085/chat/"+roomId,{
+    const socket = io.connect(`http://localhost:8085/chat/${roomId}`,{
         cors:{
             origin:"*"
         }

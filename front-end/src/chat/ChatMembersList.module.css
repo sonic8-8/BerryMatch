@@ -1,5 +1,9 @@
+.chat_members_list{
+    
+}
+
 @media screen and (max-width:768px){
-    .hat_members_list{
+    .chat_members_list{
         width: 100%;    
         
     }
