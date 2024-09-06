@@ -41,10 +41,8 @@ public class GroupController {
         }
     }
 
-    @PostMapping("/{groupCode}/leave")
-    public ApiResponse<GroupResponse> leaveGroup(@PathVariable String groupCode,@RequestBody GroupRequest groupRequest){
-        System.out.println(groupRequest);
-        groupRequest.setGroupCode(groupCode);
+    @PostMapping("/{id}/groupleave")
+    public ApiResponse<GroupResponse> leaveGroup(@PathVariable Long id ,@RequestBody GroupRequest groupRequest){
         GroupResponse groupResponse = groupService.leaveGroup(groupRequest);
         return ApiResponse.ok(groupResponse);
     }
@@ -58,4 +56,14 @@ public class GroupController {
          GroupResponse groupResponse  = groupService.getGroupByUserId(id);;
         return ApiResponse.ok(groupResponse);
     }
+
+
+
+    @GetMapping("/group/user/{id}/live")
+    public ApiResponse<GroupResponse> getLiveGroupState(@PathVariable Long id) {
+        System.out.println("유저그룹아이디 들어옴"+id);
+        GroupResponse groupResponse  = groupService.getGroupByUserId(id);;
+        return ApiResponse.ok(groupResponse);
+    }
+
 }
