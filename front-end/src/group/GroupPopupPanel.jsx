@@ -60,13 +60,19 @@ const PopupPanel = () => {
     if (groupCreated) {
       const intervalId = setInterval(async () => {
         try {
-          const response = await axios.get(`http://localhost:8085/api/group/user/${id}/members`, {
+          const response = await axios.get(`http://localhost:8085/api/group/user/${id}/live`, {
             headers: {
               'Authorization': `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
             },
           });
-          if (response.status === 200) {
-            setMembers(response.data.members);
+          if (response.status === 200 && response.data.data) {
+            console.log(response.data.data)
+            setGroupCreated(true);
+            setCurrentGroup(response.data.data);
+            setMembers(response.data.data.members);
+          } else {
+            setGroupCreated(false);
           }
         } catch (error) {
           console.error('멤버 목록 업데이트 에러:', error);
@@ -130,6 +136,52 @@ const PopupPanel = () => {
       console.error('그룹 생성 에러:', error);
     }
   };
+
+
+
+//그룹 나가기 
+const GroupLeave = async (e) => {
+  e.preventDefault();
+  const requestData = {
+    id: id,
+  };
+
+  try {
+    const response = await axios.post(`http://localhost:8085/api/${id}/groupleave`, requestData, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+
+    if (response.status === 200) {
+      // 그룹 나가기 성공 후, 그룹 참가/생성 UI로 돌아감
+      setGroupCreated(false);
+      setCurrentGroup(null); // 현재 그룹 정보를 초기화
+      setMembers([]); // 멤버 리스트 초기화
+    }
+  } catch (error) {
+    console.error('그룹 나가기 에러:', error);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
     return (
@@ -205,6 +257,9 @@ const PopupPanel = () => {
                         <p>그룹에 멤버가 없습니다.</p>
                       )}
                     </ul>
+                    <button 
+                    onClick={GroupLeave}
+                    >그룹 나가기</button>
                   </div>
                 </div>
               )}

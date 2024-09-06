@@ -7,7 +7,6 @@ import { useState } from 'react';
 import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
 import Map from './Map';
 import MatchStatus from './components/MatchStatus';
-import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
 import GroupPopupPanel from '../group/GroupPopupPanel';
 
 function Dashboard() {
