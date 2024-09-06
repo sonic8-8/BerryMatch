@@ -45,20 +45,20 @@ function ProfileEditSubPage() {
     return (
         <div className={styles.profileEdit_container}>
             <div className={styles.profileEdit_image_container}>
-                <div className={styles.profileEdit_image_title}>프로필 사진</div>
+                <div className={styles.profileEdit_image_title}>도시</div>
                 {
-                    profileImage == null ?
-                    '프로필 사진이 없습니다.' :
+                    profileImage == null ? 
+                    '프로필 사진이 없습니다.' : 
                     <img src={userInfo.profileImageUrl} className={styles.profileEdit_image} />
                 }
-
+                
             </div>
             <br />
             <div className={styles.profileEdit_introduction_container}>
                 <div className={styles.profileEdit_introduction_title}>
-                    자기소개 : {userInfo.introduction == '' ? '자기소개가 없습니다.' : userInfo.introduction}
+                    구 : {userInfo.introduction == '' ? '자기소개가 없습니다.' : userInfo.introduction}
                 </div>
-
+                
                 {/* 연필 모양 버튼 */}
                 <button className={styles.profileEdit_edit_button} onClick={() => openModal(false)}>
                     ✏️
@@ -76,7 +76,7 @@ function ProfileEditSubPage() {
                 <div className={styles.modal_profileEdit_image_container}>
                     <input type="file" onChange={handleProfileImageChange} className={styles.profileEdit_image_input} />
                 </div>
-
+                    
                 <div className={styles.modal_profileEdit_introduction_container}>
                     <input className={styles.profileEdit_introduction_input}
                             type="text"

@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -29,12 +31,22 @@ public class TokenService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB));
     }
 
+    public List<Token> findAllByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo) {
+        return tokenRepository.findAllByIdentifierAndProviderInfo(identifier, providerInfo);
+    }
+
     public boolean isRefreshHijacked(String identifier, String refreshToken, ProviderInfo providerInfo) {
         Token token = findByIdentifierAndProviderInfo(identifier, providerInfo);
         return !token.getToken().equals(refreshToken);
     }
 
-    public void deleteByIdAndProviderInfo(String identifier, ProviderInfo providerInfo) {
-        tokenRepository.deleteByIdentifierAndProviderInfo(identifier, providerInfo);
+    public void deleteAllByIdentifierAndProviderInfo(String identifier, ProviderInfo providerInfo) {
+        tokenRepository.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
     }
+
+    public boolean isRefreshDuplicate(String identifier, ProviderInfo providerInfo) {
+        List<Token> tokens = tokenRepository.findAllByIdentifierAndProviderInfo(identifier, providerInfo);
+        return (tokens.size() >= 2);
+    }
+
 }

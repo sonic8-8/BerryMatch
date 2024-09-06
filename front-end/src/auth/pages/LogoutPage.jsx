@@ -30,12 +30,17 @@ const LogoutPage = () => {
 
                 Cookies.remove('accessToken');
                 Cookies.remove('refresh');
+
                 navigate('/login');
             } catch (err) {
-                setError('로그아웃 중 오류가 발생했습니다.');
-                console.error('Logout error:', err);
-
+                Cookies.remove('accessToken');
                 Cookies.remove('refresh');
+
+                setError('로그아웃 중 오류가 발생했습니다.');
+                console.error('로그아웃 에러요:', err);
+
+
+                navigate('/login');
 
             } finally {
                 setLoading(false);

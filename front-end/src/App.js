@@ -17,11 +17,13 @@ import PrivateRoute from './auth/components/PrivateRoute';
 import TokenPage from './auth/pages/TokenPage';
 import BackgroundMusic from './common/components/BackgroundMusic';
 import MatchPage from './match/pages/MatchPage';
+import MatchLobbyPage from './match/pages/MatchLobbyPage';
 
 import ProfileEditSubPage from './user/pages/ProfileEditSubPage';
 import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
 import MatchComparison from './match/test/MatchComparison';
+import Map from './common/Map';
 
 function App() {
 
@@ -58,6 +60,7 @@ function App() {
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
         <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
+        <Route path="/map" element={<PrivateRoute><Map /></PrivateRoute>} />
       </Routes>
     </div>
   );

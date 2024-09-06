@@ -126,14 +126,12 @@ public class GroupService {
     }
 
 
-
     public GroupResponse getGroupByUserId(Long id) {
         UserGroup userGroup = groupRepository.findByUserId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Group not found for user with id: " + id));
 
         return GroupResponse.fromUserGroup(userGroup);
     }
-
 
 
     private String generateGroupCode() {
