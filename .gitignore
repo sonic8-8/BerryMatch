@@ -49,6 +49,7 @@
 /back-end/*.iws
 /back-end/*.iml
 /back-end/*.ipr
+/back-end/*.xml
 /back-end/out/
 !**/back-end/src/main/**/out/
 !**/back-end/src/test/**/out/
@@ -68,5 +69,5 @@
 /real-time-server/node_modules
 
 # --------------------------------------------------------- practical-project ---------------------------------------------------------
-
+/.idea/
 .env

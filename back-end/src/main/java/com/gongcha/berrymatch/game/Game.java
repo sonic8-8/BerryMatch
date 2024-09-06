@@ -25,9 +25,12 @@ public class Game {
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
+    @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
-    private String gameResult;
+    private int resultTeamA;
+
+    private int resultTeamB;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -35,4 +38,17 @@ public class Game {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "game_id")
     private Match match;
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public void setResultTeamA(int resultTeamA) {
+        this.resultTeamA = resultTeamA;
+    }
+
+    public void setResultTeamB(int resultTeamB) {
+        this.resultTeamB = resultTeamB;
+    }
+
 }
