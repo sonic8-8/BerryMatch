@@ -30,6 +30,9 @@ const useUserInfo = () => {
           throw new Error('identifier not found in refresh token');
         }
 
+        console.log(identifier);
+        console.log(providerInfo);
+
         const response = await axios.get('http://localhost:8085/api/user-info', {
           params: { identifier: identifier, providerInfo: providerInfo },
           headers: {
@@ -38,7 +41,11 @@ const useUserInfo = () => {
           withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
         });
 
-        const { data, message, code, status } = response.data;
+        console.log(response.data);
+        const data = response.data;
+        const message = response.message;
+        const code = response.code;
+        const status = response.status;
 
         console.log(data);
 
