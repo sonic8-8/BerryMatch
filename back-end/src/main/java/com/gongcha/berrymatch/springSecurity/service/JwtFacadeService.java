@@ -96,11 +96,12 @@ public class JwtFacadeService implements JwtFacade {
 
     @Override
     public boolean validateRefreshToken(String token, String identifier, ProviderInfo providerInfo) {
-        boolean isRefreshValid = jwtUtil.getTokenStatus(token, REFRESH_SECRET_KEY) == TokenStatus.AUTHENTICATED;
 
         if (tokenService.isRefreshDuplicate(identifier, providerInfo)) {
             throw new BusinessException(DUPLICATED_REFRESH_TOKEN);
         };
+
+        boolean isRefreshValid = jwtUtil.getTokenStatus(token, REFRESH_SECRET_KEY) == TokenStatus.AUTHENTICATED;
 
         boolean isHijacked = tokenService.isRefreshHijacked(identifier, token, providerInfo);
 
@@ -213,5 +214,10 @@ public class JwtFacadeService implements JwtFacade {
             throw new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB);
         }
 
+    }
+
+    @Override
+    public void isRefreshTokenDuplicate(String identifier, ProviderInfo providerInfo) {
+        tokenService.isRefreshDuplicate(identifier, providerInfo);
     }
 }

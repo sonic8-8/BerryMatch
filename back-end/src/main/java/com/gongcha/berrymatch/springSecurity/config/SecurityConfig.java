@@ -55,7 +55,10 @@ public class SecurityConfig {
                         // PERMITTED_URI는 모두 접근 가능
                         .requestMatchers(PERMITTED_URI).permitAll()
                         // 그 외의 요청들은 PERMITTED_ROLES(USER, ADMIN) 중 하나라도 가지고 있어야 접근 가능
+                        .requestMatchers("/api/stream/**").authenticated()
+                        // SSE 엔드포인트는 인증됨
                         .anyRequest().hasAnyRole(PERMITTED_ROLES))
+
 
                 // JWT 사용으로 인한 세션 미사용
                 .sessionManagement(configurer -> configurer

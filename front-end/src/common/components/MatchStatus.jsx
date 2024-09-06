@@ -1,3 +1,5 @@
+import Notification from "./Notification";
+
 function MatchStatus() {
     // useEffect(() => {
     //     let eventSource: EventSource;
@@ -20,7 +22,7 @@ function MatchStatus() {
 
     return (
         <div>
-            매칭중
+            <Notification/>
         </div>
     )
 }
