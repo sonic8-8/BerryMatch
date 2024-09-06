@@ -43,20 +43,18 @@
   
   .layout {
     font-family: 'NanumSquareNeo';
-
+    background-image: url("https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/login_image.jpg");
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid #ccc; */
     height: 100vh;
     width: 100vw;
-    background-color: #e8e8ed;
-    color: #6e6e73;
   }
   
   .layout_header {
-    /* border: 1px solid #ccc; */
     flex: 0 0 auto;
     background-color: #fff;
     color: #1d1d1f;
@@ -65,15 +63,13 @@
   .layout_content {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    /* border: 1px solid #ccc; */
     flex: 1;
-    width: 60vw;
+    width:80vw;
   }
   
   .layout_footer {
-    /* border: 1px solid #ccc; */
     flex: 0 0 auto;
   }
 
@@ -83,31 +79,32 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid #ccc; */
-    min-height: 650px;
-    min-width: 600px;
-
-}
-
-.introduction_image {
-  width: 100%;
-  border-radius: 5%;
+    max-width: 450px;
+    height: 70vh;
+    width: 30vw;
+    display: flex;
+  border: 0px;
+  background-color: rgba(253, 253, 253, 0.4);
+  border-radius: 1rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
 }
 
 .introduction_text {
-  font-size: 28px;
+  font-size: 2rem;
   font-weight: bold;
-  line-height: 1.5;
+  line-height: 2;
+  text-align: left;
   letter-spacing: 0.5px;
-  padding: 40px;
-
+  color: rgb(47, 47, 47);
+  /* padding: 40px; */
+  white-space: pre-line;
 }
 
 .introduction_text_berrymatch {
-  font-size: 36px;
+  font-size: 2rem;
   letter-spacing: 1px;
   letter-spacing: 0.3px;
-  color: #1D1D1F;
+  color: #000000;
   font-family: 'Jalnan';
 }
 
@@ -116,14 +113,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
-  min-height: 650px;
-  min-width: 450px;
-  background-color: #FFFFFF;
+  border: 0px;
+  max-width: 450px;
+  height: 70vh;
+  width: 30vw;
+  background-color: rgba(253, 253, 253, 0.4);
   border-radius: 15px;
-  margin: 80px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-
+  color: black;
 }
 
 .login_text_container {
@@ -157,36 +154,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      /* border: 1px solid #ccc; */
-      
       width: 100%;
-
     }
 
     .introduction_container {
       display: none;
-    }
-    
-    .introduction_image {
-      width: 100%;
-      border-radius: 5%;
-      display: none;
-    }
-    
-    .introduction_text {
-      font-size: 15px;
-      font-weight: bold;
-      line-height: 1.5;
-      letter-spacing: 0.5px;
-      padding: 40px;
-    
-    }
-    
-    .introduction_text_berrymatch {
-      font-size: 18px;
-      letter-spacing: 1px;
-      letter-spacing: 0.5px;
-      color: #1D1D1F;
     }
 
     .login_container {
@@ -194,15 +166,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      border: 1px solid #ccc;
-      min-height: 650px;
-      width: 40%;
-      min-width: 450px;
-      background-color: #FFFFFF;
+      border: 0px;
+      /* min-height: 650px; */
+      width: 80vw;
+      height: 80vh;
+      /* min-width: 450px; */
       border-radius: 15px;
       margin: 80px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
-    
-      /* border: 1px solid #ccc; */
     }
 }
