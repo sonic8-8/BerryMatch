@@ -32,13 +32,13 @@ const GameRecord = (gameId, userId, setReadyInput, closeRecordModal) => {
             <label>
                 A팀
                 <input type="number" onChange={(e) => {
-                    setResultTeamA = e.target.value
+                    setResultTeamA(e.target.value)
                 }}/>
             </label>
             <label>
                 B팀
                 <input type="number" onChange={(e) => {
-                    setResultTeamB = e.target.value
+                    setResultTeamB(e.target.value)
                 }}/>
             </label>
             <button onClick={submitRecord}>기록 제출</button>

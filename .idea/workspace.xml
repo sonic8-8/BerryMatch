@@ -116,6 +116,11 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "azure"
+    ]
   }
 }]]></component>
   <component name="ReactorSettings">
@@ -201,7 +206,7 @@
       <workItem from="1725454262771" duration="1224000" />
       <workItem from="1725494519406" duration="10701000" />
       <workItem from="1725540390675" duration="4034000" />
-      <workItem from="1725579653786" duration="6530000" />
+      <workItem from="1725579653786" duration="8856000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -294,7 +299,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/merged-chat-main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
