@@ -1,7 +1,7 @@
 function AccountDeletionSubPage() {
     return (
         <div>
-            회원탈퇴요
+            정말 탈퇴하시겠습니까?
         </div>
     )
 }

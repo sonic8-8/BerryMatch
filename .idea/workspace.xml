@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat Front 수정 중">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/back-end">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/back-end">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="BerryMatch" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="feature/chat" />
+    <option name="OPTIONS">
+      <set>
+        <option value="SQUASH" />
+      </set>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/merged-chat-main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Seula1043&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sonic8-8/BerryMatch.git&quot;,
+    &quot;accountId&quot;: &quot;55e269e6-d20c-4ee2-8bb5-1c81a59b76f4&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2lYsNR1xQuOixyGbpPmoxmlnVWU" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="flattenModules" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.back-end 빌드.executor": "Run",
+    "Gradle.소스 다운로드.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.BerryMatchApplication.executor": "Run",
+    "git-widget-placeholder": "feature/merged-chat-main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/.env",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "프로젝트",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "azure"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\윤슬아\Desktop\BerryMatch\back-end\src\main\java\com\gongcha\berrymatch\user\RequestDTO" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BerryMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/.env" />
+      </option>
+      <module name="BerryMatch.main" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gongcha.berrymatch.BerryMatchApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gongcha.berrymatch.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="true" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+          <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env" />
+        </ENTRIES>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BerryMatchApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="메인 페이지 데이터 받아오기 기능 개발 및 JWT 받아오기 수정" />
+      <created>1725368305031</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725368305031</updated>
+      <workItem from="1725368307498" duration="29000" />
+      <workItem from="1725406799917" duration="12904000" />
+      <workItem from="1725420426301" duration="12035000" />
+      <workItem from="1725437765577" duration="414000" />
+      <workItem from="1725438190840" duration="322000" />
+      <workItem from="1725438524418" duration="2471000" />
+      <workItem from="1725442506105" duration="322000" />
+      <workItem from="1725443045618" duration="1281000" />
+      <workItem from="1725454262771" duration="1224000" />
+      <workItem from="1725494519406" duration="10701000" />
+      <workItem from="1725540390675" duration="4034000" />
+      <workItem from="1725579653786" duration="8856000" />
+    </task>
+    <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
+      <option name="closed" value="true" />
+      <created>1725417297947</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1725417297947</updated>
+    </task>
+    <task id="LOCAL-00002" summary="develop pull 이후 최초 커밋">
+      <option name="closed" value="true" />
+      <created>1725418817309</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725418817309</updated>
+    </task>
+    <task id="LOCAL-00003" summary="develop pull 이후 최초 커밋">
+      <option name="closed" value="true" />
+      <created>1725418824453</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1725418824453</updated>
+    </task>
+    <task id="LOCAL-00004" summary="chat 기능 병합 이후 출돌 해결">
+      <option name="closed" value="true" />
+      <created>1725420062251</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725420062251</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Chat 관련 프론트 수정 중">
+      <option name="closed" value="true" />
+      <created>1725442812790</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725442812790</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Chat 관련 프론트 수정 중">
+      <option name="closed" value="true" />
+      <created>1725443475999</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725443475999</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Chat 기능 메인 서버 코드 수정">
+      <option name="closed" value="true" />
+      <created>1725502583892</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725502583893</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Chat Front 수정 중">
+      <option name="closed" value="true" />
+      <created>1725530373009</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1725530373009</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Chat Front 수정 중">
+      <option name="closed" value="true" />
+      <created>1725530459749</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1725530459749</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Chat Front 수정 중">
+      <option name="closed" value="true" />
+      <created>1725584728945</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1725584728945</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/merged-chat-main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="메인 페이지 데이터 받아오기 기능 개발 및 JWT 받아오기 수정" />
+    <MESSAGE value="채팅 관련 기능 DTO 관련 수정" />
+    <MESSAGE value="develop pull 이후 최초 커밋" />
+    <MESSAGE value="chat 기능 병합 이후 출돌 해결" />
+    <MESSAGE value="Chat 관련 프론트 수정 중" />
+    <MESSAGE value="Chat 기능 메인 서버 코드 수정" />
+    <MESSAGE value="Chat Front 수정 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat Front 수정 중" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint type="java-exception">
+          <properties class="software.amazon.awssdk.core.exception.SdkClientException" package="software.amazon.awssdk.core.exception" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="org.springframework.beans.BeanInstantiationException" package="org.springframework.beans" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+        <breakpoint type="java-exception">
+          <properties class="org.springframework.beans.factory.BeanCreationException" package="org.springframework.beans.factory" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

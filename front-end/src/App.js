@@ -16,13 +16,12 @@ import LogoutPage from './auth/pages/LogoutPage'
 import PrivateRoute from './auth/components/PrivateRoute';
 import TokenPage from './auth/pages/TokenPage';
 import BackgroundMusic from './common/components/BackgroundMusic';
-import MatchSetupSubPage from './match/pages/MatchSetupSubPage';
 import MatchPage from './match/pages/MatchPage';
-import MatchQueueSubPage from './match/pages/MatchQueueSubPage';
 import MatchLobbyPage from './match/pages/MatchLobbyPage';
 import ProfileEditSubPage from './user/pages/ProfileEditSubPage';
 import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
+import Map from './common/Map';
 
 function App() {
 
@@ -53,15 +52,13 @@ function App() {
           <Route path="match-results" element={<PrivateRoute><MatchResultsSubPage /></PrivateRoute>} />
           <Route path="account-deletion" element={<PrivateRoute><AccountDeletionSubPage /></PrivateRoute>} />
         </Route>
-        <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} >
-          <Route path="setup" element={<PrivateRoute><MatchSetupSubPage /></PrivateRoute>}/>
-          <Route path="queue" element={<PrivateRoute><MatchQueueSubPage /></PrivateRoute>}/>
-        </Route>
+        <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
         <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>} />
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
         <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
+        <Route path="/map" element={<PrivateRoute><Map /></PrivateRoute>} />
       </Routes>
     </div>
   );
@@ -69,8 +66,8 @@ function App() {
 
 export default function AppWrapper() {
   return (
-    <Router>
-      <App />
-    </Router>
+      <Router>
+        <App />
+      </Router>
   );
 }

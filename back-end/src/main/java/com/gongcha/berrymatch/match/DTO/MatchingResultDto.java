@@ -21,4 +21,5 @@ public class MatchingResultDto {
     private Sport sport;              // 스포츠 종목
     private LocalDateTime matchTime;  // 매칭 요청 시간
     private int maxSize;              // 매칭의 최대 인원 수
+
 }

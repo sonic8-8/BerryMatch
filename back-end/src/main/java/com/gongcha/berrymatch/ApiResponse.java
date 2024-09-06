@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch;
 
 import lombok.Getter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -30,4 +31,5 @@ public class ApiResponse<T> {
 
         return new ApiResponse<>(HttpStatus.OK, HttpStatus.OK.name(), data);
     }
+
 }

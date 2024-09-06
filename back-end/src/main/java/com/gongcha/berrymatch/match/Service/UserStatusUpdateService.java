@@ -39,3 +39,5 @@ public class UserStatusUpdateService {
         }
     }
 }
+
+// 매칭된 유저 상태 업데이트
