@@ -24,6 +24,7 @@ import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
 import PostPage from './board/PostPage';
 import PostList from './board/PostList';
 import PostWritePage from './board/pages/PostWritePage';
+import Map from './common/Map';
 
 function App() {
 
@@ -60,24 +61,25 @@ function App() {
           <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
           <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} />
         </Route>
-        
+
 
 
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
         <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
+        <Route path="/map" element={<PrivateRoute><Map /></PrivateRoute>} />
       </Routes>
     </div>
-    
 
-  
+
+
   );
 }
 
 export default function AppWrapper() {
   return (
-    <Router>
-      <App />
-    </Router>
+      <Router>
+        <App />
+      </Router>
   );
 }

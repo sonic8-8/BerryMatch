@@ -18,7 +18,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -63,7 +65,7 @@ public class User {
     private ProviderInfo providerInfo;
 
     @Enumerated(EnumType.STRING)
-    private UserMatchStatus userMatchStatus;
+    private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
@@ -151,6 +153,11 @@ public class User {
         this.id = id;
         this.city = city;
         this.district = district;
+    }
+
+    public void profileUpdate(String profileImageUrl, String introduction) {
+        this.profileImageUrl = profileImageUrl;
+        this.introduction = introduction;
     }
 
 

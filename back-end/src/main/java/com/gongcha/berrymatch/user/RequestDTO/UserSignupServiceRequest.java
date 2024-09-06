@@ -7,10 +7,12 @@ import lombok.Getter;
 import com.gongcha.berrymatch.user.City;
 import com.gongcha.berrymatch.user.District;
 import com.gongcha.berrymatch.user.Gender;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
+@NoArgsConstructor
 public class UserSignupServiceRequest {
 
     private String identifier;

@@ -27,8 +27,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByIdentifierAndRole(@Param("identifier") String identifier,
                                            @Param("role") Role role);
 
-
-
-
-
 }
