@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+
 import java.io.IOException;
 import java.util.UUID;
 
@@ -28,6 +29,7 @@ public class S3Service {
      */
     public String uploadVideo(PostFileUploadServiceRequest request) throws IOException {
 
+        // 파일 검증 메소드
         ValidateVideoFilter(request);
 
         MultipartFile file = request.getFile();
@@ -52,6 +54,25 @@ public class S3Service {
         MultipartFile file = request.getFile();
 
         String directory = "highlight_video/";
+        String storedFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String key = directory + storedFilename;
+
+        s3Template.upload(bucketName, key, file.getInputStream());
+
+        return key;
+
+    }
+
+    /**
+     * S3 버킷에 썸네일 사진을 업로드해주는 메서드
+     */
+    public String uploadThumbnail(PostFileUploadServiceRequest request) throws IOException {
+
+        ValidateImageFilter(request);
+
+        MultipartFile file = request.getFile();
+
+        String directory = "highlight_thumbnail/";
         String storedFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String key = directory + storedFilename;
 
@@ -96,6 +117,25 @@ public class S3Service {
         if (file.getSize() > maxFileSize) {
             throw new IllegalArgumentException("사진 파일 크기는 500MB를 초과할 수 없습니다.");
         }
+
+    }
+
+    /**
+     * S3 버킷에 하이라이트 사진을 업로드해주는 메서드
+     */
+    public String uploadProfileImage(PostFileUploadServiceRequest request) throws IOException {
+
+        ValidateImageFilter(request);
+
+        MultipartFile file = request.getFile();
+
+        String directory = "profile_image/";
+        String storedFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String key = directory + storedFilename;
+
+        s3Template.upload(bucketName, key, file.getInputStream());
+
+        return key;
 
     }
 

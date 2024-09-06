@@ -23,15 +23,24 @@ public class ChatRoom {
     @Column(name = "chat_room_id")
     private Long id;
 
+    @Column(name = "chat_name")
+    private String chatName;
+
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
     @CreationTimestamp
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatMessage> chatMessages;
+
+
+
 }
+

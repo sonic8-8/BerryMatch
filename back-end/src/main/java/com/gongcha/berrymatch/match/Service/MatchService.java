@@ -70,11 +70,19 @@ public class MatchService {
                 if (match != null) {
                     // 매치 완료된 사람들 매칭 대기열에서 상태 업데이트
                     userStatusUpdateService.updateUserStatusToMatched(match.getMatchUsers());
+
+
                     // 노드로 보내줄 서비스
-                    Long initiatingUserId = UserContext.getUserId(); // ThreadLocal에서 유저 ID 가져오기
+                    // 매칭 완료된 유저의 ID를 가져옴 (ThreadLocal 사용)
+                    Long initiatingUserId = UserContext.getUserId();
+                    System.out.println("아이디 들어와야함"+initiatingUserId);
+                    if (initiatingUserId == null) {
+                        System.out.println("userId가 null입니다. ThreadLocal 값이 제거되었거나 다른 스레드에서 접근하고 있습니다.");
+                    }
+
                     if (isUserInMatch(initiatingUserId, match.getMatchUsers())) {
-                        // 노드 서버로 데이터 전송
-                        sendMatchDataToNodeServer(match);
+                        // 매칭 완료된 유저 ID를 매칭 완료 서비스로 전달
+                        matchCompletionService.completeMatch(initiatingUserId);
                     }
                 }
             } else {
@@ -145,14 +153,7 @@ public class MatchService {
                 .anyMatch(matchUser -> matchUser.getUser().getId().equals(userId));
     }
 
-    private void sendMatchDataToNodeServer(Match match) {
-        // 매칭된 유저들의 ID 리스트를 생성하여 노드 서버로 전송
-        List<Long> matchedUserIds = match.getMatchUsers().stream()
-                .map(matchUser -> matchUser.getUser().getId())
-                .collect(Collectors.toList());
 
-        matchCompletionService.completeMatch(matchedUserIds);  // 노드 서버로 매치 완료 데이터 전송
-    }
 
     private void checkIncompleteMatches() {
         // 미완성 매칭 결과를 다시 확인하여 인원이 충족된 경우 처리

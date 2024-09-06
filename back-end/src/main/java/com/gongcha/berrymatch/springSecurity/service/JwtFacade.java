@@ -31,4 +31,6 @@ public interface JwtFacade {
     Authentication getAuthentication(String accessToken);
 
     void deleteRefreshToken(String identifier, ProviderInfo providerInfo);
+
+    void isRefreshTokenDuplicate(String identifier, ProviderInfo providerInfo);
 }

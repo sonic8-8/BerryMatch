@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableMongoRepositories
-@EnableScheduling  // 스케줄링 활성화
+//@EnableScheduling  // 스케줄링 활성화
 public class BerryMatchApplication {
 
     public static void main(String[] args) {

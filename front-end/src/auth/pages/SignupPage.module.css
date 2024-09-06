@@ -38,6 +38,7 @@
     border: 1px solid #ccc;
     background-color: #e8e8ed;;
     height: 100vh;
+    width: 100%;
 }
   
 .layout_header {

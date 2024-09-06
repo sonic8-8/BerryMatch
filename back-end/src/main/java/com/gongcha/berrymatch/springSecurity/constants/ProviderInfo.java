@@ -1,5 +1,7 @@
 package com.gongcha.berrymatch.springSecurity.constants;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +19,11 @@ public enum ProviderInfo {
     private final String providerCode;
     private final String Identifier;
 
+
+    public static String toString(ProviderInfo providerInfo) {
+        return String.valueOf(providerInfo);
+    }
+
     public static ProviderInfo from(String provider) {
         String upperCastedProvider = provider.toUpperCase();
 
@@ -25,4 +32,5 @@ public enum ProviderInfo {
                 .findFirst()
                 .orElseThrow();
     }
+
 }

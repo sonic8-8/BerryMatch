@@ -1,12 +1,15 @@
 package com.gongcha.berrymatch.match.Service;
 
-import com.gongcha.berrymatch.match.ThreadLocal.UserContext;
+import com.gongcha.berrymatch.match.Repository.MatchUserRepository;
+import com.gongcha.berrymatch.match.domain.Match;
+import com.gongcha.berrymatch.match.domain.MatchStatus;
+import com.gongcha.berrymatch.match.domain.MatchTeam;
+import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.user.User;
-import com.gongcha.berrymatch.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -20,42 +23,77 @@ public class MatchCompletionService {
 
     private static final Logger logger = LoggerFactory.getLogger(MatchCompletionService.class);
     private final WebClient webClient;
-    private final UserRepository userRepository; // UserRepository 주입
+    private final MatchUserRepository matchUserRepository;
 
-    @Autowired
-    public MatchCompletionService(WebClient.Builder webClientBuilder, UserRepository userRepository) {
+    public MatchCompletionService(WebClient.Builder webClientBuilder, MatchUserRepository matchUserRepository) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:9000").build();
-        this.userRepository = userRepository; // UserRepository 초기화
-        logger.info("MatchCompletionService initialized with base URL: http://localhost:9000");
+        this.matchUserRepository = matchUserRepository;
+    }
+
+    @Transactional
+    public void completeMatch(Long userId) {
+        logger.info("Received userId for match completion: {}", userId);
+
+        if (userId == null) {
+            logger.error("No user ID provided.");
+            return;
+        }
+
+        // 게임 시작 전 또는 진행 중인 매치만 조회
+        List<MatchStatus> validStatuses = List.of(MatchStatus.PRE_GAME, MatchStatus.IN_PROGRESS);
+        logger.info("Fetching match users for userId: {} with match status: {}", userId, validStatuses);
+
+        // 주어진 userId로 매칭된 매치들 중 경기 시작 전 또는 경기 중인 매치들을 가져옴
+        List<MatchUser> matchUsers = matchUserRepository.findByUser_IdAndMatch_MatchStatusIn(userId, validStatuses);
+
+        if (matchUsers.isEmpty()) {
+            logger.error("No matching users found for the provided user ID.");
+            return;
+        }
+
+        logger.info("Found match users for userId: {}. Total users: {}", userId, matchUsers.size());
+
+        // 첫 번째 매칭된 유저의 매치 정보 가져오기 (동일 매치에 속해 있어야 함)
+        Match match = matchUsers.get(0).getMatch();
+        logger.info("Found match with matchId: {} for userId: {}", match.getId(), userId);
+
+        // 매칭 정보에서 A팀과 B팀으로 유저를 나눔
+        List<User> teamAUsers = new ArrayList<>();
+        List<User> teamBUsers = new ArrayList<>();
+
+        for (MatchUser matchUser : matchUsers) {
+            if (matchUser.getTeam() == MatchTeam.A_Team) {
+                teamAUsers.add(matchUser.getUser());
+                logger.info("Added userId: {} to Team A", matchUser.getUser().getId());
+            } else if (matchUser.getTeam() == MatchTeam.B_Team) {
+                teamBUsers.add(matchUser.getUser());
+                logger.info("Added userId: {} to Team B", matchUser.getUser().getId());
+            }
+        }
+
+        logger.info("Total Team A users: {}, Total Team B users: {}", teamAUsers.size(), teamBUsers.size());
+
+        // A팀과 B팀 유저 정보를 노드 서버로 전송
+        sendToNodeServer(teamAUsers, teamBUsers, userId);
     }
 
     /**
-     * 매칭 완료 요청을 외부 시스템으로 전송하는 메서드.
-     * - 매칭된 유저들의 ID를 기반으로 데이터베이스에서 유저 정보를 조회합니다.
-     * - 조회한 유저 정보를 기반으로 노드 서버로 데이터 전송을 수행합니다.
+     * A팀과 B팀 유저 정보를 Node.js 서버로 전송
      */
-    public void completeMatch(List<Long> matchedUserIds) {
-        Long initiatingUserId = UserContext.getUserId();
-
-        if (initiatingUserId != null && matchedUserIds.contains(initiatingUserId)) {
-            // 유저 ID가 매칭된 유저 리스트에 포함되어 있는 경우에만 데이터를 전송
-            List<User> matchedUsers = userRepository.findAllById(matchedUserIds);
-            sendToNodeServer(matchedUsers, initiatingUserId);
-        } else {
-            logger.info("Initiating user ID not found in the matched users list. No data sent to Node server.");
-        }
-    }
-
-    private void sendToNodeServer(List<User> matchedUsers, Long initiatingUserId) {
+    private void sendToNodeServer(List<User> teamAUsers, List<User> teamBUsers, Long userId) {
         try {
-            // 노드 서버로 데이터 전송
+            // 페이로드 데이터 생성
+            Map<String, Object> payload = createPayload(teamAUsers, teamBUsers, userId);
+            logger.info("Payload created for Node.js server: {}", payload);
+
+            // 데이터 전송
             webClient.post()
-                    .uri("/api/match/completed") // 노드 서버의 매칭 완료 API 엔드포인트
-                    .body(BodyInserters.fromValue(createPayload(matchedUsers, initiatingUserId)))
+                    .uri("/api/match/completed")
+                    .body(BodyInserters.fromValue(payload))
                     .retrieve()
                     .bodyToMono(Void.class)
                     .subscribe(
-                            response -> logger.info("Successfully sent match data to Node server for user ID: " + initiatingUserId),
+                            response -> logger.info("Successfully sent match data to Node server."),
                             error -> logger.error("Failed to send match data to Node server: " + error.getMessage())
                     );
         } catch (Exception e) {
@@ -63,22 +101,40 @@ public class MatchCompletionService {
         }
     }
 
-    //노드로 담아서 보내줄 데이터 json으로 변환해서 보내줘야함
-    // DTO를 사용안했음 수정필요할지도
-    private Map<String, Object> createPayload(List<User> matchedUsers, Long initiatingUserId) {
+    /**
+     * A팀과 B팀 유저 정보를 포함한 페이로드 생성
+     */
+    private Map<String, Object> createPayload(List<User> teamAUsers, List<User> teamBUsers, Long userId) {
         Map<String, Object> payload = new HashMap<>();
-        List<Map<String, Object>> userInfos = new ArrayList<>();
+        List<Map<String, Object>> teamAUserInfos = new ArrayList<>();
+        List<Map<String, Object>> teamBUserInfos = new ArrayList<>();
 
-        for (User user : matchedUsers) {
+        // A팀 유저 정보 추가
+        for (User user : teamAUsers) {
             Map<String, Object> userInfo = new HashMap<>();
             userInfo.put("id", user.getId());
             userInfo.put("name", user.getNickname());
-            // 필요한 추가 정보도 여기에 넣을 수 있습니다.
-            userInfos.add(userInfo);
+            userInfo.put("team", "A");
+            teamAUserInfos.add(userInfo);
         }
 
-        payload.put("matchedUsers", userInfos);
-        payload.put("initiatingUserId", initiatingUserId);
+        // B팀 유저 정보 추가
+        for (User user : teamBUsers) {
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("id", user.getId());
+            userInfo.put("name", user.getNickname());
+            userInfo.put("team", "B");
+            teamBUserInfos.add(userInfo);
+        }
+
+        // 페이로드에 팀 정보 추가
+        payload.put("teamAUsers", teamAUserInfos);
+        payload.put("teamBUsers", teamBUserInfos);
+
+        // 매칭을 요청한 유저 ID 추가
+        payload.put("requestingUserId", userId);
+
+        logger.info("Payload created: {}", payload);
         return payload;
     }
 }

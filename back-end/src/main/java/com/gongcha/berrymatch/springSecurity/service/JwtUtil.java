@@ -18,8 +18,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Base64;
 
-import static com.gongcha.berrymatch.exception.ErrorCode.INVALID_EXPIRED_JWT;
-import static com.gongcha.berrymatch.exception.ErrorCode.INVALID_JWT;
+import static com.gongcha.berrymatch.exception.ErrorCode.*;
 
 @Slf4j
 @Service
@@ -49,11 +48,16 @@ public class JwtUtil {
      * Cookie에서 원하는 토큰을 찾아주는 메서드 (tokenPrefix를 통해서 찾는다)
      */
     public String resolveTokenFromCookie(Cookie[] cookies, JwtRule tokenPrefix) {
-        return Arrays.stream(cookies)
-                .filter(cookie -> cookie.getName().equals(tokenPrefix.getValue()))
-                .findFirst()
-                .map(Cookie::getValue)
-                .orElse("");
+        try {
+            return Arrays.stream(cookies)
+                    .filter(cookie -> cookie.getName().equals(tokenPrefix.getValue()))
+                    .findFirst()
+                    .map(Cookie::getValue)
+                    .orElse("");
+        } catch (BusinessException e) {
+            log.error(REFRESH_TOKEN_NOT_FOUNT.getMessage());
+            throw new BusinessException(REFRESH_TOKEN_NOT_FOUNT);
+        }
     }
 
     /**
@@ -66,16 +70,6 @@ public class JwtUtil {
 
     private String encodeToBase64(String secretKey) {
         return Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
-
-    /**
-     * 쿠키에서 원하는 토큰을 reset하는 메서드
-     */
-    public Cookie resetCookie(JwtRule tokenPrefix) {
-        Cookie cookie = new Cookie(tokenPrefix.getValue(), null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/");
-        return cookie;
     }
 
 }
