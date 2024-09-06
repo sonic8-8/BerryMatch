@@ -46,6 +46,7 @@ public class UserSignupRequest {
         return ProviderInfo.valueOf(providerInfo);
     }
 
+
     public UserSignupServiceRequest toService() {
         return UserSignupServiceRequest.builder()
                 .identifier(identifier)
