@@ -1,7 +1,5 @@
 package com.gongcha.berrymatch.game;
 
-import com.gongcha.berrymatch.match.domain.Match;
-import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.user.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class GameDTO {
 
     private Game game;
+
+    private GameResultTemp gameResultTemp;
 
     private User user;
 
@@ -33,16 +33,6 @@ public class GameDTO {
         this.votes = votes;
     }
 
-//    public void setResultTeamA(int resultTeamA) {
-//        this.resultTeamA = resultTeamA;
-//    }
-//
-//    public void setResultTeamB(int resultTeamB) {
-//        this.resultTeamB = resultTeamB;
-//    }
-//
-//    public void setVotes(int votes) {
-//        this.votes = votes;
-//    }
+
 
 }

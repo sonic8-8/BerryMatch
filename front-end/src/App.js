@@ -19,7 +19,7 @@ import BackgroundMusic from './common/components/BackgroundMusic';
 import MatchPage from './match/pages/MatchPage';
 import MatchLobbyPage from './match/pages/MatchLobbyPage';
 import ProfileEditSubPage from './user/pages/ProfileEditSubPage';
-import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
+import MatchResultsSubPage from './user/components/RecordItem';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
 import ChatRoom from './chat/ChatRoom';
 
