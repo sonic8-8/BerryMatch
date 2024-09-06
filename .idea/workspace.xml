@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat Front 수정 중">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +103,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BerryMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feature/merged-chat-main",
+    "git-widget-placeholder": "develop",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/.env",
     "node.js.detected.package.eslint": "true",
@@ -132,17 +131,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BerryMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/.env" />

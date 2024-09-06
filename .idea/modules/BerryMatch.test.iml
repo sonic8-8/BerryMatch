@@ -10,13 +10,10 @@
   <component name="NewModuleRootManager">
     <output-test url="file://$MODULE_DIR$/../../back-end/build/classes/java/test" />
     <exclude-output />
-    <output-test url="file://$MODULE_DIR$/../../back-end/build/classes/java/test" />
-    <exclude-output />
     <content url="file://$MODULE_DIR$/../../back-end/src/test">
       <sourceFolder url="file://$MODULE_DIR$/../../back-end/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../back-end/src/test/java" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="17" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="BerryMatch.main" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:3.3.2" level="project" />
