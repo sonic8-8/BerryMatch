@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './MatchLobbyPage.module.css';
-import MatchLobby from '../components/MatchLobby';
+
 
 
 function MatchLobbyPage() {
@@ -16,7 +16,7 @@ function MatchLobbyPage() {
     
           <div className={styles.layout_content}>
 
-            <MatchLobby/>
+            <MatchLobbyPage/>
             
           </div>
           

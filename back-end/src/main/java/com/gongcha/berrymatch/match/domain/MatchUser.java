@@ -38,4 +38,7 @@ public class MatchUser {
     //락킹
     @Version // Optimistic locking field
     private Long version;
+
+
+
 }

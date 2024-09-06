@@ -1,10 +1,7 @@
 // MatchRepository.java
 package com.gongcha.berrymatch.match.Repository;
 
-import com.gongcha.berrymatch.match.domain.Match;
-import com.gongcha.berrymatch.match.domain.MatchFullStatus;
-import com.gongcha.berrymatch.match.domain.MatchStatus;
-import com.gongcha.berrymatch.match.domain.Sport;
+import com.gongcha.berrymatch.match.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +33,11 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
      * @return 경기가끝난 매치테이블 항목
      */
     List<Match> findByMatchStatus(MatchStatus status);
+
+
+
+   ;
+
+
+
 }

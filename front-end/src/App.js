@@ -21,6 +21,7 @@ import MatchLobbyPage from './match/pages/MatchLobbyPage';
 import ProfileEditSubPage from './user/pages/ProfileEditSubPage';
 import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
+import MatchComparison from './match/test/MatchComparison';
 import Map from './common/Map';
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
           <Route path="account-deletion" element={<PrivateRoute><AccountDeletionSubPage /></PrivateRoute>} />
         </Route>
         <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
-        <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
+        <Route path="/match/lobby" element={<PrivateRoute><MatchComparison /></PrivateRoute>} />
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>} />
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
