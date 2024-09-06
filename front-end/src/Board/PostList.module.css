@@ -101,3 +101,26 @@
     /* display: none; 기본적으로 숨김 */
 }
   
+@media (max-width: 768px) {
+    .postpage_container{
+        overflow-y: auto;
+        height: 90vh;
+        width: 80wh;
+        display: flex;
+        flex-direction: column;
+    }
+    .posts_container{
+        height: 0vh;
+        width: 60%;
+
+
+        /* background-color: aqua; */
+    }
+    .post_thumbnail{
+        height: 150px;
+        width: 150px;
+    
+        border-radius: 10px;
+    }
+
+}

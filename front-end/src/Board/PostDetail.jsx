@@ -87,24 +87,24 @@ function PostDetail(props) {
 
 
       
-<button className={styles.close_btn} onClick={ modalClose }>X</button>
-
-
+    
+    <div>
+      <div className={styles.post_headers}>
         <div className={styles.post_header}>
-          <div>{props.postList.title}</div>
-          <div>{props.postList.createAt}</div>
+          <div className={styles.post_title}>{props.postList.title}</div>
+          <div className={styles.post_createAt}>{props.postList.createAt}</div>
         </div>
-
-
-
-
-      <video className={styles.highlight_file} controls autoPlay><source src={props.postList.fileUrl}></source></video>
+        <button className={styles.close_btn} onClick={ modalClose }>X</button>
+      </div>
+    </div>
+      
+    <video className={styles.highlight_file} controls autoPlay><source src={props.postList.fileUrl}></source></video>
       
 
 
       <div className={styles.post_footer}>
-        <div>{props.postList.content}</div>
-        <div onClick={ handleLikeClick }>
+        <div className={styles.post_content}>{props.postList.content}</div>
+        <div onClick={ handleLikeClick } className={styles.like_button_container}>
         {
           likeSwitch ? <AiFillLike className={styles.like_button}/> : <AiOutlineLike className={styles.like_button}/>
         }

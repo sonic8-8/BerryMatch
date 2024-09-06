@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './PostWritePage.module.css';
 import axios from 'axios';
 import defaultImg from '../img/defaultImg.png';
@@ -15,7 +15,6 @@ function PostWritePage() {
   const [ content, setContent ] = useState(null);
   const [ inputThumbnail, setInputThumbnail ] = useState(null);
   const [ inputFile, setInputFile ] = useState(null);
-  
 
   /**
    * 썸네일을 선택했을 때 동작하는 함수
@@ -40,6 +39,12 @@ function PostWritePage() {
    */
   function handleHighlightChange(event) {    
     console.log("선택된 하이라이트 이미지나 동영상 : ", event.target.files[0]);
+
+    
+
+  
+  
+    
 
     const fileReader = new FileReader();
 
@@ -191,11 +196,14 @@ function PostWritePage() {
           <p>하이라이트</p>
           <input type='file' className={styles.file_input}  onChange={ handleHighlightChange }></input>
           <br></br>
-          <img src={ inputFile ? inputFile : defaultImg } className={styles.size_img}></img>
+          {  inputFile ? 
+            <video src={inputFile} className={styles.size_img} controls></video> : <img src={defaultImg} className={styles.size_img}></img>
+          }
         </div>
       </div>
-
+      <div className={styles.button_container}>
       <button className={styles.upload_button} onClick={ submitFile }>업로드</button>
+      </div>
 
     </div>
   )
