@@ -71,4 +71,8 @@ public class Match {
     public void setStatus(MatchFullStatus status) {
         this.fullStatus = status;
     }
+
+    public void getStatus(MatchStatus matchStatus){this.matchStatus=matchStatus;}
+
+
 }

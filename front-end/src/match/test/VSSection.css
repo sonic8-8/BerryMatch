@@ -1,0 +1,151 @@
+.vs {
+    width: 600px; /* 너비를 600px로 조정 */
+    background: linear-gradient(145deg, rgba(68, 68, 68, 0.9), rgba(40, 40, 40, 0.9));
+    border-radius: 15px;
+    padding: 30px; /* 패딩을 30px로 조정 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* 그림자 강도를 늘림 */
+    box-sizing: border-box;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.vs-header {
+    font-size: 40px; /* 글씨 크기 줄임 */
+    font-weight: bold;
+    color: #ddd; /* 기본 색상 */
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 기본적인 미세한 그림자 */
+    cursor: pointer;
+    position: relative;
+    background: none;
+    border: none;
+    outline: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.vs-header.clicked {
+    color: #00cc00; /* 초록색으로 변경하지만 조금 더 어두운 톤 */
+    text-shadow: 
+        0 0 4px rgba(0, 204, 0, 0.6), 
+        0 0 6px rgba(0, 204, 0, 0.5), 
+        0 0 8px rgba(0, 204, 0, 0.4), 
+        0 0 10px rgba(0, 204, 0, 0.3); /* 더 어두운 그림자 효과 */
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7; /* 불빛의 투명도를 더 낮춤 */
+    }
+    50% {
+        transform: scale(1);
+        opacity: 0.8; /* 불빛의 투명도를 더 낮춤 */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
+.chatbox {
+    width: 100%;
+    height: 400px; /* 채팅방의 높이를 늘림 */
+    background-color: rgba(85, 85, 85, 0.9);
+    border-radius: 10px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: #fff;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message-container {
+    display: flex;
+    margin: 5px 0;
+}
+
+.chat-message-container.me-container {
+    justify-content: flex-end; /* 내 메시지를 오른쪽으로 정렬 */
+}
+
+.chat-message-container.other-container {
+    justify-content: flex-start; /* 상대방 메시지를 왼쪽으로 정렬 */
+}
+
+.chat-message {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.chat-message.me {
+    background-color: #b3b3b3; /* 밝은 회색 */
+    color: #2c2c2c; /* 어두운 회색 텍스트 */
+    text-align: right;
+}
+
+.chat-message.other {
+    background-color: #d4d4d4; /* 조금 더 밝은 회색 */
+    color: #2c2c2c; /* 어두운 회색 텍스트 */
+    text-align: left;
+}
+
+.input-container {
+    width: 100%; /* 컨테이너가 전체 너비를 차지하도록 설정 */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(40, 40, 40, 0.9); /* 인풋 박스 배경과 일치시키기 위해 어두운 배경색 추가 */
+    border-radius: 10px;
+    padding: 8px; /* 컨테이너 내부 패딩을 줄여 공간 활용 */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); /* 인풋 박스에 그림자 추가 */
+}
+
+.chatbox-input {
+    flex: 1; /* 입력창이 가용한 모든 공간을 차지하도록 설정 */
+    padding: 12px; /* padding을 줄여 컨테이너에 더 잘 맞도록 */
+    height: 20px; /* 입력창의 높이를 버튼과 동일하게 설정 */
+    border-radius: 8px;
+    border: none;
+    background-color: rgba(60, 60, 60, 0.9); /* 입력창 배경색을 어둡게 설정 */
+    color: #ddd; /* 텍스트 색상을 밝은 회색으로 설정 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px; /* 폰트 크기를 줄여 비율을 맞춤 */
+    box-shadow: none; /* input 자체의 그림자를 제거하여 input-container의 스타일을 강조 */
+    outline: none; /* 포커스 시 기본 outline 제거 */
+}
+
+.chatbox-input::placeholder {
+    color: #999; /* 플레이스홀더 텍스트 색상을 회색으로 설정 */
+}
+
+.chatbox-input:focus {
+    background-color: rgba(80, 80, 80, 0.9); /* 포커스 시 배경색 변경 */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 포커스 시 외부 그림자 추가 */
+    outline: none; /* 포커스 시 기본 outline 제거 */
+}
+
+.send-button {
+    padding: 12px 20px; /* 전송 버튼의 크기를 줄여 컨테이너에 맞춤 */
+    height: 40px; /* 버튼의 높이를 입력창과 동일하게 설정 */
+    border-radius: 8px;
+    border: none;
+    background-color: rgba(100, 100, 100, 0.9); /* 배경과 어울리는 회색 톤 */
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 14px; /* 폰트 크기를 줄여 비율을 맞춤 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 버튼에 그림자 추가 */
+}
+
+.send-button:hover {
+    background-color: rgba(120, 120, 120, 0.9); /* 호버 시 약간 밝아짐 */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 호버 시 외부 그림자 추가 */
+}
