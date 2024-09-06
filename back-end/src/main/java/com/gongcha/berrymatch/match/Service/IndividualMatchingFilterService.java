@@ -8,6 +8,8 @@ import com.gongcha.berrymatch.match.domain.MatchQueueStatus;
 import com.gongcha.berrymatch.match.domain.MatchType;
 import com.gongcha.berrymatch.match.domain.MatchingQueue;
 import com.gongcha.berrymatch.match.domain.Sport;
+import com.gongcha.berrymatch.user.City;
+import com.gongcha.berrymatch.user.District;
 import com.gongcha.berrymatch.user.User;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -106,47 +108,64 @@ public class IndividualMatchingFilterService {
     }
 
     // 매칭 그룹을 생성하는 메소드
+    //여기서 필터조건을 변경하면 될지도
     public List<MatchingResultDto> createMatchingGroups(List<MatchingQueueDTO> filteredMatches) {
         if (filteredMatches.isEmpty()) {
-            System.out.println("No filtered matches available.");  // 필터된 매칭이 없는 경우
+            System.out.println("No filtered matches available.");
             return new ArrayList<>();
         }
 
-        // 스포츠 유형별로 매칭 대기열을 그룹화
-        Map<Sport, List<MatchingQueueDTO>> groupedBySport = filteredMatches.stream()
-                .collect(Collectors.groupingBy(MatchingQueueDTO::getSport));
+        // 스포츠 유형과 지역(도시, 구/군)별로 매칭 대기열을 그룹화
+        Map<Sport, Map<City, Map<District, List<MatchingQueueDTO>>>> groupedBySportAndRegion = filteredMatches.stream()
+                .collect(Collectors.groupingBy(
+                        MatchingQueueDTO::getSport,  // 스포츠 유형별 그룹화
+                        Collectors.groupingBy(
+                                MatchingQueueDTO::getCity,  // 도시(Enum)별 그룹화
+                                Collectors.groupingBy(MatchingQueueDTO::getDistrict)  // 구/군(Enum)별 그룹화
+                        )
+                ));
 
         List<MatchingResultDto> resultDtos = new ArrayList<>();
 
-        // 각 스포츠별로 매칭 그룹을 생성
-        for (Map.Entry<Sport, List<MatchingQueueDTO>> entry : groupedBySport.entrySet()) {
-            Sport sport = entry.getKey();
-            List<MatchingQueueDTO> queueList = entry.getValue();
-            int maxSize = sport.getMaxSize();  // 각 스포츠의 최대 매칭 인원 수
+        // 각 스포츠별, 지역별로 매칭 그룹을 생성
+        for (Map.Entry<Sport, Map<City, Map<District, List<MatchingQueueDTO>>>> sportEntry : groupedBySportAndRegion.entrySet()) {
+            Sport sport = sportEntry.getKey();
+            Map<City, Map<District, List<MatchingQueueDTO>>> cityGroups = sportEntry.getValue();
 
-            for (int i = 0; i < queueList.size(); i += maxSize) {
-                int end = Math.min(i + maxSize, queueList.size());
-                List<MatchingQueueDTO> subList = queueList.subList(i, end);
+            for (Map.Entry<City, Map<District, List<MatchingQueueDTO>>> cityEntry : cityGroups.entrySet()) {
+                City city = cityEntry.getKey();
+                Map<District, List<MatchingQueueDTO>> districtGroups = cityEntry.getValue();
 
-                // 매칭된 유저 리스트를 생성
-                List<User> matchedUsers = subList.stream()
-                        .map(MatchingQueueDTO::getUser)
-                        .collect(Collectors.toList());
+                for (Map.Entry<District, List<MatchingQueueDTO>> districtEntry : districtGroups.entrySet()) {
+                    List<MatchingQueueDTO> queueList = districtEntry.getValue();
+                    int maxSize = sport.getMaxSize();  // 각 스포츠의 최대 매칭 인원 수
 
-                if (!matchedUsers.isEmpty()) {
-                    // 매칭 결과 DTO를 생성하여 리스트에 추가
-                    MatchingResultDto matchingResultDto = new MatchingResultDto(
-                            matchedUsers,
-                            MatchType.USER,
-                            sport,
-                            LocalDateTime.now(),
-                            maxSize
-                    );
-                    resultDtos.add(matchingResultDto);
+                    // 매칭할 그룹을 만들기 위해 리스트를 일정 크기로 나눔
+                    for (int i = 0; i < queueList.size(); i += maxSize) {
+                        int end = Math.min(i + maxSize, queueList.size());
+                        List<MatchingQueueDTO> subList = queueList.subList(i, end);
+
+                        // 매칭된 유저 리스트를 생성
+                        List<User> matchedUsers = subList.stream()
+                                .map(MatchingQueueDTO::getUser)
+                                .collect(Collectors.toList());
+
+                        if (!matchedUsers.isEmpty()) {
+                            // 매칭 결과 DTO를 생성하여 리스트에 추가
+                            MatchingResultDto matchingResultDto = new MatchingResultDto(
+                                    matchedUsers,
+                                    MatchType.USER,
+                                    sport,
+                                    LocalDateTime.now(),
+                                    maxSize
+                            );
+                            resultDtos.add(matchingResultDto);
+                        }
+                    }
                 }
             }
         }
-        System.out.println("Matching groups created: " + resultDtos.size());  // 생성된 매칭 그룹 수 출력
+        System.out.println("Matching groups created: " + resultDtos.size());
         return resultDtos;
     }
 }

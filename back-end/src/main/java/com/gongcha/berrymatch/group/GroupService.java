@@ -126,22 +126,15 @@ public class GroupService {
     }
 
 
-    public GroupResponse getGroupByCode(String groupCode) {
-        //그룹코드 기반으로 그룹정보 조회 메서드
-        UserGroup userGroup = groupRepository.findByGroupCode(groupCode)
-                .orElseThrow(() -> new IllegalArgumentException("Group not found with code: " + groupCode));
 
-        //그룹 정보를 GroupResponse에 반환
+    public GroupResponse getGroupByUserId(Long id) {
+        UserGroup userGroup = groupRepository.findByUserId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Group not found for user with id: " + id));
+
         return GroupResponse.fromUserGroup(userGroup);
     }
 
-//    //노드로 통신설정
-//    private void sendToSubServer(String groupCode, GroupResponse groupResponse) {
-//        RestTemplate restTemplate = new RestTemplate();
-//        //그룹코드를 엔드포인트로 읽어해서 이렇게 보냄
-//        String subServerUrl = "http://localhost:9000/api/groups/" + groupCode + "/handle-leave";
-//        restTemplate.postForEntity(subServerUrl, groupResponse, String.class);
-//    }
+
 
     private String generateGroupCode() {
         return UUID.randomUUID().toString().substring(0, 8);  // UUID로부터 8자리 랜덤 코드 생성

@@ -52,9 +52,10 @@ public class GroupController {
 
 
 
-    @GetMapping("/{groupCode}/state")
-    public ApiResponse<GroupResponse> getGroupState(@PathVariable String groupCode ,GroupRequest groupRequest  ) {
-         GroupResponse groupResponse  = groupService.getGroupByCode(groupCode);
+    @GetMapping("/group/user/{id}")
+    public ApiResponse<GroupResponse> getGroupState(@PathVariable Long id) {
+        System.out.println("유저그룹아이디 들어옴"+id);
+         GroupResponse groupResponse  = groupService.getGroupByUserId(id);;
         return ApiResponse.ok(groupResponse);
     }
 }
