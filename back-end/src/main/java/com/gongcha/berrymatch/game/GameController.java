@@ -83,5 +83,4 @@ public class GameController {
         return ApiResponse.ok("record votes submit success");
     }
 
-
 }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
-import { io } from "socket.io-client";
-import {axios} from "axios";
+import io from "socket.io-client";
+import axios from "axios";
 import ChatMessage from "./ChatMessage";
 import ChatMembersList from "./ChatMembersList";
 import Styles from "./ChatRoom.module.css";
 
+
+// 해당 채팅방 정보를 가지고 오면 그걸 가지고 접속해야할거같은데
 const ChatRoom = ({ token, roomName }) => {
     const socket = useRef(null);
 
@@ -23,13 +25,16 @@ const ChatRoom = ({ token, roomName }) => {
             cors: { origin: "*" },
         });
 
-        // 매칭된 경기 일자 불러오기
+        // 매칭된 경기 일자 불러오기 (matching에서 매칭된 정보 보내줘야함)
         socket.current.on("matching info to client",(data)=>{
-          setGameDate(data.date);
+            setGameDate(data.date);
         });
 
         // 사용자가 방에 입장하는 이벤트
-        socket.current.emit("join Room", { room: roomName, token: token });
+        socket.current.emit("join Room", {
+             room: roomName,
+             token: token
+        });
 
         // 유저 정보 불러오기
         socket.current.on("load user info", (data) => {
@@ -93,10 +98,9 @@ const ChatRoom = ({ token, roomName }) => {
             }else{
                 axios.post("http://localhost:8085/api/chatRoom/ready", {
                     user: userId,
-                    isReady: true // 또는 false, 사용자의 준비 상태에 따라 변경
+                    isReady: true 
                 })
                 .then(res => {
-                    // 서버에서 응답 받은 후 처리 로직
                     console.log("유저 준비 상태 전달 성공:", res.data);
                 })
                 .catch(error => {
@@ -110,7 +114,7 @@ const ChatRoom = ({ token, roomName }) => {
 
     // 경기 종료 처리
     const endGame = (e) => {
-        // axios로 바로 메인 서버로 보내도됨
+        // axios로 바로 메인 서버로 
         axios.post("http://localhost:8085/api/chat/end",{
             user:userId,
             chatRoom:currentRoom

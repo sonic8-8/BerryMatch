@@ -1,17 +1,6 @@
 const axios = require("axios");
-const jwt = require("jsonwebtoken");
 
 const userStates = {}; // 방 별로 유저들의 준비 상태를 저장하는 객체
-
-// JWT를 이용한 토큰 검증 함수
-const verifyToken = (token) => {
-    try {
-        const decoded = jwt.verify(token, "your-secret-key"); // 토큰 디코딩
-        return decoded; // 유효한 경우 디코딩된 사용자 정보 반환
-    } catch (err) {
-        return null; // 유효하지 않은 경우 null 반환
-    }
-};
 
 module.exports = (io, socket) => {
 
@@ -22,8 +11,8 @@ module.exports = (io, socket) => {
             io.to(room).emit("matching info to client", {
                 date:data.date,
                 members: data.members.map(member => ({
-                    img:member.img,
                     id: member.id,
+                    img:member.img,
                     record: member.record,
                     state: member.state
                 }))
@@ -35,8 +24,7 @@ module.exports = (io, socket) => {
     });
     
     // 채팅방 입장: 사용자가 해당 방에 접근 권한이 있는지 확인
-    socket.on("join Room", async ({ room, token }) => {
-        const user = verifyToken(token);
+    socket.on("join Room", async ({ room }) => {
         
         if (user && user.rooms && user.rooms.includes(room)) {
             socket.join(room);

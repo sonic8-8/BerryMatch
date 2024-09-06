@@ -39,7 +39,6 @@ const ChatMembersList = ({roomId}) => {
                             memberImg={membersInfo.img}
                             memberId = {membersInfo.id}
                             memberState = {membersInfo.state}
-                            memberRecord = {membersInfo.record}
                         />
                     </div>
                 )

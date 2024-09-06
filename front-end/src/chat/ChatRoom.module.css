@@ -1,6 +1,18 @@
+@font-face {
+    font-family: 'GmarketSans';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff') format('woff'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.ttf') format("truetype");
+    font-display: swap;
+}
+
 .chat_room_container{
     width: 60%;
-    height:80%;
+    height:100%;
     padding: 0.2%;
     border-radius: 3px;
     box-shadow: 1px 1px 2px 0.5px #c5c5c5;
@@ -50,7 +62,7 @@
 }
 
 .chat_input {
-    height:10%;
+    height: 10%;
     width: 100%; /* 컨테이너가 전체 너비를 차지하도록 설정 */
     display: flex;
     align-items: center;
@@ -63,6 +75,7 @@
 
 .chat_input input{
     width:80%;
+    height: 80%;
     border: none;
     background-color: rgba(60, 60, 60, 0.9); /* 입력창 배경색을 어둡게 설정 */
     color: #ddd; /* 텍스트 색상을 밝은 회색으로 설정 */
