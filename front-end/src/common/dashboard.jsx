@@ -5,10 +5,12 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
+import GroupPopupPanel from '../group/GroupPopupPanel';
 
 function Dashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
+  
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -56,7 +58,9 @@ function Dashboard() {
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <Link to="/guild" className={styles.dashboard_middle_right_menu}>길드</Link>
-                        <Link to="/group" className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</Link>
+                        {/* <Link to="/group" className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</Link> */}
+                       
+                      
                     </div>
 
                 </div>
@@ -67,7 +71,9 @@ function Dashboard() {
                 <Link to="/" className={styles.dashboard_bottom_menu}>Home</Link>
                 <Link to="/alert" className={styles.dashboard_bottom_menu}>알림</Link>
                 <Link to="/mypage" className={styles.dashboard_bottom_menu}>마이페이지</Link>
-                <div className={styles.dashboard_bottom_menu}>그룹정보</div>
+                <div><GroupPopupPanel/></div>
+                
+                
             </div>
 
         </div>

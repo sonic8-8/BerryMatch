@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center; /* 수평 중앙 정렬 */
-    background-color: rgba(88, 87, 87, 0.8); /* 반투명 배경색 설정 */
+    background-color: rgba(88, 87, 87, 0.9); /* 반투명 배경색 설정 */
     padding: 20px;
     width: 1366px; /* 중앙 부분의 너비 설정 */
     height: 644px; /* 고정 높이 설정 */
