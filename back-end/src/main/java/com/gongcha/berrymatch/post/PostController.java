@@ -46,8 +46,8 @@ public class PostController {
     /**
      *  내가 작성한 게시글만 보기
      */
-    @GetMapping("/mypost")
-    public ApiResponse<PostDataResponse> getPost(@RequestBody PostRequest request) {
-        System.out.println("버튼누른놈: " + request.getId());
-    }
+//    @GetMapping("/mypost")
+//    public ApiResponse<PostDataResponse> getPost(@RequestBody PostRequest request) {
+//        System.out.println("버튼누른놈: " + request.getId());
+//    }
 }
