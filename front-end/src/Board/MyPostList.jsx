@@ -6,18 +6,14 @@ import { setModalSwitch, setLikeSwitch} from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import img from './img/defaultImg.png'
 import Modal from 'react-modal';
 import { jwtDecode } from 'jwt-decode';
 
-// 좋아요 버튼 갖고옴
-import { AiOutlineLike } from "react-icons/ai";
-import { AiFillLike } from "react-icons/ai";
 
 // url 파라미터 가지고올 수 있음 (useParams)
 import { useNavigate, useParams } from 'react-router-dom';
 
-function PostList() {
+function MyPostList() {
 
 
   const accessToken = Cookies.get("accessToken");
@@ -36,11 +32,11 @@ function PostList() {
 
 
    /**
-   * 하이라이트 페이지를 들어왔을 때 DB에 저장되어 있는 게시글들 보여주기
+   * 나의 게시물 페이지에 들어왔을 때 DB에 저장되어 있는 게시글들 보여주기
    */
   let data;
   useEffect(() => {
-    axios.get(`http://localhost:8085/api/postpage/${currentPage}`, {
+    axios.get(`http://localhost:8085/api/mypostlist/${currentPage}`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       },
@@ -53,11 +49,11 @@ function PostList() {
         const message = apiResponse.message;
         const code = apiResponse.code;
         const status = apiResponse.status;
-        console.log("게시글 및 총 페이지 수 값 : ", data);
+        console.log("마아아아이이이이이 게시글 및 총 페이지 수 값 : ", data);
         console.log(apiResponse);
         setPostList(data.postDataList);
         setTotalPages(data.totalPages);
-        nav(`/board/${currentPage}`);
+        nav(`/mypostpage/${currentPage}`);
       })
     .catch(
       error=>{
@@ -126,39 +122,6 @@ console.log("내가 클릭한 페이지 : ", parseInt(event.target.value));
 
 }
 
-/**
- * 나의 게시물 보기
- */
-function mypost() {
-  
-  const decodedToken = jwtDecode(accessToken);
-  const id = decodedToken.id;
-
-  console.log("마이포스트");
-  
-  const myPostData = {
-    "id" : id
-  }
-
-  axios.post('http://localhost:8085/api/mypost', myPostData, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    },
-    withCredentials: true
-  })
-  .then(
-    response=>{
-      console.log("나의 게시물 ", response.data)
-    }
-  )
-  .catch(
-    error=>{
-
-    }
-  )
-
-}
-
 
 
   return (
@@ -182,12 +145,8 @@ function mypost() {
           })
         }
       </div>
-     
-      
-  
-      {/* {
-        modalSwitch == true ? <PostDetail postList={postDetailData}></PostDetail> : null
-      } */}
+
+
 
       {
         modalSwitch ? (
@@ -220,4 +179,4 @@ function mypost() {
   );
 }
 
-export default PostList
+export default MyPostList

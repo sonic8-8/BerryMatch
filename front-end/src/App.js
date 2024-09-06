@@ -25,6 +25,7 @@ import PostPage from './board/PostPage';
 import PostList from './board/PostList';
 import PostWritePage from './board/pages/PostWritePage';
 import Map from './common/Map';
+import { Navigate } from 'react-router-dom';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
         <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
         <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>}>
+          <Route path="" element={<Navigate to="/1" replace />} />
           <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
           <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} />
         </Route>

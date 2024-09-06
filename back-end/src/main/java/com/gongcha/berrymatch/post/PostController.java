@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.post;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.post.requestDTO.MyPostRequest;
 import com.gongcha.berrymatch.post.requestDTO.PostRequest;
 import com.gongcha.berrymatch.post.responseDTO.PostDataResponse;
 import com.gongcha.berrymatch.post.responseDTO.PostResponse;
@@ -46,8 +47,12 @@ public class PostController {
     /**
      *  내가 작성한 게시글만 보기
      */
-//    @GetMapping("/mypost")
-//    public ApiResponse<PostDataResponse> getPost(@RequestBody PostRequest request) {
-//        System.out.println("버튼누른놈: " + request.getId());
-//    }
+    @PostMapping("/mypostpage/{currentPage}")
+    public ApiResponse<PostDataResponse> myPostList( @RequestBody MyPostRequest request, @PathVariable int currentPage) {
+        System.out.println("마이포스트 누른놈 :" + request.getId());
+
+        System.out.println("넘어온 페이지 값 : " + currentPage);
+        return ApiResponse.ok(postService.getMyPosts(request, currentPage));
+    }
+
 }

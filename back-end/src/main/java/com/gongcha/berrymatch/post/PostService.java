@@ -3,6 +3,7 @@ package com.gongcha.berrymatch.post;
 import com.gongcha.berrymatch.ApiResponse;
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.post.requestDTO.MyPostRequest;
 import com.gongcha.berrymatch.post.requestDTO.PostRequest;
 import com.gongcha.berrymatch.post.responseDTO.PostDataResponse;
 import com.gongcha.berrymatch.post.responseDTO.PostResponse;
@@ -53,6 +54,7 @@ public class PostService {
         postRepository.save(post);
 
         return PostResponse.of(post);
+
     }
 
     // 페이징
@@ -65,9 +67,49 @@ public class PostService {
         for (Post post : posts.getContent()) {
             Long postId = post.getId();
             String thumbnailUrl = postFileRepository.findByPostId(post.getId()).
-            orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getThumbFileUrl();
+                    orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getThumbFileUrl();
             String fileUrl = postFileRepository.findByPostId(post.getId()).
-            orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getFileUrl();
+                    orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getFileUrl();
+            String nickname = post.getUser().getNickname();
+            String title = post.getTitle();
+            String content = post.getContent();
+            String createAt = post.getCreatedAt().toString().substring(0, 10);
+
+            postDataList.add(PostData.builder()
+                    .postId(postId)
+                    .thumbnailUrl(thumbnailUrl)
+                    .fileUrl(fileUrl)
+                    .title(title)
+                    .content(content)
+                    .nickname(nickname)
+                    .createAt(createAt)
+                    .build());
+        }
+
+        String totalPages = String.valueOf(posts.getTotalPages());
+
+        System.out.println("postDataList의 값 : " + postDataList);
+
+        return PostDataResponse.builder()
+                .postDataList(postDataList)
+                .totalPages(totalPages)
+                .build();
+    }
+
+    // 나의 게시물
+    public PostDataResponse getMyPosts(MyPostRequest request, int currentPage) {
+
+        // 나의 게시물 누른놈
+        Page<Post> posts = postRepository.findPageByUser(request.getId(), PageRequest.of(currentPage - 1, 6));
+
+        List<PostData> postDataList = new ArrayList<>();
+
+        for (Post post : posts.getContent()) {
+            Long postId = post.getId();
+            String thumbnailUrl = postFileRepository.findByPostId(post.getId()).
+                    orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getThumbFileUrl();
+            String fileUrl = postFileRepository.findByPostId(post.getId()).
+                    orElseThrow(() -> new BusinessException(ErrorCode.FILE_NOT_EXIST)).getFileUrl();
             String nickname = post.getUser().getNickname();
             String title = post.getTitle();
             String content = post.getContent();
@@ -95,8 +137,5 @@ public class PostService {
                 .totalPages(totalPages)
                 .build();
     }
-
-
-
 
 }
