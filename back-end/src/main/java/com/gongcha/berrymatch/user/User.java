@@ -18,7 +18,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -63,7 +65,7 @@ public class User {
     private ProviderInfo providerInfo;
 
     @Enumerated(EnumType.STRING)
-    private UserMatchStatus userMatchStatus;
+    private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
@@ -103,9 +105,8 @@ public class User {
     @JoinColumn(name = "chat_message_id")
     private ChatMessage chatMessage;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_like_id")
@@ -152,6 +153,11 @@ public class User {
         this.id = id;
         this.city = city;
         this.district = district;
+    }
+
+    public void profileUpdate(String profileImageUrl, String introduction) {
+        this.profileImageUrl = profileImageUrl;
+        this.introduction = introduction;
     }
 
 

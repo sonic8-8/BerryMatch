@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
+import Map from './Map';
+import MatchStatus from './components/MatchStatus';
 
 function Dashboard() {
 
@@ -26,28 +28,29 @@ function Dashboard() {
                 <Link to="/logout" className={styles.dashboard_top_logout}>
                         로그아웃
                 </Link>
-                
+                <Link to="/map">맵 테스트</Link>
             </div>
 
             <div className={styles.dashboard_middle}>
 
                 <div className={styles.dashboard_middle_left}>
                     <div className={styles.dashboard_middle_left_content}>
-                        프로필사진
-                        <img src={userInfo ? userInfo.profileImageUrl : ''} />
+                        <img className={styles.dashboard_middle_left_content_profile_image} src={userInfo ? userInfo.profileImageUrl : ''} />
                     </div>
                     <div className={styles.dashboard_middle_left_content}>닉네임 : {userInfo ? userInfo.nickname : '' }</div>
                     <div className={styles.dashboard_middle_left_content}>자기소개 : {userInfo ? userInfo.introduction : ''}</div>
-                    <div className={styles.dashboard_middle_left_content}>전적</div>
-                    <div className={styles.dashboard_middle_left_content}>최근 경기</div>
-                    <div></div>
+                    <div className={styles.dashboard_middle_left_content}>전적 : </div>
+                    <div className={styles.dashboard_middle_left_content}>설정 주소 : {userInfo ? userInfo.city + ' ' + userInfo.district : ''}</div>
                     
                 </div>
 
                 <div className={styles.dashboard_middle_right}>
                     <div className={styles.dashboard_middle_right_menu_container}>
-                        <Link to="/match" className={styles.dashboard_middle_right_menu}>매칭</Link>
-                        <MatchSetupSubPage className={styles.dashboard_middle_right_menu} />
+                        <div className={styles.dashboard_middle_right_menu}>
+                            <MatchStatus/>
+                            <MatchSetupSubPage />
+                        </div>
+                        
                         
                     </div>
                     <div className={styles.dashboard_middle_right_menu_container}>

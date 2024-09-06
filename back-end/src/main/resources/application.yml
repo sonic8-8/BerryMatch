@@ -7,21 +7,21 @@ spring:
   profiles:
     default: local
 
-  datasource:
-    url: ${AZURE_MYSQL_SERVER_URL}
-    username: ${AZURE_MYSQL_SERVER_USERNAME}
-    password: ${AZURE_MYSQL_SERVER_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
 #  datasource:
-#    url: ${MY_DB_URL}
-#    username: ${MY_DB_USERNAME}
-#    password: ${MY_DB_PASSWORD}
+#    url: ${AZURE_MYSQL_SERVER_URL}
+#    username: ${AZURE_MYSQL_SERVER_USERNAME}
+#    password: ${AZURE_MYSQL_SERVER_PASSWORD}
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  datasource:
+    url: ${MY_DB_URL}
+    username: ${MY_DB_USERNAME}
+    password: ${MY_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
     jpa:
       hibernate:
-        ddl-auto: update
+        ddl-auto: create
 
   data:
     mongodb:
@@ -88,6 +88,27 @@ spring:
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
 
+  mvc:
+    cors:
+      mappings:
+        /api/*:
+          allowed-origins: "http://localhost:3000"
+          allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+          allowed-headers: "*"
+          allow-credentials: true
+        /socket/*:
+          allowed-origins: "http://localhost:9000"
+          allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+          allowed-headers: "*"
+          allow-credentials: true
+
+  servlet:
+    multipart:
+      max-file-size: 500MB   # 업로드할 수 있는 단일 파일의 최대 크기
+      max-request-size: 2048MB # 전체 요청의 최대 크기
+      file-size-threshold: 100MB # 이 크기 이상의 파일은 임시 디렉토리에 저장됨
+      location: /tmp/uploads # 업로드한 파일이 저장될 임시 디렉토리
+
 
 url:
   base: http://localhost:3000
@@ -110,26 +131,7 @@ spring:
         format_sql: true
     defer-datasource-initialization: true # (2.5~) Hibernate 초기화 이후 data.sql 실행
 
-    mvc:
-      cors:
-        mappings:
-          /api/*:
-            allowed-origins: "http://localhost:3000"
-            allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
-            allowed-headers: "*"
-            allow-credentials: true
-          /socket/*:
-            allowed-origins: "http://localhost:9000"
-            allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
-            allowed-headers: "*"
-            allow-credentials: true
 
-    servlet:
-      multipart:
-        max-file-size: 500MB   # 업로드할 수 있는 단일 파일의 최대 크기
-        max-request-size: 2048MB # 전체 요청의 최대 크기
-        file-size-threshold: 100MB # 이 크기 이상의 파일은 임시 디렉토리에 저장됨
-        location: /tmp/uploads # 업로드한 파일이 저장될 임시 디렉토리
 
 ---
 spring:

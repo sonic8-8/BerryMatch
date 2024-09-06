@@ -26,10 +26,13 @@ public enum ErrorCode {
     INVALID_JWT(HttpStatus.BAD_REQUEST, "JWT가 유효하지 않습니다."),
     INVALID_PROGRESS(HttpStatus.BAD_REQUEST, "존재하지 않는 정보입니다."),
 
+
     JWT_NOT_FOUND_IN_DB(HttpStatus.NOT_FOUND, "DB에 JWT 정보가 존재하지 않습니다."),
     JWT_NOT_FOUND_IN_HEADER(HttpStatus.NOT_FOUND, "Header에 JWT 정보가 존재하지 않습니다."),
     JWT_NOT_FOUND_IN_COOKIE(HttpStatus.NOT_FOUND, "Cookie에 JWT 정보가 존재하지 않습니다."),
     REFRESH_TOKEN_NOT_MATCH(HttpStatus.BAD_REQUEST, "DB에 저장되어 있는 Refresh token과 일치하지 않습니다."),
+    REFRESH_TOKEN_NOT_FOUNT(HttpStatus.NOT_FOUND, "Refresh token이 존재하지 않습니다."),
+    DUPLICATED_REFRESH_TOKEN(HttpStatus.BAD_REQUEST,"Refresh token이 중복해서 존재합니다."),
 
     MULTIPART_FILE_NOT_EXIST(HttpStatus.BAD_REQUEST, "MultipartFile이 전달되지 않았습니다."),
     FILE_NOT_EXIST(HttpStatus.BAD_REQUEST, "해당 파일(이미지)이 존재하지 않습니다."),
