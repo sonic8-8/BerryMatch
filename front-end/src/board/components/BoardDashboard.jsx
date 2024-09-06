@@ -9,13 +9,7 @@ function BoardDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
 
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+    console.log(loading);
 
     return (
         <div className={styles.dashboard_container}>
@@ -33,11 +27,6 @@ function BoardDashboard() {
             </div>
 
             <div className={styles.dashboard_middle}>
-                <div className={styles.dashboard_middle_menu_container}>
-                    <div className={styles.dashboard_middle_menu}>메뉴1</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴2</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴3</div>
-                </div>
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />
                 </div>

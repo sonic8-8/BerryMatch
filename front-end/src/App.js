@@ -22,6 +22,11 @@ import MatchLobbyPage from './match/pages/MatchLobbyPage';
 import ProfileEditSubPage from './user/pages/ProfileEditSubPage';
 import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
+import PostPage from './board/PostPage';
+import PostList from './board/PostList';
+import PostWritePage from './board/pages/PostWritePage';
+import Map from './common/Map';
+import { Navigate } from 'react-router-dom';
 import MatchComparison from './match/test/MatchComparison';
 import Map from './common/Map';
 
@@ -55,11 +60,19 @@ function App() {
           <Route path="account-deletion" element={<PrivateRoute><AccountDeletionSubPage /></PrivateRoute>} />
         </Route>
         <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} />
-        <Route path="/match/lobby" element={<PrivateRoute><MatchComparison /></PrivateRoute>} />
-        <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>} />
+        <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
+        <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>}>
+          <Route path="" element={<Navigate to="/1" replace />} />
+          <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
+          <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} />
+        </Route>
+
+
+
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
         <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
+        <Route path="/map" element={<PrivateRoute><Map /></PrivateRoute>} />
       </Routes>
     </div>
   );
