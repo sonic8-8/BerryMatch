@@ -31,6 +31,7 @@ function UserDashboard() {
             <div className={styles.dashboard_middle}>
                 <div className={styles.dashboard_middle_menu_container}>
                     <Link to="profile-edit" className={styles.dashboard_middle_menu}>프로필 수정</Link>
+                    <Link to="address-edit" className={styles.dashboard_middle_menu}>주소 변경</Link>
                     <Link to="match-results" className={styles.dashboard_middle_menu}>경기 기록</Link>
                     <Link to="account-deletion" className={styles.dashboard_middle_menu}>회원 탈퇴</Link>
                 </div>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const useProfileUpdate = (initialUserInfo) => {
     const [profileImage, setProfileImage] = useState(initialUserInfo.profileImageUrl || '');
@@ -11,6 +12,7 @@ const useProfileUpdate = (initialUserInfo) => {
     const [data, setData] = useState(null);
     const [code, setCode] = useState(null);
     const [introduction, setIntroduction] = useState('');
+    const navigate = useNavigate();
 
     const handleProfileImageChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -66,9 +68,12 @@ const useProfileUpdate = (initialUserInfo) => {
             console.log(data);
             console.log(status);
             console.log(code);
+            
+            navigate('/mypage/profile-edit');
         } catch (error) {
             console.error("업로드 실패요:", error);
             alert("업로드 실패요");
+            navigate('/mypage/profile-edit');
         }
     };
 

@@ -65,7 +65,7 @@ public class User {
     private ProviderInfo providerInfo;
 
     @Enumerated(EnumType.STRING)
-    private UserMatchStatus userMatchStatus;
+    private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;

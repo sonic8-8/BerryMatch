@@ -12,7 +12,6 @@ function Mypage() {
         </div>
 
         <div className={styles.layout_content}>
-
           
           <UserDashboard/>
           

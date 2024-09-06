@@ -1,5 +1,7 @@
 package com.gongcha.berrymatch.user;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,5 +19,10 @@ public enum City {
     SEJONG("세종");
 
     private final String text;
+
+    @JsonValue
+    public String getText() {
+        return text;
+    }
 
 }
