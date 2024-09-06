@@ -42,19 +42,14 @@ public class UserSignupRequest {
 
     }
 
-    public ProviderInfo toProviderInfo() {
-        try {
-            return ProviderInfo.valueOf(providerInfo.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("providerInfo가 적절한 형태가 아닙니다 : " + providerInfo);
-        }
+    public ProviderInfo toProviderInfo(String providerInfo) {
+        return ProviderInfo.valueOf(providerInfo);
     }
-
 
     public UserSignupServiceRequest toService() {
         return UserSignupServiceRequest.builder()
                 .identifier(identifier)
-                .providerInfo(toProviderInfo())
+                .providerInfo(ProviderInfo.from(providerInfo))
                 .nickname(nickname)
                 .city(city)
                 .district(district)

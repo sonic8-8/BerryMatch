@@ -17,9 +17,9 @@ public class TokenRequest {
         this.providerInfo = providerInfo;
     }
 
-    public ProviderInfo toProviderInfo() {
+    public ProviderInfo toProviderInfo(String providerInfo) {
         try {
-            return ProviderInfo.valueOf(providerInfo.toUpperCase());
+            return ProviderInfo.from(providerInfo);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("providerInfo가 적절한 형태가 아닙니다 : " + providerInfo);
         }
@@ -28,7 +28,7 @@ public class TokenRequest {
     public TokenServiceRequest toTokenServiceRequest() {
         return TokenServiceRequest.builder()
                 .identifier(identifier)
-                .providerInfo(toProviderInfo())
+                .providerInfo(toProviderInfo(providerInfo))
                 .build();
     }
 }

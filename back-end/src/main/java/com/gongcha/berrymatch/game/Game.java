@@ -39,6 +39,9 @@ public class Game {
     @JoinColumn(name = "game_id")
     private Match match;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GameResultTemp> gameResultTemps;
+
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }

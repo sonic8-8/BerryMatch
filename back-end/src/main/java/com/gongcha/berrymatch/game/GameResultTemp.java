@@ -23,7 +23,8 @@ public class GameResultTemp {
     @Enumerated(EnumType.STRING)
     private GameRecordTempStatus gameRecordTempStatus = GameRecordTempStatus.BEFORE_RECORD;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
     private int resultTeamA;

@@ -87,9 +87,11 @@ function SignupPage() {
             const signupStatus = signupApiResponse.status;
 
             console.log(signupData);
+            alert(signupData.providerInfo);
+            
 
             if (signupCode === 200) {
-                console.log('회원가입 성공:', signupMessage);
+                console.log('회원가입 성공');
 
                 const accessToken = Cookies.get('accessToken');
 

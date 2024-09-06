@@ -30,6 +30,9 @@ public class UserController {
 
         System.out.println("회원가입 요청 들어옴");
 
+        System.out.println(userSignupRequest.getProviderInfo());
+        System.out.println("여기는 providerInfo 정상적으로 들어옴");
+
         return ApiResponse.ok(userService.signup(userSignupRequest.toService()));
     }
 

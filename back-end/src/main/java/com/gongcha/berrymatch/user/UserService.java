@@ -66,10 +66,8 @@ public class UserService {
     @Transactional
     public UserSignupResponse signup(UserSignupServiceRequest request) {
 
-        System.out.println("업데이트 하려고 들어옴");
-
-        System.out.println(request.getIdentifier());
-        System.out.println(request.getProviderInfo());
+        System.out.println("identifier" + request.getIdentifier());
+        System.out.println("providerInfo" + request.getProviderInfo());
 
         User user = userRepository.findByOAuthInfo(request.getIdentifier(), request.getProviderInfo())
                         .orElseThrow(() -> new BusinessException(NOT_AUTHENTICATED_USER));
@@ -82,6 +80,7 @@ public class UserService {
             return UserSignupResponse.builder()
                     .identifier(user.getIdentifier())
                     .role(user.getRole())
+                    .providerInfo(user.getProviderInfo())
                     .build();
         } else {
             throw new BusinessException(MEMBER_NOT_UPDATED);
