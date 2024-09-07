@@ -12,8 +12,7 @@ module.exports = (io, socket) => {
                 date:data.date,
                 members: data.members.map(member => ({
                     id: member.id,
-                    img:member.img,
-                    record: member.record,
+                    img: member.img,
                     state: member.state
                 }))
             });

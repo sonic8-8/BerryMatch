@@ -115,7 +115,7 @@ const ChatRoom = ({ token, roomName }) => {
     // 경기 종료 처리
     const endGame = (e) => {
         // axios로 바로 메인 서버로 
-        axios.post("http://localhost:8085/api/chat/end",{
+        axios.post("http://localhost:8085/api/game/end",{
             user:userId,
             chatRoom:currentRoom
         })

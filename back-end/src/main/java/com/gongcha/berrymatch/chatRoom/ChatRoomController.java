@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class ChatRoomController {
 
@@ -21,7 +22,7 @@ public class ChatRoomController {
     /**
      * 매칭 완료된 사용자들의 채팅방에 대한 Data DB에 등록
      */
-    @PostMapping
+    @PostMapping("/chatRoom/")
     public ApiResponse<String> createNewChatRoom(@RequestBody ChatRoom chatRoom){
     //    chatRoomService.createChatRoom();
         return ApiResponse.ok("ChatRoomInfo saved successfully");

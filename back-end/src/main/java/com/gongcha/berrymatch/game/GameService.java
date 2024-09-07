@@ -130,4 +130,13 @@ public class GameService {
         }
     }
 
+    // 경기 종료 요청 받으면 해당하는 경기에 대한 정보 DB 등록
+    @Transactional
+    public void saveGameInfo(GameDTO game) {
+        Game endedGame = Game.builder()
+                .gameTitle(game.getGame().getGameTitle())
+                .users(game.getGame().getUsers())
+                .build();
+        gameRepository.save(endedGame);
+    }
 }
