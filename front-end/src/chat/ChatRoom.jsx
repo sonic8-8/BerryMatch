@@ -1,59 +1,72 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import {jwtDecode} from 'jwt-decode'; 
 import ChatMessage from "./ChatMessage";
 import ChatMembersList from "./ChatMembersList";
 import Styles from "./ChatRoom.module.css";
 
 
 // 해당 채팅방 정보를 가지고 오면 그걸 가지고 접속해야할거같은데
-const ChatRoom = ({ token, roomName }) => {
+const ChatRoom = ({ token }) => {
     const socket = useRef(null);
 
-    const [userId, setUserId] = useState("");
-    const [gameDate, setGameDate] = useState("");
-    const [currentRoom, setCurrentRoom] = useState(roomName);
+    // const [userId, setUserId] = useState("");
+    const [gameTitle, setGameTitle] = useState("");
+    const [currentRoom, setCurrentRoom] = useState("");
     const [userInputMsg, setUserInputMsg] = useState("");
     const [gameReady, setGameReady] = useState(false);
     const [chatMessages, setChatMessages] = useState([]);
     const [readyDisabled, setReadyDisabled] = useState(false);
     const [endDisabled, setEndDisabled] = useState(true);
+    const [teamAUsers, setTeamAUsers] = useState([]);
+    const [teamBUsers, setTeamBUsers] = useState([]);
+    const accessToken = Cookies.get('accessToken');
+
+    let userId = null;
+    if (accessToken) {
+        const decodedToken = jwtDecode(accessToken);
+        userId = Number(decodedToken.id);
+    }
 
     useEffect(() => {
         // 서버와의 소켓 연결
-        socket.current = io.connect("http://localhost:8085/api/chatRoom", {
+        socket.current = io.connect("http://localhost:8085/ws/chatRoom", {
             cors: { origin: "*" },
         });
 
-        // 매칭된 경기 일자 불러오기 (matching에서 매칭된 정보 보내줘야함)
-        socket.current.on("matching info to client",(data)=>{
-            setGameDate(data.date);
+        // 매칭된 경기 일자 불러오기 
+        socket.current.on("create new room",(res)=>{
+            setGameTitle(res.data.date);
+            setCurrentRoom(res.roomId)
         });
 
         // 사용자가 방에 입장하는 이벤트
         socket.current.emit("join Room", {
-             room: roomName,
-             token: token
+             roomId: currentRoom,
+             user: token
         });
 
         // 유저 정보 불러오기
-        socket.current.on("load user info", (data) => {
-            setUserId(data);
+        socket.current.on("load user info", (res) => {
+            setTeamAUsers((prev) => [...prev,res.members.teamA])
+            setTeamBUsers((prev) => [...prev,res.members.teamB])
         });
 
         // 룸 정보 불러오기
-        socket.current.on("room Joined", (data) => {
-            setCurrentRoom(data.room);
+        socket.current.on("room Joined", (res) => {
+            setCurrentRoom(res.room);
         });
     
         // 과거 채팅 내역 불러오기
-        socket.current.on("load all msgs", (data) => {
-            setChatMessages(data);
+        socket.current.on("load all msgs", (res) => {
+            setChatMessages(res);
         });
 
         // 실시간 채팅 내역 띄우기
-        socket.current.on("receive msg", (msg) => {
-            setChatMessages((prevChatMessages) => [...prevChatMessages, msg]);
+        socket.current.on("receive msg", (res) => {
+            setChatMessages((prevChatMessages) => [...prevChatMessages, res]);
         });
 
         // 모든 유저가 준비 완료 시 준비버튼 비활성화
@@ -77,39 +90,27 @@ const ChatRoom = ({ token, roomName }) => {
         return () => {
             socket.current.disconnect();
         };
-    }, [roomName, token]);
+    }, [token]);
+
+    // 유저의 준비 상태 먼저 받기
+    const sendReadyStatus = async (isReady) => {
+        try {
+            const response = await axios.post("http://localhost:8085/api/chatRoom/ready", {
+                user: userId,
+                isReady
+            });
+            console.log("유저 준비 상태 전달 성공:", response.data);
+        } catch (error) {
+            console.error("유저 준비 상태 전달 실패:", error);
+        }
+    };
 
     // 경기 준비 버튼 이벤트
     const readyGame = (e) => {
-        setGameReady((prevReady) => {
-            const newReady = !prevReady;
-            if(newReady){
-                axios.post("http://localhost:8085/api/chatRoom/ready", {
-                    user: userId,
-                    isReady: false
-                })
-                .then(res => {
-                    console.log("유저 준비 상태 전달 성공:", res.data);
-                })
-                .catch(error => {
-                    console.error("유저 준비 상태 전달 실패:", error);
-                });
-                e.target.value = "준비 완료"
-            }else{
-                axios.post("http://localhost:8085/api/chatRoom/ready", {
-                    user: userId,
-                    isReady: true 
-                })
-                .then(res => {
-                    console.log("유저 준비 상태 전달 성공:", res.data);
-                })
-                .catch(error => {
-                    console.error("유저 준비 상태 전달 실패:", error);
-                });
-                e.target.value = "준비 취소"
-            }
-            return newReady;
-        });
+        const newReady = !gameReady;
+        sendReadyStatus(newReady);
+        setGameReady(newReady);
+        e.target.value = newReady ? "준비 완료" : "준비 취소";
     };
 
     // 경기 종료 처리
@@ -127,17 +128,21 @@ const ChatRoom = ({ token, roomName }) => {
         });
     };
 
-    // 전송 버튼 클릭 시 메세지 전송
+    // 메세지 보내기
     const sendMsgHandler = () => {
-        if (userInputMsg.trim()) {
+    if (userInputMsg.trim()) {
+        try {
             socket.current.emit("send msg", {
-                sender: userId,
+                user: userId,
                 msg: userInputMsg,
                 time: new Date().toLocaleTimeString(),
-                room: currentRoom,
+                roomId: currentRoom,
             });
             setUserInputMsg("");
+        } catch (error) {
+            console.error("메시지 전송 실패:", error);
         }
+    }
     };
 
     // 사용자 입력 처리
@@ -151,7 +156,7 @@ const ChatRoom = ({ token, roomName }) => {
         <div className={Styles.chat_container}>
             <div className={Styles.chat_header}>
                 <div className={Styles.chat_info}>
-                  {gameDate}
+                  {gameTitle}
                 </div>
                 <div className={Styles.chat_options}>
                     <button
@@ -175,7 +180,7 @@ const ChatRoom = ({ token, roomName }) => {
                     <ChatMessage
                         key={index}
                         time={msgContent.time}
-                        sender={msgContent.sender}
+                        user={msgContent.user}
                         msg={msgContent.msg}
                     />
                   

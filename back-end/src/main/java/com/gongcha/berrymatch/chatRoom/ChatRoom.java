@@ -4,6 +4,7 @@ import com.gongcha.berrymatch.chatMessage.ChatMessage;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,7 +41,11 @@ public class ChatRoom {
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ChatMessage> chatMessages;
 
-
+    @Builder
+    public ChatRoom(String chatName, List<User> users){
+        this.chatName = chatName;
+        this.users = users;
+    }
 
 }
 
