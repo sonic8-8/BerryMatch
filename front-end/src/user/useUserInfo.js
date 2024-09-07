@@ -45,6 +45,7 @@ const useUserInfo = () => {
         const message = apiResponse.message;
 
         console.log(data);
+        console.log(apiResponse);
 
         if (code === 200) {
           setUserInfo(data);
