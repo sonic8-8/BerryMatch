@@ -8,10 +8,9 @@ function MainPage() {
   return (
     
       <div className={styles.layout}>
-        
-        <div className={styles.layout_header}>
-          
-        </div>
+        {/* <div className={styles.layout_header}>
+         
+        </div> */}
 
         <div className={styles.layout_content}>
           
@@ -19,9 +18,9 @@ function MainPage() {
           
         </div>
         
-        <div className={styles.layout_footer}>
+        {/* <div className={styles.layout_footer}>
 
-        </div>
+        </div> */}
 
       </div>
 
