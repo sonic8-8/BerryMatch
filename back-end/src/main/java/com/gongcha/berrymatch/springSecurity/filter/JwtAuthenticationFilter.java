@@ -2,7 +2,6 @@ package com.gongcha.berrymatch.springSecurity.filter;
 
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.springSecurity.repository.TokenRepository;
 import com.gongcha.berrymatch.springSecurity.service.JwtFacade;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserService;
@@ -109,4 +108,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Authentication authentication = jwtFacade.getAuthentication(accessToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
+
+
 }
