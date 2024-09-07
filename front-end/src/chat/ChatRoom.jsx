@@ -87,7 +87,7 @@ const ChatRoom = () => {
         return () => {
             socket.current.disconnect();
         };
-    }, [currentRoom]); // currentRoom이 변경될 때마다 useEffect 재실행
+    }, [userId, currentRoom]); // currentRoom이 변경될 때마다 useEffect 재실행
 
     const sendReadyStatus = async (isReady) => {
         try {
