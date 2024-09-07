@@ -53,31 +53,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         System.out.println("refresh 토큰으로 유저 정보까지 가져옴");
 
+        if (jwtFacade.isRefreshTokenDuplicate(user.getIdentifier(), user.getProviderInfo())) {
 
-        if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier(), user.getProviderInfo())) {
+            System.out.println("refresh 토큰 중복 검증");
 
-            System.out.println("refresh 토큰 검사 통과");
+            if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier(), user.getProviderInfo())) {
 
-            String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
+                System.out.println("refresh 토큰 검사 통과");
 
-            System.out.println("access 토큰 생성");
+                String reissuedAccessToken = jwtFacade.generateAccessToken(response, user);
 
-            jwtFacade.setReissuedHeader(response);
+                System.out.println("access 토큰 생성");
 
-            jwtFacade.deleteRefreshToken(user.getIdentifier(), user.getProviderInfo()); // MongoDB에서 삭제
+                jwtFacade.setReissuedHeader(response);
 
-            System.out.println("refresh 토큰 mongoDB에서 삭제");
+                jwtFacade.deleteRefreshToken(user.getIdentifier(), user.getProviderInfo()); // MongoDB에서 삭제
 
-            jwtFacade.generateRefreshToken(response, user); // 재발급
+                System.out.println("refresh 토큰 mongoDB에서 삭제");
 
-            System.out.println("refresh 토큰 재발급");
+                jwtFacade.generateRefreshToken(response, user); // 재발급
 
-            jwtFacade.setReissuedHeader(response);
+                System.out.println("refresh 토큰 재발급");
 
-            setAuthenticationToContext(reissuedAccessToken);
+                jwtFacade.setReissuedHeader(response);
 
-            filterChain.doFilter(request, response);
-            return;
+                setAuthenticationToContext(reissuedAccessToken);
+
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
 
         System.out.println("refresh 토큰도 유효하지 않아서 로그아웃 처리함");
