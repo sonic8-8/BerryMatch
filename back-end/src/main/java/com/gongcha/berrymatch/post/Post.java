@@ -5,7 +5,6 @@ import com.gongcha.berrymatch.postLike.PostLike;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,11 +45,4 @@ public class Post {
     private LocalDateTime updatedAt;
 
     private int view;
-
-    @Builder
-    public Post(User user ,String title, String content) {
-        this.user = user;
-        this.title = title;
-        this.content = content;
-    }
 }

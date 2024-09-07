@@ -1,3 +1,5 @@
+import Notification from "./Notification";
+
 function MatchStatus() {
     // useEffect(() => {
     //     let eventSource: EventSource;
