@@ -2,9 +2,8 @@ package com.gongcha.berrymatch.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gongcha.berrymatch.chatMessage.ChatMessage;
-import com.gongcha.berrymatch.chatRoom.ChatRoom;
-import com.gongcha.berrymatch.game.Game;
 
+import com.gongcha.berrymatch.game.Game;
 import com.gongcha.berrymatch.group.UserGroup;
 import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.post.Post;
@@ -18,9 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -64,8 +61,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private ProviderInfo providerInfo;
 
-    @Enumerated(EnumType.STRING)
-    private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
@@ -75,10 +71,12 @@ public class User {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_room_id")
-    private ChatRoom chatRoom;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "chat_room_id")
+//    private ChatRoom chatRoom;
 
+    @Enumerated(EnumType.STRING)
+    private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
 
 
@@ -92,18 +90,17 @@ public class User {
     @JoinColumn(name = "group_id")
     private UserGroup userGroup;
 
-    @Enumerated(EnumType.STRING)
-    private UserMatchStatus matchStatus;
 
-    public void updateMatchStatus(UserMatchStatus status) {
-        this.matchStatus = status;
+
+    public void updateMatchStatus(UserMatchStatus userMatchstatus) {
+        this.userMatchStatus = userMatchstatus;
     }
 
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "chat_message_id")
-    private ChatMessage chatMessage;
+    // ChatMessage와의 일대다 관계 설정 (양방향 매핑)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> chatMessages;  // 한 유저가 보낸 모든 메시지 리스트
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
@@ -147,6 +144,7 @@ public class User {
         this.profileImageUrl = request.getProfileImageUrl();
         this.introduction = request.getIntroduction();
         this.role = Role.USER;
+        this.userMatchStatus = UserMatchStatus.NOT_MATCHED;
     }
 
     public User(Long id, City city, District district) {

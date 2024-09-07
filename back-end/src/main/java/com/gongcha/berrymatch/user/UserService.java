@@ -1,11 +1,6 @@
 package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.exception.BusinessException;
-import com.gongcha.berrymatch.exception.ErrorCode;
-import com.gongcha.berrymatch.postFile.PostFile;
-import com.gongcha.berrymatch.postFile.requestDTO.PostFileUploadServiceRequest;
-import com.gongcha.berrymatch.postFile.responseDTO.PostFileUploadResponse;
-import com.gongcha.berrymatch.s3bucket.S3Service;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
@@ -13,14 +8,8 @@ import com.gongcha.berrymatch.user.ResponseDTO.UserProfileUpdateResponse;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.gongcha.berrymatch.exception.ErrorCode.*;
 
@@ -81,6 +70,7 @@ public class UserService {
                     .identifier(user.getIdentifier())
                     .role(user.getRole())
                     .providerInfo(user.getProviderInfo())
+                    .userMatchStatus(user.getUserMatchStatus())
                     .build();
         } else {
             throw new BusinessException(MEMBER_NOT_UPDATED);

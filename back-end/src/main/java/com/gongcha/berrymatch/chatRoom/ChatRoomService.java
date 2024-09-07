@@ -1,23 +1,34 @@
 package com.gongcha.berrymatch.chatRoom;
 
-import lombok.RequiredArgsConstructor;
+
+import com.gongcha.berrymatch.match.Repository.MatchRepository;
+import com.gongcha.berrymatch.match.Repository.MatchUserRepository;
+import com.gongcha.berrymatch.match.domain.MatchUser;
+import com.gongcha.berrymatch.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ChatRoomService {
-    private final ChatRoomRepository chatRoomRepository;
 
-    //  매칭 완료된 경기에 대한 모든 정보를 가져와서 저장해야함
-//    public MatchCompletionRequest createChatRoom(MatchStatus status) {
-//
-//        return
-//
-//    }
+    private final MatchUserRepository matchUserRepository;
+    private final UserRepository userRepository;
 
-    // 해당하는 채팅방의 정보를 불러옴
-    public ChatRoom loadChatRoomInfo(Long roomId){
-        return chatRoomRepository.findAllById(roomId);
+    public ChatRoomService(UserRepository userRepository, MatchRepository matchRepository, MatchUserRepository matchUserRepository, UserRepository userRepository1) {
+        this.matchUserRepository = matchUserRepository;
+        this.userRepository = userRepository1;
     }
+
+
+    public ChatRoomResponse getChatRoom(ChatRoomRequest chatRoomRequest) {
+        // userId로 매칭된 MatchUser 조회
+        MatchUser matchUser = matchUserRepository.findByUserId(chatRoomRequest.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저의 매칭이 없습니다."));
+
+        String nickname = matchUser.getUser().getNickname();
+        // MatchUser에서 Match 객체를 가져와서 matchId 반환
+        Long matchId = matchUser.getMatch().getId();
+        return new ChatRoomResponse(matchId ,nickname);
+    }
+
 
 }

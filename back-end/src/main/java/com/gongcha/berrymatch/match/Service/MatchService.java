@@ -3,7 +3,6 @@ package com.gongcha.berrymatch.match.Service;
 import com.gongcha.berrymatch.match.DTO.MatchingResultDto;
 import com.gongcha.berrymatch.match.Repository.MatchRepository;
 import com.gongcha.berrymatch.match.Repository.MatchingQueueRepository;
-import com.gongcha.berrymatch.match.ThreadLocal.UserContext;
 import com.gongcha.berrymatch.match.domain.*;
 import com.gongcha.berrymatch.user.User;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class MatchService {
@@ -72,18 +70,18 @@ public class MatchService {
                     userStatusUpdateService.updateUserStatusToMatched(match.getMatchUsers());
 
 
-                    // 노드로 보내줄 서비스
-                    // 매칭 완료된 유저의 ID를 가져옴 (ThreadLocal 사용)
-                    Long initiatingUserId = UserContext.getUserId();
-                    System.out.println("아이디 들어와야함"+initiatingUserId);
-                    if (initiatingUserId == null) {
-                        System.out.println("userId가 null입니다. ThreadLocal 값이 제거되었거나 다른 스레드에서 접근하고 있습니다.");
-                    }
-
-                    if (isUserInMatch(initiatingUserId, match.getMatchUsers())) {
-                        // 매칭 완료된 유저 ID를 매칭 완료 서비스로 전달
-                        matchCompletionService.completeMatch(initiatingUserId);
-                    }
+//                    // 노드로 보내줄 서비스
+//                    // 매칭 완료된 유저의 ID를 가져옴 (ThreadLocal 사용)
+//                    Long initiatingUserId = UserContext.getUserId();
+//                    System.out.println("아이디 들어와야함"+initiatingUserId);
+//                    if (initiatingUserId == null) {
+//                        System.out.println("userId가 null입니다. ThreadLocal 값이 제거되었거나 다른 스레드에서 접근하고 있습니다.");
+//                    }
+//
+//                    if (isUserInMatch(initiatingUserId, match.getMatchUsers())) {
+//                        // 매칭 완료된 유저 ID를 매칭 완료 서비스로 전달
+//                        matchCompletionService.completeMatch(initiatingUserId);
+//                    }
                 }
             } else {
                 // 인원이 충족되지 않은 경우 임시 저장
@@ -147,11 +145,11 @@ public class MatchService {
         }
     }
 
-    private boolean isUserInMatch(Long userId, List<MatchUser> matchUsers) {
-        // 특정 유저가 매칭된 유저 리스트에 포함되어 있는지 확인
-        return matchUsers.stream()
-                .anyMatch(matchUser -> matchUser.getUser().getId().equals(userId));
-    }
+//    private boolean isUserInMatch(Long userId, List<MatchUser> matchUsers) {
+//        // 특정 유저가 매칭된 유저 리스트에 포함되어 있는지 확인
+//        return matchUsers.stream()
+//                .anyMatch(matchUser -> matchUser.getUser().getId().equals(userId));
+//    }
 
 
 

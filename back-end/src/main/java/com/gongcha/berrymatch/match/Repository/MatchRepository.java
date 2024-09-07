@@ -28,6 +28,8 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     Optional<Match> findById(Long matchId);
 
 
+
+
     /**
      * @param status 매치테이블 경기상태
      * @return 경기가끝난 매치테이블 항목
