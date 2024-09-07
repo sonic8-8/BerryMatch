@@ -10,7 +10,9 @@ const Notification = () => {
     useEffect(() => {
         const eventSource = new EventSourcePolyfill('http://localhost:8085/api/stream', {
             headers: {
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${accessToken}`,
+                'Accept': 'text/event-stream',
+                
             },
             withCredentials: true
         });
