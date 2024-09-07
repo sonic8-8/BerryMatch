@@ -1,25 +1,24 @@
 .vs {
-    width: 600px; /* 너비를 600px로 조정 */
+    width: 600px;
     background: linear-gradient(145deg, rgba(68, 68, 68, 0.9), rgba(40, 40, 40, 0.9));
     border-radius: 15px;
-    padding: 30px; /* 패딩을 30px로 조정 */
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* 그림자 강도를 늘림 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
-    margin: 0 auto; /* 중앙 정렬 */
+    margin: 0 auto;
 }
 
 .vs-header {
-    font-size: 40px; /* 글씨 크기 줄임 */
+    font-size: 40px;
     font-weight: bold;
-    color: #ddd; /* 기본 색상 */
+    color: #ddd;
     margin-bottom: 25px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 기본적인 미세한 그림자 */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-    position: relative;
     background: none;
     border: none;
     outline: none;
@@ -27,32 +26,17 @@
 }
 
 .vs-header.clicked {
-    color: #00cc00; /* 초록색으로 변경하지만 조금 더 어두운 톤 */
+    color: #00cc00;
     text-shadow: 
         0 0 4px rgba(0, 204, 0, 0.6), 
         0 0 6px rgba(0, 204, 0, 0.5), 
         0 0 8px rgba(0, 204, 0, 0.4), 
-        0 0 10px rgba(0, 204, 0, 0.3); /* 더 어두운 그림자 효과 */
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.7; /* 불빛의 투명도를 더 낮춤 */
-    }
-    50% {
-        transform: scale(1);
-        opacity: 0.8; /* 불빛의 투명도를 더 낮춤 */
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
+        0 0 10px rgba(0, 204, 0, 0.3);
 }
 
 .chatbox {
     width: 100%;
-    height: 400px; /* 채팅방의 높이를 늘림 */
+    height: 400px;
     background-color: rgba(85, 85, 85, 0.9);
     border-radius: 10px;
     overflow-y: auto;
@@ -66,86 +50,102 @@
 
 .chat-message-container {
     display: flex;
+    flex-direction: column; /* 닉네임과 메시지를 위아래로 배치 */
     margin: 5px 0;
 }
 
 .chat-message-container.me-container {
-    justify-content: flex-end; /* 내 메시지를 오른쪽으로 정렬 */
+    align-items: flex-end; /* 내 메시지를 오른쪽 정렬 */
 }
 
 .chat-message-container.other-container {
-    justify-content: flex-start; /* 상대방 메시지를 왼쪽으로 정렬 */
+    align-items: flex-start; /* 상대 메시지를 왼쪽 정렬 */
 }
 
+/* 닉네임 스타일 */
+.chat-nickname {
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 3px; /* 메시지와 닉네임 간격 */
+}
+
+.chat-nickname.me {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.chat-nickname.other {
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* 메시지 스타일 */
 .chat-message {
     padding: 10px;
     border-radius: 10px;
     max-width: 70%;
     word-wrap: break-word;
+    font-size: 14px;
 }
 
 .chat-message.me {
-    background-color: #b3b3b3; /* 밝은 회색 */
-    color: #2c2c2c; /* 어두운 회색 텍스트 */
+    background-color: #b3b3b3;
+    color: #2c2c2c;
     text-align: right;
 }
 
 .chat-message.other {
-    background-color: #d4d4d4; /* 조금 더 밝은 회색 */
-    color: #2c2c2c; /* 어두운 회색 텍스트 */
+    background-color: #d4d4d4;
+    color: #2c2c2c;
     text-align: left;
 }
 
+/* 입력창과 전송 버튼 스타일 */
 .input-container {
-    width: 100%; /* 컨테이너가 전체 너비를 차지하도록 설정 */
+    width: 100%;
     display: flex;
-    align-items: center;
     gap: 10px;
-    background-color: rgba(40, 40, 40, 0.9); /* 인풋 박스 배경과 일치시키기 위해 어두운 배경색 추가 */
+    background-color: rgba(40, 40, 40, 0.9);
     border-radius: 10px;
-    padding: 8px; /* 컨테이너 내부 패딩을 줄여 공간 활용 */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); /* 인풋 박스에 그림자 추가 */
+    padding: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .chatbox-input {
-    flex: 1; /* 입력창이 가용한 모든 공간을 차지하도록 설정 */
-    padding: 12px; /* padding을 줄여 컨테이너에 더 잘 맞도록 */
-    height: 20px; /* 입력창의 높이를 버튼과 동일하게 설정 */
+    flex: 1;
+    padding: 12px;
+    height: 20px;
     border-radius: 8px;
     border: none;
-    background-color: rgba(60, 60, 60, 0.9); /* 입력창 배경색을 어둡게 설정 */
-    color: #ddd; /* 텍스트 색상을 밝은 회색으로 설정 */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 14px; /* 폰트 크기를 줄여 비율을 맞춤 */
-    box-shadow: none; /* input 자체의 그림자를 제거하여 input-container의 스타일을 강조 */
-    outline: none; /* 포커스 시 기본 outline 제거 */
+    background-color: rgba(60, 60, 60, 0.9);
+    color: #ddd;
+    font-size: 14px;
+    outline: none;
 }
 
 .chatbox-input::placeholder {
-    color: #999; /* 플레이스홀더 텍스트 색상을 회색으로 설정 */
+    color: #999;
 }
 
 .chatbox-input:focus {
-    background-color: rgba(80, 80, 80, 0.9); /* 포커스 시 배경색 변경 */
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 포커스 시 외부 그림자 추가 */
-    outline: none; /* 포커스 시 기본 outline 제거 */
+    background-color: rgba(80, 80, 80, 0.9);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .send-button {
-    padding: 12px 20px; /* 전송 버튼의 크기를 줄여 컨테이너에 맞춤 */
-    height: 40px; /* 버튼의 높이를 입력창과 동일하게 설정 */
+    padding: 12px 20px;
+    height: 40px;
     border-radius: 8px;
     border: none;
-    background-color: rgba(100, 100, 100, 0.9); /* 배경과 어울리는 회색 톤 */
+    background-color: rgba(100, 100, 100, 0.9);
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 14px; /* 폰트 크기를 줄여 비율을 맞춤 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 버튼에 그림자 추가 */
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .send-button:hover {
-    background-color: rgba(120, 120, 120, 0.9); /* 호버 시 약간 밝아짐 */
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* 호버 시 외부 그림자 추가 */
+    background-color: rgba(120, 120, 120, 0.9);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }

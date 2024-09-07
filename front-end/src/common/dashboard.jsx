@@ -73,8 +73,8 @@ function Dashboard() {
                 <Link to="/" className={styles.dashboard_bottom_menu}>Home</Link>
                 <Link to="/alert" className={styles.dashboard_bottom_menu}>알림</Link>
                 <Link to="/mypage" className={styles.dashboard_bottom_menu}>마이페이지</Link>
-                <div className={styles.dashboard_bottom_menu}>그룹정보</div>
                 <div><GroupPopupPanel/></div>
+
 
             </div>
 

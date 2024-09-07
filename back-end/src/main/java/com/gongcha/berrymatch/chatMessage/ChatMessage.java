@@ -1,18 +1,18 @@
 package com.gongcha.berrymatch.chatMessage;
 
-import com.gongcha.berrymatch.chatRoom.ChatRoom;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
-@Getter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Data
+@Builder
 @Entity
 @Table(name = "chat_message")
 public class ChatMessage {
@@ -22,25 +22,20 @@ public class ChatMessage {
     @Column(name = "chat_message_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore  // 직렬화 시 순환 참조를 방지하기 위해 무시
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chat_room_id")
-    private ChatRoom chatRoom;
+    @JoinColumn(name = "match_id", nullable = false)
+    @JsonIgnore  // 직렬화 시 순환 참조를 방지하기 위해 무시
+    private Match match;
 
+    @Column(nullable = false)
     private String message;
 
     @CreationTimestamp
-    private LocalDateTime createdAt;
-
-    @Builder
-    public ChatMessage(ChatRoom chatRoom, User user, String message, LocalDateTime createdAt){
-        this.chatRoom = chatRoom;
-        this.user = user;
-        this.message = message;
-        this.createdAt = createdAt;
-    }
-
+    @Column(updatable = false)
+    private LocalDateTime createdAt;  // 메시지 생성 시간
 }
