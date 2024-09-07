@@ -26,7 +26,10 @@ public class ChatRoom {
     @Column(name = "chat_name")
     private String chatName;
 
-    @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "chat_name")
+    private String chatName;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "chatRoom")
     private List<User> users;
 
     @CreationTimestamp

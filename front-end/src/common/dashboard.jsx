@@ -30,6 +30,7 @@ function Dashboard() {
                         로그아웃
                 </Link>
                 <Link to="/map">맵 테스트</Link>
+                <Link to="/map">맵 테스트</Link>
             </div>
 
             <div className={styles.dashboard_middle}>
