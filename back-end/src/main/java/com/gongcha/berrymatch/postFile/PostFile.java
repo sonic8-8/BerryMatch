@@ -32,12 +32,16 @@ public class PostFile {
 
     private String fileUrl;
 
+    private String thumbFileUrl;
+
     @Builder
-    public PostFile(String originalFileName, String storedFileName, String fileType, Long size, String fileKey, String fileUrl) {
+    public PostFile(String originalFileName, String thumbFileUrl, String fileType, Long size, String fileKey, String fileUrl, Post post) {
+        this.post = post;
         this.originalFileName = originalFileName;
         this.fileType = fileType;
         this.size = size;
         this.fileKey = fileKey;
         this.fileUrl = fileUrl;
+        this.thumbFileUrl = thumbFileUrl;
     }
 }

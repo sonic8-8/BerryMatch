@@ -5,6 +5,7 @@ import com.gongcha.berrymatch.postFile.requestDTO.PostFileUploadRequest;
 import com.gongcha.berrymatch.s3bucket.S3Service;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupRequest;
+import com.gongcha.berrymatch.user.ResponseDTO.UserInfoResponse;
 import com.gongcha.berrymatch.user.ResponseDTO.UserProfileUpdateResponse;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
 
@@ -37,9 +38,9 @@ public class UserController {
     }
 
     @GetMapping("/user-info")
-    public ApiResponse<User> getUserInfo(@RequestParam("identifier") String identifier, @RequestParam("providerInfo") String providerInfo) {
+    public ApiResponse<UserInfoResponse> getUserInfo(@RequestParam("identifier") String identifier, @RequestParam("providerInfo") String providerInfo) {
         System.out.println("요청들어옴");
-        return ApiResponse.ok(userService.findUserByOAuthInfo(identifier, ProviderInfo.valueOf(providerInfo.toUpperCase())));
+        return ApiResponse.ok(userService.getUserInfo(identifier, ProviderInfo.from(providerInfo)));
     }
 
     @PostMapping("/profile/update")

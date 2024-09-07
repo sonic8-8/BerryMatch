@@ -221,7 +221,7 @@ public class JwtFacadeService implements JwtFacade {
     }
 
     @Override
-    public void isRefreshTokenDuplicate(String identifier, ProviderInfo providerInfo) {
-        tokenService.isRefreshDuplicate(identifier, providerInfo);
+    public boolean isRefreshTokenDuplicate(String identifier, ProviderInfo providerInfo) {
+        return tokenService.isRefreshDuplicate(identifier, providerInfo);
     }
 }

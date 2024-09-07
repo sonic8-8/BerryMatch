@@ -4,14 +4,12 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function BoardDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
-
-    if (loading) {
-        return <div>로딩중...</div>;
-    }
+    const { currentPage } = useParams();
 
     if (error) {
         return <div>Error: {error.message}</div>;
@@ -32,11 +30,14 @@ function BoardDashboard() {
 
             </div>
 
+            {/* <Route path="" element={<Navigate to="/1" replace />} />
+          <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
+          <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} /> */}
+
             <div className={styles.dashboard_middle}>
                 <div className={styles.dashboard_middle_menu_container}>
-                    <div className={styles.dashboard_middle_menu}>메뉴1</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴2</div>
-                    <div className={styles.dashboard_middle_menu}>메뉴3</div>
+                    <Link to={`/board/${currentPage || 1}`} className={styles.dashboard_middle_menu}>게시글 보기</Link>
+                    <Link to="post/write" className={styles.dashboard_middle_menu}>게시물 작성</Link>
                 </div>
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />

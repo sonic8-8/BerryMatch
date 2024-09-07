@@ -9,6 +9,7 @@ import com.gongcha.berrymatch.s3bucket.S3Service;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
 import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
+import com.gongcha.berrymatch.user.ResponseDTO.UserInfoResponse;
 import com.gongcha.berrymatch.user.ResponseDTO.UserProfileUpdateResponse;
 import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
 import lombok.RequiredArgsConstructor;
@@ -58,6 +59,22 @@ public class UserService {
     public User findUserByOAuthInfo(String identifier, ProviderInfo providerInfo) {
         return userRepository.findByOAuthInfo(identifier, providerInfo)
                 .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+    }
+
+    public UserInfoResponse getUserInfo(String identifier, ProviderInfo providerInfo) {
+        User user = userRepository.findByOAuthInfo(identifier, providerInfo)
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+
+        return UserInfoResponse.builder()
+                .userMatchStatus(user.getUserMatchStatus())
+                .city(user.getCity())
+                .district(user.getDistrict())
+                .identifier(user.getIdentifier())
+                .nickname(user.getNickname())
+                .introduction(user.getIntroduction())
+                .profileImageUrl(user.getProfileImageUrl())
+                .build();
+
     }
 
     /**

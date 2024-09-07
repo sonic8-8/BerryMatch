@@ -17,4 +17,6 @@ public class PostFileUploadServiceRequest {
         this.file = file;
     }
 
+    // 매개변수로 들어온 file을 ServiceRequest의 file값에 할당한다.
+
 }

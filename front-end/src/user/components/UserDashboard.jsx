@@ -8,6 +8,7 @@ import { useState } from 'react';
 function UserDashboard() {
 
     const { userInfo, loading, error } = useUserInfo();
+    
 
     if (error) {
         return <div>Error: {error.message}</div>;

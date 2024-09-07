@@ -38,9 +38,14 @@ const useUserInfo = () => {
           withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
         });
 
-        const { data, message, code, status } = response.data;
+        const apiResponse = response.data;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+        const data = apiResponse.data;
+        const message = apiResponse.message;
 
         console.log(data);
+        console.log(apiResponse);
 
         if (code === 200) {
           setUserInfo(data);
