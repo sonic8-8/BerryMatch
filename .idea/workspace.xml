@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat Front 수정 중">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/chatRoom/ChatRoomService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/chat/ChatRoom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/chat/ChatRoom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/real-time-server/src/chat/chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/real-time-server/src/chat/chat.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
