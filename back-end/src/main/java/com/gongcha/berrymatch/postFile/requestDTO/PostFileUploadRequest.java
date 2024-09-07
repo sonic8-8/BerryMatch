@@ -23,7 +23,6 @@ public class PostFileUploadRequest {
                 .build();
     }
 
-
     public static PostFileUploadRequest of(MultipartFile file) {
         return PostFileUploadRequest.builder()
                 .file(file)
