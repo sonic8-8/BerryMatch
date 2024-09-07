@@ -138,14 +138,7 @@ public class JwtFacadeService implements JwtFacade {
         }
 
         return refreshToken;
-        String refreshToken = jwtUtil.resolveTokenFromCookie(cookies, REFRESH_PREFIX);
 
-        if (refreshToken == null || refreshToken.isEmpty()) {
-            System.out.println("리프레시 토큰이 없습니다.");
-            throw new BusinessException(ErrorCode.REFRESH_TOKEN_NOT_FOUNT);
-        }
-
-        return refreshToken;
     }
 
     @Override

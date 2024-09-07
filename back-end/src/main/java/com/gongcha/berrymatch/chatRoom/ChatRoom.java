@@ -26,9 +26,6 @@ public class ChatRoom {
     @Column(name = "chat_name")
     private String chatName;
 
-    @Column(name = "chat_name")
-    private String chatName;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "chatRoom")
     private List<User> users;
 

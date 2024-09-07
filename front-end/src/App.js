@@ -24,6 +24,8 @@ import MatchResultsSubPage from './user/pages/MatchResultsSubPage';
 import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
 import MatchComparison from './match/test/MatchComparison';
 import Map from './common/Map';
+import MatchSetupSubPage from './match/pages/MatchSetupSubPage';
+import ChatRoom from './chat/ChatRoom'
 
 function App() {
 
@@ -56,7 +58,6 @@ function App() {
         </Route>
         <Route path="/match" element={<PrivateRoute><MatchPage /></PrivateRoute>} >
           <Route path="setup" element={<PrivateRoute><MatchSetupSubPage /></PrivateRoute>}/>
-          <Route path="queue" element={<PrivateRoute><MatchQueueSubPage /></PrivateRoute>}/>
         </Route>
         <Route path="/match/lobby" element={<PrivateRoute><MatchLobbyPage /></PrivateRoute>} />
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>} />
@@ -64,6 +65,8 @@ function App() {
         <Route path="/group/search" element={<PrivateRoute><GroupSearchPage /></PrivateRoute>} />
         <Route path="/alert" element={<PrivateRoute><MainPage /></PrivateRoute>} />
         <Route path="/map" element={<PrivateRoute><Map /></PrivateRoute>} />
+        <Route path="/chat" element={<PrivateRoute><ChatRoom /></PrivateRoute>} />
+
       </Routes>
     </div>
   );
