@@ -32,6 +32,8 @@ const MatchComparison = () => {
         })
         .then(response => {
           const users = response.data.data || [];
+          console.log(response.data.data);
+          
           const teamA = users.filter(user => user.team === 'A_Team');
           const teamB = users.filter(user => user.team === 'B_Team');
 
