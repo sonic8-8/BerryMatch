@@ -3,6 +3,7 @@ package com.gongcha.berrymatch.notification;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,8 +28,6 @@ public class Notification {
 
     private String message;
 
-    private boolean read;
-
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
@@ -37,4 +36,12 @@ public class Notification {
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime modifiedAt;
 
+    @Builder
+    public Notification(Long id, User user, String message, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        this.id = id;
+        this.user = user;
+        this.message = message;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
 }

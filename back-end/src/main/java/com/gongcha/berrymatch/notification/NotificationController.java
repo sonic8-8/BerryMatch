@@ -23,31 +23,9 @@ public class NotificationController {
     private final NotificationService notificationService;
     private final CopyOnWriteArrayList<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
-    @GetMapping("/stream")
+    @GetMapping(value = "/stream", produces = "text/event-stream;charset=UTF-8")
     public SseEmitter getConnect(@RequestParam("userId") String userId) {
-        SseEmitter emitter = new SseEmitter();
-        emitters.add(emitter);
-
-        emitter.onCompletion(() -> emitters.remove(emitter));
-        emitter.onTimeout(() -> emitters.remove(emitter));
-        emitter.onError(t -> emitters.remove(emitter));
-
-        // 초기 이벤트 전송
-        try {
-            emitter.send(SseEmitter.event().data("Connected to stream"));
-            emitter.send(SseEmitter.event().data("서버에서 알림 보내는중임"));
-        } catch (IOException e) {
-            emitters.remove(emitter);
-        }
-        return emitter;
+        return notificationService.createSseEmitter(Long.valueOf(userId));
     }
 
-    public void sendNotification(String message) {
-        for (SseEmitter emitter : emitters) {
-            try {
-                emitter.send(SseEmitter.event().data(message));
-            } catch (IOException e) {}
-                emitters.remove(emitter);
-        }
-    }
 }

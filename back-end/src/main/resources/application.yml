@@ -7,21 +7,21 @@ spring:
   profiles:
     default: local
 
-  datasource:
-    url: ${AZURE_MYSQL_SERVER_URL}
-    username: ${AZURE_MYSQL_SERVER_USERNAME}
-    password: ${AZURE_MYSQL_SERVER_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
 #  datasource:
-#    url: ${MY_DB_URL}
-#    username: ${MY_DB_USERNAME}
-#    password: ${MY_DB_PASSWORD}
+#    url: ${AZURE_MYSQL_SERVER_URL}
+#    username: ${AZURE_MYSQL_SERVER_USERNAME}
+#    password: ${AZURE_MYSQL_SERVER_PASSWORD}
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
-    jpa:
-      hibernate:
-        ddl-auto: create
+  datasource:
+    url: ${MY_DB_URL}
+    username: ${MY_DB_USERNAME}
+    password: ${MY_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
   data:
     mongodb:
