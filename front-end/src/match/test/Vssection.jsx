@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import io from 'socket.io-client';
 import './VSSection.css';
 import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode'; 
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'; 
 
-const VSSection = () => {
+const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersReady, currentUserReady }) => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
-    const [headerClicked, setHeaderClicked] = useState(false);
-    const [socket, setSocket] = useState(null);
+    const [headerClicked, setHeaderClicked] = useState(currentUserReady);  // 초기 준비 상태 반영
     const accessToken = Cookies.get('accessToken');
-    const [MatchId, setMatchId] = useState(null);
-    const [nickname, setNickname] = useState('');
-    
     const chatboxRef = useRef(null); // chatbox에 대한 참조 생성
 
     let id = null;
@@ -22,38 +17,8 @@ const VSSection = () => {
         id = Number(decodedToken.id);
     }
 
-    // 매치 ID 요청
-    useEffect(() => {
-        const requestData = { id: id };
-    
-        axios.post('http://localhost:8085/api/chat/room', requestData, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-                'Cookie': `accessToken=${accessToken};`
-            },
-            withCredentials: true,
-        })
-        .then(response => {
-            console.log("서버 응답 데이터:", response.data);
-            const MatchId = response.data.data?.matchId;
-            if (MatchId) {
-                setMatchId(MatchId);
-                setNickname(response.data.data.nickname);
-                console.log("MatchId가 설정되었습니다:", MatchId); 
-            } else {
-                console.error("매치 ID가 없습니다.");
-            }
-        })
-        .catch(error => {
-            console.error('Error sending match request:', error);
-        });
-    }, [id, accessToken]);
-
     // 과거 메시지 불러오기
     useEffect(() => {
-        console.log("메시지내역", MatchId);
-        
         if (MatchId) {
             axios.get(`http://localhost:8085/api/chat/${MatchId}`, {
                 headers: {
@@ -63,17 +28,12 @@ const VSSection = () => {
                 withCredentials: true,
             })
             .then(response => {
-                console.log(response.data);
                 const pastMessages = response.data.data || [];
-
-                const formattedMessages = pastMessages.map(msg => {
-                    console.log("현재 유저 ID: ", id, "메시지 작성자 ID: ", msg.id);
-                    return {
-                        sender: msg.id === id ? 'me' : 'other',  // 내 메시지와 상대방 메시지 구분
-                        text: msg.message[0],
-                        nickname: msg.nickname
-                    };
-                });
+                const formattedMessages = pastMessages.map(msg => ({
+                    sender: msg.id === id ? 'me' : 'other',  // 내 메시지와 상대방 메시지 구분
+                    text: msg.message[0],
+                    nickname: msg.nickname
+                }));
 
                 setMessages(formattedMessages);
             })
@@ -81,41 +41,37 @@ const VSSection = () => {
                 console.error('Error fetching past messages:', error);
             });
         }
-    }, [MatchId, accessToken]);
+    }, [MatchId, accessToken, id]);
 
-
-    // 메시지가 업데이트될 때마다 자동 스크롤
+    // 스크롤을 최하단으로 이동
     useEffect(() => {
         if (chatboxRef.current) {
-            chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;  // 스크롤을 최하단으로 이동
+            chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
         }
     }, [messages]);
 
-    useEffect(() => {   
-        // matchId가 설정되었을 때만 소켓 연결
-        if (MatchId) {
-            const newSocket = io('http://localhost:9000', {
-                query: { MatchId: MatchId },
-                auth: {
-                    token: accessToken
-                }
-            });
-            setSocket(newSocket);
-
-            newSocket.on('connect', () => {
-                console.log('Connected to Node.js server with matchId:', MatchId);
-            });
-
-            newSocket.on('message', (data) => {
-                console.log('Received message:', data);
+    // 실시간으로 메시지 수신
+    useEffect(() => {
+        if (socket) {
+            const handleMessage = (data) => {
+                // 새로운 메시지를 채팅에 추가
                 setMessages(prevMessages => [...prevMessages, data]);
-            });
+            };
+
+            socket.on('message', handleMessage);
 
             return () => {
-                newSocket.disconnect();
+                socket.off('message', handleMessage);
             };
         }
-    }, [MatchId, accessToken]);
+    }, [socket]);
+
+    // 페이지가 처음 로드될 때 allUsersReady와 currentUserReady에 따라 버튼 상태 변경
+    useEffect(() => {
+        if (allUsersReady || currentUserReady) {
+            setHeaderClicked(true);  // 모든 유저가 준비 상태일 때 버튼을 '게임 중'으로 변경
+        }
+    }, [allUsersReady, currentUserReady]);
 
     const handleSendMessage = () => {
         if (inputValue.trim() !== '') {
@@ -125,14 +81,13 @@ const VSSection = () => {
                 id: id
             };
 
-            // 메시지 리스트에 추가
-            const newMessages = [...messages, { sender: 'me', text: inputValue, nickname: nickname }];
-            setMessages(newMessages);
+            // 메시지 리스트에 추가 (자기 메시지)
+            setMessages(prevMessages => [...prevMessages, { sender: 'me', text: inputValue, nickname }]);
             setInputValue('');
 
             // 서버로 메시지 전송
             if (socket) {
-                socket.emit('sendMessage', messageData);  // 메시지와 닉네임을 함께 전송
+                socket.emit('sendMessage', messageData);
             }
         }
     };
@@ -148,53 +103,80 @@ const VSSection = () => {
     };
 
     const handleHeaderClick = () => {
-        setHeaderClicked(prevState => !prevState);
+        if (!allUsersReady && socket) {  // 모든 유저가 준비되었을 때는 클릭할 수 없게 처리
+            const newIsReady = !headerClicked;
+
+            // 준비 상태에 따라 서버에 알림
+            socket.emit(newIsReady ? 'ready' : 'notReady', { id, nickname, matchId: MatchId });
+            console.log(`Sent ${newIsReady ? 'ready' : 'notReady'} event: ${nickname} is ${newIsReady ? 'ready' : 'not ready'}`);
+
+            // 부모 컴포넌트로 준비 상태 알림
+            onReadyStateChange(nickname, newIsReady);
+            setHeaderClicked(newIsReady);  // 클릭 상태 업데이트
+        }
+    };
+
+    const handleEndGameClick = () => {
+        console.log("경기 종료");
+        socket.emit('endGame', { matchId: MatchId });
     };
 
     return (
-    <div className="vs">
-        <button
-            className={`vs-header ${headerClicked ? 'clicked' : ''}`}
-            onClick={handleHeaderClick}
-            aria-label="Ready Button"
-        >
-            Ready
-        </button>
-
-        <div className="chatbox" ref={chatboxRef}>
-            {messages.map((msg, index) => (
-                <div
-                    key={index}
-                    className={`chat-message-container ${msg.sender === 'me' ? 'me-container' : 'other-container'}`}
-                >
-                    {/* 메시지 작성자의 닉네임 */}
-                    <div className={`chat-nickname ${msg.sender}`}>
-                        {msg.nickname}
-                    </div>
-                    {/* 메시지 내용 */}
-                    <div className={`chat-message ${msg.sender}`}>
-                        {msg.text}
-                    </div>
+        <div className="vs">
+            {allUsersReady ? (
+                <div>
+                    {/* 게임 중 상태 표시 */}
+                    <button className="vs-header game-in-progress" disabled>
+                        게임 중
+                    </button>
+                    <button className="end-game-button" onClick={handleEndGameClick}>
+                        경기 종료
+                    </button>
                 </div>
-            ))}
-        </div>
+            ) : (
+                <button
+                    className={`vs-header ${headerClicked ? 'clicked' : ''}`}
+                    onClick={handleHeaderClick}
+                    aria-label="Ready Button"
+                    disabled={allUsersReady}  // 모든 유저가 준비되었을 때 버튼 비활성화
+                >
+                    {headerClicked ? 'Ready' : 'Not Ready'}
+                </button>
+            )}
 
-        <div className="input-container">
-            <input
-                type="text"
-                placeholder="메시지를 입력하세요..."
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress}
-                className="chatbox-input"
-            />
-            <button className="send-button" onClick={handleSendMessage}>
-                전송
-            </button>
-        </div>
-    </div>
-);
+            {/* 채팅 메시지 */}
+            <div className="chatbox" ref={chatboxRef}>
+                {messages.map((msg, index) => (
+                    <div
+                        key={index}
+                        className={`chat-message-container ${msg.sender === 'me' ? 'me-container' : 'other-container'}`}
+                    >
+                        <div className={`chat-nickname ${msg.sender}`}>
+                            {msg.nickname}
+                        </div>
+                        <div className={`chat-message ${msg.sender}`}>
+                            {msg.text}
+                        </div>
+                    </div>
+                ))}
+            </div>
 
+            {/* 채팅 입력 부분 */}
+            <div className="input-container">
+                <input
+                    type="text"
+                    placeholder="메시지를 입력하세요..."
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onKeyPress={handleKeyPress}
+                    className="chatbox-input"
+                />
+                <button className="send-button" onClick={handleSendMessage}>
+                    전송
+                </button>
+            </div>
+        </div>
+    );
 };
 
 export default VSSection;

@@ -2,7 +2,7 @@ import React from 'react';
 import './Team.css';
 import defaultUserImg from './User.png'; 
 
-const Team = ({ teamLabel, users, teamLogo, showButton, onLeaveMatch, onReady,onWaiting }) => (
+const Team = ({ teamLabel, users, teamLogo, onButtonClick, currentUserId, allUsersReady }) => (
     <div className="team">
         <div className="glitch-effect">
             <img 
@@ -12,14 +12,15 @@ const Team = ({ teamLabel, users, teamLogo, showButton, onLeaveMatch, onReady,on
             />
         </div>
         <div className="team-label">{teamLabel}</div>
+
         <div className="user-list">
             {users.length > 0 ? (
-                users.map((user, index) => (
-                    <div className="user" key={index}>
+                users.map((user) => (
+                    <div className="user" key={user.id}>
                         <img 
                             src={user.profileImageUrl || defaultUserImg} 
                             alt={user.nickname} 
-                            onError={(e) => e.target.src = defaultUserImg}  // 이미지 로딩 실패 시 기본 이미지로 대체
+                            onError={(e) => e.target.src = defaultUserImg}  
                         />
                         <div className="user-info">
                             <div className="nickname">{user.nickname}</div>
