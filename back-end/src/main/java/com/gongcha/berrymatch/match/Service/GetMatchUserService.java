@@ -41,11 +41,14 @@ public class GetMatchUserService {
                 throw new RuntimeException("유저 정보를 찾을 수 없습니다.");
             }
 
+            String readyState = matchUser.getStatus().name();
+
             return new MatchUserResponse(
                     user.getId(),
                     user.getNickname(),
                     user.getProfileImageUrl(),
-                    matchUser.getTeam().name()
+                    matchUser.getTeam().name(),
+                    readyState
             );
 
         }).collect(Collectors.toList()); // 리스트로 변환하여 반환
