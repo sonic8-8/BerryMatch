@@ -24,28 +24,24 @@ const Team = ({ teamLabel, users, teamLogo, onButtonClick, currentUserId, allUse
                         />
                         <div className="user-info">
                             <div className="nickname">{user.nickname}</div>
+                            <div className={`status ${user.isReady ? 'ready' : 'waiting'}`}>
+                                {user.isReady ? '🟢 Ready' : ' 🟡 Not Ready'}
+                            </div>
                         </div>
+                        {/* 현재 유저만 나가기 버튼을 표시, 모두가 준비 상태일 때는 버튼을 숨김 */}
+                        {!allUsersReady && user.id === currentUserId && teamLabel === "B팀" && (
+                            <button className="leave-button" onClick={() => onButtonClick(user.id, user.nickname)}>
+                                매치 나가기
+                            </button>
+                        )}
+                        {/* A팀에는 숨겨진 버튼 추가 */}
+                        {teamLabel === "A팀" && (
+                            <button className="leave-button hidden">매치 나가기</button>
+                        )}
                     </div>
                 ))
             ) : (
                 <div>No users available</div>
-            )}
-
-            {showButton && (
-                <div className="action-button">
-                    <button onClick={onLeaveMatch}>
-                        매칭 나가기
-                    </button>
-
-                    <button onClick={onReady}> {/* onReady 핸들러가 연결되어 있는지 확인 */}
-                        준비
-                    </button>
-
-                    <button onClick={onWaiting}> {/* onReady 핸들러가 연결되어 있는지 확인 */}
-                        준비해제
-                    </button>
-
-                </div>
             )}
         </div>
     </div>

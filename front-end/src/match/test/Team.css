@@ -3,16 +3,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* 상단에서 시작 */
     text-align: center;
     padding: 20px;
     background-color: rgba(51, 51, 51, 0.9); /* 카드 배경색 */
     border-radius: 12px; /* 테두리 반경 */
     margin: 10px; /* 카드들 사이의 여백 설정 */
-    height: 628px; /* 높이 유지 */
+    height: 650px; /* 높이 유지 */
     width: 300px; /* 너비 유지 */
     box-sizing: border-box; /* 패딩과 테두리를 포함한 박스 크기 조정 */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6); /* 카드 그림자 */
+    position: relative; /* leave-button이 부모의 하단에 고정되도록 설정 */
 }
 
 /* .glow-effect 효과 */
@@ -30,10 +31,10 @@
     width: 120px;
     height: 170px;
     display: block;
-    border-radius: 12px; /* 테두리 반경 증가 */
+    border-radius: 12px;
     transform: perspective(500px) rotateX(5deg) rotateY(5deg);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    opacity: 0.95; /* 불투명도 증가 */
+    opacity: 0.95;
 }
 
 .team-logo:hover {
@@ -70,7 +71,7 @@
     width: 100%;
     height: 100%;
     background: inherit;
-    opacity: 0.8; /* 불투명도 증가 */
+    opacity: 0.8;
     z-index: -1;
 }
 
@@ -108,14 +109,14 @@
 .user img {
     width: 30px;
     height: 30px;
-    border-radius: 50%; /* 원형 테두리 */
+    border-radius: 50%;
     margin-right: 8px;
-    background-image: url('./User.png'); /* 기본 이미지 */
+    background-image: url('./User.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border: 2px solid rgba(255, 255, 255, 0.5); /* 약한 흰색 테두리 */
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 /* 실제 이미지가 있는 경우 기본 이미지 제거 */
@@ -172,4 +173,27 @@
     50% {
         clip: rect(20px, 9999px, 40px, 0);
     }
+}
+
+.leave-button {
+    position: absolute; /* 카드 하단에 고정 */
+    bottom: 20px; /* 카드 하단에서 20px 떨어진 위치 */
+    left: 10%; /* 카드 중앙에 맞추기 위한 left */
+    width: 80%; /* 너비를 조절하여 카드 너비와 일치시키기 */
+    padding: 10px;
+    background-color: #ff4b4b;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.leave-button.hidden {
+    visibility: hidden; /* 버튼을 보이지 않게 처리 */
+}
+
+.leave-button:hover {
+    background-color: #ff1f1f; /* 호버 시 버튼 색상 변화 */
 }
