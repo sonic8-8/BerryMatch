@@ -1,5 +1,6 @@
 package com.gongcha.berrymatch.match.domain;
 
+import com.gongcha.berrymatch.chatMessage.ChatMessage;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,8 +39,12 @@ public class Match {
 
     private int maxSize;  // 매치의 최대 인원 수
 
+    // ChatMessage와의 일대다 관계 설정 (양방향 매핑)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChatMessage> chatMessages;  // 해당 매치(채팅방) 내 모든 메시지 리스트
+
     @Version
-    private Long version; //락킹
+    private Long version = 1L;
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MatchUser> matchUsers = new ArrayList<>();

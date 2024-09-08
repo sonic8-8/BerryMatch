@@ -4,13 +4,14 @@ import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.City;
 import com.gongcha.berrymatch.user.District;
 import com.gongcha.berrymatch.user.Gender;
+import com.gongcha.berrymatch.user.UserMatchStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-import java.time.LocalDate;
+
 
 @Getter
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class UserSignupRequest {
     private String phoneNumber;
     private String profileImageUrl;
     private String introduction;
+
 
     @Builder
     public UserSignupRequest(String identifier,String providerInfo, String nickname, City city, District district, Gender gender, LocalDate birthdate, String phoneNumber, String profileImageUrl, String introduction) {
@@ -45,7 +47,6 @@ public class UserSignupRequest {
     public ProviderInfo toProviderInfo(String providerInfo) {
         return ProviderInfo.valueOf(providerInfo);
     }
-
 
     public UserSignupServiceRequest toService() {
         return UserSignupServiceRequest.builder()

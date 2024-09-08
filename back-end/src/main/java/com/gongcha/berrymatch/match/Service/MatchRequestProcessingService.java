@@ -170,7 +170,13 @@ public class MatchRequestProcessingService {
             matchingQueueRepository.save(matchingQueue);
 
             user.updateMatchStatus(UserMatchStatus.MATCHED);
-            userRepository.save(user);
+
+
+            try {
+                userRepository.save(user);
+            } catch (Exception e) {
+                throw new RuntimeException("유저 상태 업데이트 중 오류 발생: " + e.getMessage(), e);
+            }
 
         } catch (Exception e) {
             throw new RuntimeException("매칭 대기열 저장 중 오류 발생: " + e.getMessage(), e);  // 대기열 저장 중 예외 처리

@@ -1,30 +1,41 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+const { newchatToken } = require('./newchat');  // tokenHandler 가져오기
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const server = http.createServer(app);
 
-app.use(express.json()); // JSON 형식의 데이터를 파싱하기 위해 필요
-
-// POST 요청을 처리하는 엔드포인트
-app.post('/api/match/completed', (req, res) => {
-    const { teamAUsers, teamBUsers, requestingUserId } = req.body;
-    
-    console.log('Received match data:', { teamAUsers, teamBUsers, requestingUserId });
-
-    // Socket.io를 통해 클라이언트에게 데이터 전송
-    io.emit('matchUpdate', { teamAUsers, teamBUsers });
-
-    res.status(200).send('Match data received and broadcasted.');
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log('User connected');
+  
+    // 클라이언트로부터 토큰 및 MatchId 수신
+    const token = socket.handshake.auth.token;
+    const matchIdString = socket.handshake.query.MatchId;
     
+  
+    try {
+      const matchId = BigInt(matchIdString);  
+      // newchatToken 함수 호출
+      newchatToken(token, matchId, socket, io);
+      
+    } catch (error) {
+      socket.disconnect();
+    }
+  
     socket.on('disconnect', () => {
-        console.log('A user disconnected');
+      console.log('User disconnected');
     });
+
 });
 
-http.listen(9000, () => {
-    console.log('Server running on port 9000');
+server.listen(9000, () => {
+  console.log('Server listening on port 9000');
 });

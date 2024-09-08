@@ -1,8 +1,8 @@
 package com.gongcha.berrymatch.chatMessage;
 
 import com.gongcha.berrymatch.ApiResponse;
-import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,19 +19,19 @@ public class ChatMessageController {
      * @return String
      */
     @PostMapping("/chat/save-msg")
-    public ApiResponse<String> saveMessage(@RequestBody ChatMessageDTO chatMessage){
+    public ApiResponse<String> saveMessage(@RequestBody ChatMessageRequest chatMessage){
+        System.out.println("메시지들어옴"+chatMessage);
         chatMessageService.saveMessage(chatMessage);
         return ApiResponse.ok("Message saved successfully");
     }
 
-    /**
-     * 해당하는 방의 모든 채팅 내역 불러와서 보내주기
-     * @param roomId
-     * @return List<ChatMessage>
-     */
-    @GetMapping("/chat/{roomId}")
-    public ApiResponse<List<ChatMessage>> loadALlMessages(@PathVariable Long roomId){
-        return ApiResponse.ok(chatMessageService.loadAllMessages(roomId));
+
+    @GetMapping("/chat/{MatchId}")
+    public ApiResponse<List<ChatMessageResponse>> loadALlMessages(@PathVariable Long MatchId){
+        System.out.println("메시지내역불러오기아이디들어옴"+MatchId);
+      List <ChatMessageResponse> chatMessageResponse = chatMessageService.getMessages(MatchId);
+        System.out.println("내보내는 리스트"+chatMessageResponse);
+        return ApiResponse.ok(chatMessageResponse);
     }
 
 

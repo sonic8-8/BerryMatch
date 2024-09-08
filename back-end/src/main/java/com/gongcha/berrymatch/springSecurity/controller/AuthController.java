@@ -4,10 +4,8 @@ package com.gongcha.berrymatch.springSecurity.controller;
 import com.gongcha.berrymatch.ApiResponse;
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.springSecurity.domain.Token;
 import com.gongcha.berrymatch.springSecurity.domain.UserPrincipal;
 import com.gongcha.berrymatch.springSecurity.requestDTO.TokenRequest;
-import com.gongcha.berrymatch.springSecurity.requestDTO.TokenServiceRequest;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
 import com.gongcha.berrymatch.springSecurity.responseDTO.LogoutResponse;
 import com.gongcha.berrymatch.springSecurity.service.JwtFacade;
@@ -17,12 +15,12 @@ import com.gongcha.berrymatch.user.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.gongcha.berrymatch.exception.ErrorCode.DUPLICATED_REFRESH_TOKEN;
 import static com.gongcha.berrymatch.exception.ErrorCode.NOT_AUTHENTICATED_USER;
