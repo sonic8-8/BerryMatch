@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -19,10 +20,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RequiredArgsConstructor
 public class NotificationController {
 
+    private final NotificationService notificationService;
     private final CopyOnWriteArrayList<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
     @GetMapping("/stream")
-    public SseEmitter notification() {
+    public SseEmitter getConnect(@RequestParam("userId") String userId) {
         SseEmitter emitter = new SseEmitter();
         emitters.add(emitter);
 
