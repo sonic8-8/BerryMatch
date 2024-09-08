@@ -3,8 +3,7 @@ import ChatMember from "./ChatMember";
 import Styles from "./ChatMembersList.module.css";
 import { io } from "socket.io-client";
 
-const ChatMembersList = ({roomId}) => {
-    // let roomId 
+const ChatMembersList = ({team, roomId}) => {
 
     const socket = io.connect(`http://localhost:8085/chat/${roomId}`,{
         cors:{
@@ -13,19 +12,16 @@ const ChatMembersList = ({roomId}) => {
     });
     socket.connect();
 
-    const [membersArr, setMembersArr] = useState([]);
+    const [membersArr, setMembersArr] = useState(team);
 
     useEffect(()=>{
-        socket.on("matching info to client", (match)=>{
-            setMembersArr((membersArr)=> membersArr.concat(match.members))
-        });
         socket.on("user ready on",(id,newState)=>{
             // 해당하는 사용자의 준비 상태가 on으로 바뀜
-            setMembersArr(membersArr.map(member => member.id === id? {...member,state:newState}:member))            
+            setMembersArr(team.map(member => member.id === id? {...member,state:newState}:member))            
         });
         socket.on("user ready off",(id, newState)=>{
             // 해당하는 사용자의 준비 상태가 off으로 바뀜
-            setMembersArr(membersArr.map(member => member.id === id? {...member,state:newState}:member))
+            setMembersArr(team.map(member => member.id === id? {...member,state:newState}:member))
         });
 
     });

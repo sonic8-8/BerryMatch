@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.Key;
 
 import static com.gongcha.berrymatch.exception.ErrorCode.*;
+import static com.gongcha.berrymatch.exception.ErrorCode.*;
 import static com.gongcha.berrymatch.springSecurity.constants.JwtRule.*;
 
 @Service
@@ -137,6 +138,7 @@ public class JwtFacadeService implements JwtFacade {
         }
 
         return refreshToken;
+
     }
 
     @Override
@@ -194,6 +196,7 @@ public class JwtFacadeService implements JwtFacade {
     @Override
     public String logout(HttpServletResponse response, String identifier, ProviderInfo providerInfo) {
         tokenService.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
+        tokenService.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
 
         return "로그아웃 성공";
     }
@@ -209,6 +212,7 @@ public class JwtFacadeService implements JwtFacade {
     @Override
     public void deleteRefreshToken(String identifier, ProviderInfo providerInfo) {
         try {
+            tokenService.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
             tokenService.deleteAllByIdentifierAndProviderInfo(identifier, providerInfo);
         } catch (BusinessException e) {
             throw new BusinessException(ErrorCode.JWT_NOT_FOUND_IN_DB);

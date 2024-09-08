@@ -4,6 +4,7 @@ import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,6 +23,8 @@ public class Game {
     @Column(name = "game_id")
     private Long id;
 
+    private String gameTitle;
+
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
@@ -39,11 +42,10 @@ public class Game {
     @JoinColumn(name = "game_id")
     private Match match;
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GameResultTemp> gameResultTemps;
-
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
+    @Builder
+    public Game(String gameTitle, List<User> users){
+        this.gameTitle = gameTitle;
+        this.users = users;
     }
 
     public void setResultTeamA(int resultTeamA) {
@@ -53,5 +55,4 @@ public class Game {
     public void setResultTeamB(int resultTeamB) {
         this.resultTeamB = resultTeamB;
     }
-
 }
