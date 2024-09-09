@@ -11,9 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,40 +34,48 @@ public class NotificationService {
         emitter.onTimeout(() -> userEmitters.remove(userId));
         emitter.onError(throwable -> userEmitters.remove(userId));
 
-        // 초기 이벤트 전송
-        try {
-            emitter.send(SseEmitter.event().data("연결 성공"));
-            sendMatchStatus(userId);
-        } catch (IOException e) {
-            userEmitters.remove(userId, emitter);
-        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
+
+        // 30초마다 heartbeat 전송
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleAtFixedRate(() -> {
+            try {
+                emitter.send(SseEmitter.event().name("ping").data("heartbeat"));
+                emitter.send(SseEmitter.event().data("연결 성공"));
+                emitter.send(SseEmitter.event().name("matchStatus").data(user.getUserMatchStatus()));
+//            sendMatchStatus(userId);
+            } catch (IOException e) {
+                userEmitters.remove(userId, emitter);
+            }
+        }, 0, 30, TimeUnit.SECONDS);
 
         return emitter;
     }
 
-    /**
-     * 테스트용 알림을 보내는 메서드
-     */
-    public NotificationResponse sendNotification(Long userId) {
-        SseEmitter emitter = userEmitters.get(userId);
-        Notification notification = null;
-
-        try {
-            notification = Notification.builder()
-                    .message("알림임")
-                    .id(userId)
-                    .build();
-
-            emitter.send(SseEmitter.event().name("notification").data(notification.getMessage()));
-        } catch (IOException e) {
-            emitter.completeWithError(e);
-            userEmitters.remove(userId);
-        }
-
-        return NotificationResponse.builder()
-                .message(notification.getMessage())
-                .build();
-    }
+//    /**
+//     * 테스트용 알림을 보내는 메서드
+//     */
+//    public NotificationResponse sendNotification(Long userId) {
+//        SseEmitter emitter = userEmitters.get(userId);
+//        Notification notification = null;
+//
+//        try {
+//            notification = Notification.builder()
+//                    .message("알림임")
+//                    .id(userId)
+//                    .build();
+//
+//            emitter.send(SseEmitter.event().name("notification").data(notification.getMessage()));
+//        } catch (IOException e) {
+//            emitter.completeWithError(e);
+//            userEmitters.remove(userId);
+//        }
+//
+//        return NotificationResponse.builder()
+//                .message(notification.getMessage())
+//                .build();
+//    }
 
     /**
      * User의 matchStatus를 조회 후 알림 보내주는 메서드 <br/>

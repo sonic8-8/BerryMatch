@@ -25,7 +25,7 @@ public class MatchCancelService {
      * matchRequest.getID();취소할 유저의 ID
      */
     @Transactional
-    public void cancelMatching(MatchCancelRequest matchCancelRequest ) {
+    public void cancelMatching(MatchCancelRequest matchCancelRequest) {
 
         // 매칭 대기열에서 해당 유저 찾기
         Optional<MatchingQueue> matchingQueueOpt = matchingQueueRepository.findByUserId(matchCancelRequest.getId());

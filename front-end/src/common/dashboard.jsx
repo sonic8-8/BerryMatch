@@ -12,6 +12,7 @@ import Notification from './components/Notification';
 import FirebaseNotification from './components/FirebaseNotification';
 import useFCMNotification from './useFCMNotification';
 import FCMNotificationTestButton from './components/FCMNotificationTestButton';
+import MatchDummyData from './MatchDummyData';
 
 function Dashboard() {
 
@@ -56,6 +57,7 @@ function Dashboard() {
                         </div>
                         <MatchSetupSubPage />
                         <FirebaseNotification/>
+                        <MatchDummyData/>
                         
 
 

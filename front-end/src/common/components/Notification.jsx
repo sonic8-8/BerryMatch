@@ -119,7 +119,7 @@ const Notification = () => {
                     <li key={index}>{notification}</li>
                 ))}
             </ul> */}
-            <div className={styles.matchStatus_notification}>{matchStatus == 'MATCH_COMPLETED' ? 
+            <div className={styles.matchStatus_notification}>{matchStatus == 'MATCHED' ? 
                 <Link to='/match' className={styles.matchStatus_notification_complete}>
                     {matchStatus}<br/>
                     매칭방으로 이동하기

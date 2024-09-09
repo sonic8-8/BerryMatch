@@ -44,8 +44,8 @@ function App() {
       )}
       
       {/* Conditional Background Music */}
-      {showBackground && <BackgroundMusic />}
-
+      {showBackground && <BackgroundMusic className={styles.backgroundMusic} />}
+      
       <Routes>
         <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />

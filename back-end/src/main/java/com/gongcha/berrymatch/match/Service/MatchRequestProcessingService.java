@@ -10,6 +10,7 @@ import com.gongcha.berrymatch.match.domain.MatchQueueStatus;
 import com.gongcha.berrymatch.match.domain.MatchType;
 import com.gongcha.berrymatch.match.domain.MatchingQueue;
 import com.gongcha.berrymatch.match.domain.Sport;
+import com.gongcha.berrymatch.notification.NotificationService;
 import com.gongcha.berrymatch.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class MatchRequestProcessingService {
     private final MatchUserRepository matchUserRepository;  // 매칭된 유저를 관리하는 리포지토리
     private final Lock matchLock;  // 매칭 요청 처리 시 동시성 문제를 방지하기 위한 잠금
     private static final int QUEUE_LIMIT = 1000; // 매칭 대기열의 최대 크기 설정
+    private final NotificationService notificationService;
 
     @Autowired
     public MatchRequestProcessingService(
@@ -38,20 +40,21 @@ public class MatchRequestProcessingService {
             GroupRepository groupRepository,
             MatchRepository matchRepository,
             MatchUserRepository matchUserRepository,
-            Lock matchLock) {
+            Lock matchLock, NotificationService notificationService) {
         this.matchingQueueRepository = matchingQueueRepository;
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.matchRepository = matchRepository;
         this.matchUserRepository = matchUserRepository;
         this.matchLock = matchLock;
+        this.notificationService = notificationService;
     }
 
     // 매칭 요청을 처리하는 메소드
     public void processMatchRequest(MatchRequest matchRequest) throws Exception {
         matchLock.lock();  // 매칭 요청을 처리할 때 동시성 문제를 방지하기 위한 잠금 설정
         try {
-            Long userId = matchRequest.getId();
+            Long userId = matchRequest.toMatchRequest().getId();
 
             // 이미 매칭된 유저나 대기 중인 유저의 ID 목록을 가져옴
             List<Long> excludedUserIds = getExcludedUserIds();
@@ -106,7 +109,7 @@ public class MatchRequestProcessingService {
 
     // 개인 매칭을 처리하는 메소드
     private void handleIndividualMatching(MatchRequest matchRequest) {
-        Long userId = matchRequest.getId();
+        Long userId = matchRequest.toMatchRequest().getId();
         if (userId == null) {
             throw new IllegalArgumentException("유저 ID는 null일 수 없습니다.");  // 유저 ID가 null일 경우 예외 처리
         }
@@ -169,7 +172,10 @@ public class MatchRequestProcessingService {
         try {
             matchingQueueRepository.save(matchingQueue);
 
-            user.updateMatchStatus(UserMatchStatus.MATCHED);
+            user.updateMatchStatus(UserMatchStatus.PENDING);
+
+            notificationService.createSseEmitter(user.getId());
+            notificationService.sendMatchStatus(user.getId()); // matchStatus SSE 알림
 
 
             try {

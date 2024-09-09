@@ -1,20 +1,19 @@
 package com.gongcha.berrymatch.match.DTO;
 
 import com.gongcha.berrymatch.match.domain.MatchStatus;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
+@Getter
 @NoArgsConstructor
-public class MatchResponse {
+public class DummyMatchResponse {
 
     private MatchStatus status;  // 매칭 상태 (성공, 실패 등)
 
-
-    private List<UserDetail> matchedUserDetails;  // 매칭된 유저의 상세 정보 목록
+    private List<MatchResponse.UserDetail> matchedUserDetails;  // 매칭된 유저의 상세 정보 목록
 
     @Data
     @NoArgsConstructor
@@ -29,11 +28,5 @@ public class MatchResponse {
             this.nickname = nickname;
             this.email = email;
         }
-    }
-
-    @Builder
-    public MatchResponse(MatchStatus status, List<UserDetail> matchedUserDetails) {
-        this.status = status;
-        this.matchedUserDetails = matchedUserDetails;
     }
 }

@@ -26,13 +26,13 @@ public class NotificationController {
         return notificationService.createSseEmitter(Long.valueOf(userId));
     }
 
-    /**
-     * SSE 테스트 알림을 보내주는 HTTP 메서드
-     */
-    @PostMapping("/stream/notify")
-    public ApiResponse<NotificationResponse> notify(@RequestBody NotificationRequest request) {
-        return ApiResponse.ok(notificationService.sendNotification(request.toServiceRequest().getUserId()));
-    }
+//    /**
+//     * SSE 테스트 알림을 보내주는 HTTP 메서드
+//     */
+//    @PostMapping("/stream/notify")
+//    public ApiResponse<NotificationResponse> notify(@RequestBody NotificationRequest request) {
+//        return ApiResponse.ok(notificationService.sendNotification(request.toServiceRequest().getUserId()));
+//    }
 
     /**
      * 메인 대시보드에 실시간으로 매칭 상태 알림을 보내주는 HTTP 메서드

@@ -69,7 +69,7 @@ const useFCMToken = () => {
       const notificationTitle = payload.notification.title;
       const notificationOptions = {
         body: payload.notification.body,
-        icon: '/firebase-logo.png' // 알림에 표시할 아이콘
+        icon: '/https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png' // 알림에 표시할 아이콘
       };
     
       // 브라우저에서 푸시 알림을 띄움

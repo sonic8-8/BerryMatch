@@ -34,6 +34,11 @@
   z-index: -1; /* 비디오가 다른 콘텐츠 뒤에 배치되도록 설정 */
 }
 
+.backgroundMusic {
+  
+}
+
+
 
 /* 모바일 화면 */
 @media screen and (max-width: 768px) {

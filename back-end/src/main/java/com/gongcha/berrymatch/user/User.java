@@ -74,6 +74,7 @@ public class User {
 //    private ChatRoom chatRoom;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_match_status", length = 50)
     private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
 
@@ -115,7 +116,8 @@ public class User {
 
 
     @Builder
-    public User(String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+    public User(Long id, String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+        this.id = id;
         this.identifier = identifier;
         this.nickname = nickname;
         this.city = city;
@@ -165,6 +167,5 @@ public class User {
     public void fcmTokenUpdate(String fcmToken) {
         this.fcmToken = fcmToken;
     }
-
 
 }

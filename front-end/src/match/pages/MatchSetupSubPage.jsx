@@ -72,7 +72,7 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      {/* <div className={styles.matching_option_item}>
+      <div className={styles.matching_option_item}>
         <label>스포츠 종목 선택:</label>
         <div>
           {sportOptions.map((sport) => (
@@ -92,7 +92,7 @@ function MatchSetupSubPage() {
             </button>
           ))}
         </div>
-      </div> */}
+      </div>
       <button type="submit">랜덤 매칭</button>
     </form>
   );

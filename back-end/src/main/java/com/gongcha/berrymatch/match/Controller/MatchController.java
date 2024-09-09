@@ -1,16 +1,26 @@
 package com.gongcha.berrymatch.match.Controller;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.exception.BusinessException;
+import com.gongcha.berrymatch.exception.ErrorCode;
 import com.gongcha.berrymatch.match.DTO.*;
 import com.gongcha.berrymatch.match.Service.GetMatchUserService;
 import com.gongcha.berrymatch.match.Service.MatchCancelService;
 import com.gongcha.berrymatch.match.Service.MatchReadyService;
 import com.gongcha.berrymatch.match.Service.MatchRequestProcessingService;
 import com.gongcha.berrymatch.match.ThreadLocal.UserContext;
+import com.gongcha.berrymatch.notification.NotificationService;
+import com.gongcha.berrymatch.notification.firebase.FCMService;
+import com.gongcha.berrymatch.user.User;
+import com.gongcha.berrymatch.user.UserMatchStatus;
+import com.gongcha.berrymatch.user.UserRepository;
+import com.gongcha.berrymatch.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,38 +28,46 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class MatchController {
     private static final Logger logger = LoggerFactory.getLogger(MatchController.class);
     private final MatchRequestProcessingService matchRequestProcessingService;
     private final MatchCancelService matchCancelService;
     private final MatchReadyService matchReadyService;
     private final GetMatchUserService getMatchUserService;
+    private final UserRepository userRepository;
+    private final NotificationService notificationService;
+    private final UserService userService;
 
 
     @Autowired
-    public MatchController(MatchRequestProcessingService matchRequestProcessingService, MatchCancelService cancelMatching, MatchCancelService matchCancelService, MatchReadyService matchReadyService, GetMatchUserService getMatchUserService
-    ) {
+    public MatchController(MatchRequestProcessingService matchRequestProcessingService, MatchCancelService cancelMatching, MatchCancelService matchCancelService, MatchReadyService matchReadyService, GetMatchUserService getMatchUserService,
+                           UserRepository userRepository, NotificationService notificationService, UserService userService) {
         this.matchRequestProcessingService = matchRequestProcessingService;
         this.matchCancelService = matchCancelService;
         this.matchReadyService = matchReadyService;
         this.getMatchUserService = getMatchUserService;
+        this.userRepository = userRepository;
+        this.notificationService = notificationService;
+        this.userService = userService;
     }
 
     /**
      * 매칭 요청을 처리하는 엔드포인트.
      *
-     * @param matchRequest 매칭 요청 DTO
+     * @param request 매칭 요청 DTO
      * @return 매칭 처리 결과 응답
      */
+    @Transactional
     @PostMapping("/matching")
-    public ApiResponse<String> matching(@RequestBody MatchRequest matchRequest) {
+    public ApiResponse<String> matching(@RequestBody MatchRequest request) {
         try {
 
-            UserContext.setUserId(matchRequest.getId());
+            UserContext.setUserId(request.toMatchRequest().getId());
             System.out.println("컨트롤러"+UserContext.getUserId());
 
             // 매칭 요청 처리 서비스 호출
-            matchRequestProcessingService.processMatchRequest(matchRequest);
+            matchRequestProcessingService.processMatchRequest(request);
 
 
             return ApiResponse.ok("대기열 입장중");
@@ -125,6 +143,50 @@ public ApiResponse<MatchResponse> cancelMatch(@RequestBody MatchCancelRequest ma
     public ApiResponse<MatchResponse> MatchLeave(@RequestBody MatchReady matchReady){
         matchReadyService.UserMatchLeave(matchReady);
         return ApiResponse.ok(null);
+    }
+
+    /**
+     * 더미 데이터의 매칭을 요청하는 메서드
+     */
+    @PostMapping("/dummy-matching")
+    public ApiResponse<String> dummyMatching(@RequestBody DummyMatchRequest request) {
+        try {
+
+            User user = userRepository.findByNickname(request.getNickname())
+                    .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
+
+//            UserContext.setUserId(user.getId());
+//            System.out.println("컨트롤러"+UserContext.getUserId());
+
+            // 매칭 요청 처리 서비스 호출
+            matchRequestProcessingService.processMatchRequest(request.toMatchRequest(user.getId()));
+
+
+            return ApiResponse.ok("대기열 입장중");
+
+        } catch (Exception e) {
+            // 이미 매칭 중이거나 대기 중인 유저에 대한 예외 처리
+            return ApiResponse.of(HttpStatus.CONFLICT, "이미 매칭 중입니다.", "매칭요청실패");
+        }
+    }
+
+    /**
+     * 더미 데이터의 매칭을 취소하는 메서드
+     */
+    @PostMapping("/dummy-cancel")
+    public ApiResponse<DummyMatchResponse> dummyCancelMatch(@RequestBody DummyMatchCancelRequest request) {
+        try {
+
+            User user = userRepository.findByNickname(request.getNickname())
+                    .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
+
+            user.updateMatchStatus(UserMatchStatus.PENDING);
+
+            matchCancelService.cancelMatching(request.toMatchCancelRequest(user.getId()));
+            return ApiResponse.ok(null);
+        } catch (Exception e) {
+            return ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage(), null);
+        }
     }
 
 
