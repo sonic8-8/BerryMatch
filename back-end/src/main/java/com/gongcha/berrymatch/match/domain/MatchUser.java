@@ -40,5 +40,10 @@ public class MatchUser {
     private Long version;
 
 
+    public void setReadyState(MatchUserReady status) {
+        this.status = status;
+    }
+
+
 
 }

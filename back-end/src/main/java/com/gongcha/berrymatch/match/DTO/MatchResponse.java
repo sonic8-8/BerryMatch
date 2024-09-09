@@ -12,7 +12,7 @@ public class MatchResponse {
 
     private MatchStatus status;  // 매칭 상태 (성공, 실패 등)
 
-    //노드로 보내주고있어서 이쪽은 쓰지않고있음
+
     private List<UserDetail> matchedUserDetails;  // 매칭된 유저의 상세 정보 목록
 
     @Data
@@ -21,6 +21,7 @@ public class MatchResponse {
         private Long id;
         private String nickname;
         private String email;
+
 
         public UserDetail(Long id, String nickname, String email) {
             this.id = id;

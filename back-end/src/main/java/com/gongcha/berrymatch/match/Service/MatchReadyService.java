@@ -27,7 +27,7 @@ public class MatchReadyService {
      * @return 업데이트된 MatchUser 객체
      */
     @Transactional
-    public MatchUser UserReadyStatus(MatchReady matchReady) {
+    public MatchReady userReadyStatus(MatchReady matchReady) {
         // 유저 ID로 매치 유저 조회
         MatchUser matchUser = matchUserRepository.findByUserId(matchReady.getId())
                 .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReady.getId()));
@@ -41,14 +41,21 @@ public class MatchReadyService {
 
         // 매치에 속한 모든 유저가 Ready 상태인지 확인
         List<MatchUser> readyUsers = matchUserRepository.findByMatchIdAndStatus(match.getId(), MatchUserReady.Ready);
+        boolean allUsersReady = readyUsers.size() == match.getMaxSize();
 
-        if (readyUsers.size() == match.getMaxSize()) {
+        if (allUsersReady) {
             // 모든 유저가 Ready 상태인 경우, 매치 상태를 IN_PROGRESS로 변경
             match.setMatchStatus(MatchStatus.IN_PROGRESS);
             matchRepository.save(match);
         }
 
-        return matchUser;
+        // MatchReadyDTO로 필요한 데이터만 응답
+        return new MatchReady(
+                matchUser.getUser().getId(),
+                matchUser.getUser().getNickname(),
+                matchUser.getStatus().toString(),
+                allUsersReady
+        );
     }
 
     /**
