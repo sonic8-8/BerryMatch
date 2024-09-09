@@ -4,6 +4,7 @@ import Modal from '../../Modal';
 import axios from 'axios';
 import RecordVote from './RecordVote';
 import GameRecord from './GameRecord';
+import { Link } from 'react-router-dom';
 
 
 const RecordItem = ({userId, gameId, gameTitle, resultTeamA, resultTeamB}) => {
@@ -61,9 +62,8 @@ const RecordItem = ({userId, gameId, gameTitle, resultTeamA, resultTeamB}) => {
     };
 
     const postHilight = () => {
-        // return(
-        //     <Link/>
-        // )
+        <Link to="/rank" >랭킹</Link>
+
     };
 
 

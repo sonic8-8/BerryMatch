@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat Front 수정 중">
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front 경기 기록 관련 기능 / Back Game Domain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Repository/MatchRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/match/Repository/MatchRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/common/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/dashboard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/user/components/RecordItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/components/RecordItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/pages/MatchResultsSubPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/pages/MatchResultsSubPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/user/components/RecordVote.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/components/RecordVote.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +200,7 @@
       <workItem from="1725494519406" duration="10701000" />
       <workItem from="1725540390675" duration="4034000" />
       <workItem from="1725579653786" duration="8856000" />
-      <workItem from="1725839217319" duration="6971000" />
+      <workItem from="1725839217319" duration="10646000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -288,7 +282,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725584728945</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Front 경기 기록 관련 기능 / Back Game Domain">
+      <option name="closed" value="true" />
+      <created>1725846329841</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725846329842</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Front 경기 기록 관련 기능 / Back Game Domain">
+      <option name="closed" value="true" />
+      <created>1725846341870</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725846341870</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,7 +335,8 @@
     <MESSAGE value="Chat 관련 프론트 수정 중" />
     <MESSAGE value="Chat 기능 메인 서버 코드 수정" />
     <MESSAGE value="Chat Front 수정 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chat Front 수정 중" />
+    <MESSAGE value="Front 경기 기록 관련 기능 / Back Game Domain" />
+    <option name="LAST_COMMIT_MESSAGE" value="Front 경기 기록 관련 기능 / Back Game Domain" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

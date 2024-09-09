@@ -45,19 +45,18 @@
 
 .dashboard_top {
     display: flex;
+    flex: 1;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    flex: 1;
     width: 100%;
-    border-top-left-radius: 1rem; /* 위쪽 왼쪽 모서리 둥글게 */
-    border-top-right-radius: 1rem; /* 위쪽 오른쪽 모서리 둥글게 */
+    height:100%;
     color: #6e6e73;
 }
 
 .dashboard_top_logo_container {
-    flex: 1;
     display: flex;
+    flex: 2;
     justify-content: center;
     align-items: center;
     background-color: rgba(0,0,0,0.9);
@@ -65,8 +64,8 @@
     width: 100%;
     border-radius: 1rem;
     border: 1px solid #ccc;
-    padding-right: 1rem;
-    padding-left:1rem;
+    /* padding-right: 1rem;
+    padding-left:1rem; */
 }
 
 .dashboard_top_logo {
@@ -83,29 +82,30 @@
 }
 
 .dashboard_top_identifier {
+    display: flex;
+    flex : 4;
     text-align: center;
-    font-size: 2.5vw;
+    font-size: 2vw;
     font-weight: bold;
     height: 100%;
     color: #ddd;
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    /* padding-left: 1.5rem;
+    padding-right: 1.5rem; */
 }
 
 .dashboard_top_logout {
+    display: flex;
     flex: 1;
     cursor: pointer;
     height: 100%;
-    display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
-    font-size: 2vw;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    font-size: 1vw;
+    /* padding-left: 0.5rem;
+    padding-right: 0.5rem; */
     text-decoration: none;
     color: #bbb;
     border: 1px solid #ccc;
@@ -115,14 +115,14 @@
 
 .dashboard_middle {
     display: flex;
+    flex: 6;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     color: #6e6e73;
-    flex: 6;
     width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .dashboard_middle_left {
@@ -147,8 +147,8 @@
 }
 
 .dashboard_middle_left_content {
-    flex: 1;
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -157,20 +157,21 @@
 
 .dashboard_middle_right {
     display: flex;
+    flex: 3;
+    gap:0.5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #6e6e73;
-    flex: 3;
     height: 100%;
 }
 
 .dashboard_middle_right_menu_container {
     display: flex;
+    flex: 1;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex: 1;
     width: 100%;
     border-radius: 1rem;    
 }
@@ -182,7 +183,7 @@
     border: 1px solid #ccc;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border-radius: 1rem;
     background-color: rgba(0,0,0,0.9);
