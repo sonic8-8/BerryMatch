@@ -77,6 +77,7 @@ public class User {
     private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
 
+
     @ManyToOne(fetch = FetchType.EAGER) // 즉시 로딩으로 변경
     @JoinColumn(name = "match_id") // 외래 키 컬럼 추가
     private Match match;
@@ -88,10 +89,10 @@ public class User {
     private UserGroup userGroup;
 
 
-
     public void updateMatchStatus(UserMatchStatus userMatchstatus) {
         this.userMatchStatus = userMatchstatus;
     }
+
 
 
 

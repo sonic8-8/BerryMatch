@@ -94,12 +94,17 @@ public ApiResponse<MatchResponse> cancelMatch(@RequestBody MatchCancelRequest ma
      * @return
      */
     @PostMapping("/ready")
-    public ApiResponse<MatchResponse> ReadyMatch(@RequestBody MatchReady matchReady){
+    public ApiResponse<MatchReady> ReadyMatch(@RequestBody MatchReady matchReady){
 
         System.out.println("신호들어옴"+matchReady.getId());
-        matchReadyService.UserReadyStatus(matchReady);
-    return ApiResponse.ok(null);
-}
+        MatchReady response= matchReadyService.userReadyStatus(matchReady);
+        if (response.isAllUsersReady()) {
+            return ApiResponse.ok(response);
+        } else {
+            return ApiResponse.ok(response);
+        }
+    }
+
 
     /**
      * 준비 취소
