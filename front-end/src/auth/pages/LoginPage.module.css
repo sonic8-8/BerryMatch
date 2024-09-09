@@ -125,10 +125,10 @@
 }
 
 .login_button_container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 모바일 화면 */

@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 경기 기록 관련">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,7 +195,7 @@
       <workItem from="1725494519406" duration="10701000" />
       <workItem from="1725540390675" duration="4034000" />
       <workItem from="1725579653786" duration="8856000" />
-      <workItem from="1725839217319" duration="11790000" />
+      <workItem from="1725839217319" duration="14853000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -310,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725861112241</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Front CSS 경기 기록 관련">
+      <option name="closed" value="true" />
+      <created>1725862035684</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1725862035684</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +326,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/game" />
+                        <option value="origin/feature/game" />
                       </list>
                     </value>
                   </entry>

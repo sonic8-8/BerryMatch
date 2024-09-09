@@ -35,7 +35,9 @@
     gap: 1rem;
     justify-content: center;
     align-items: center;
-    background-color: #e8e8ed;;
+    background-image: url("https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/login_image.jpg");
+    background-size: cover;
+    background-position: center;
     height: 100vh;
     width: 100vw;
 }
@@ -43,11 +45,11 @@
 .layout_header {
     align-items: center;
     justify-content: center;
-
 }
 
 .layout_header > h1 {
     font-size: 1.5rem;
+    color: #ddd;
 }
 
 .layout_content {
@@ -55,7 +57,7 @@
     height: 80vh;
     width: 400px;
     border-radius: 1rem;
-    background-color: #FFFFFF;
+    background-color: rgba(253,253,253,0.8);
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
     padding:2rem;
 }
