@@ -1,12 +1,14 @@
 package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.exception.BusinessException;
+import com.gongcha.berrymatch.notification.firebase.requestDTO.FcmTokenRegisterServiceRequest;
+import com.gongcha.berrymatch.notification.firebase.responseDTO.FcmTokenRegisterResponse;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
-import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
-import com.gongcha.berrymatch.user.ResponseDTO.UserInfoResponse;
-import com.gongcha.berrymatch.user.ResponseDTO.UserProfileUpdateResponse;
-import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
+import com.gongcha.berrymatch.user.requestDTO.UserSignupServiceRequest;
+import com.gongcha.berrymatch.user.responseDTO.UserInfoResponse;
+import com.gongcha.berrymatch.user.responseDTO.UserProfileUpdateResponse;
+import com.gongcha.berrymatch.user.responseDTO.UserSignupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -119,6 +121,29 @@ public class UserService {
                 .providerInfo(user.getProviderInfo())
                 .profileImageUrl(user.getProfileImageUrl())
                 .introduction(user.getIntroduction())
+                .build();
+    }
+
+    /**
+     * 로그인 시 사용자의 실시간 푸시알림을 위해 DB에 사용자의 Fcm 토큰을 업데이트해주는 메서드
+     */
+    @Transactional
+    public FcmTokenRegisterResponse updateFcmToken(FcmTokenRegisterServiceRequest request) {
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
+
+        System.out.println("FCM 토큰 : " + request.getFcmToken());
+
+        user.fcmTokenUpdate(request.getFcmToken());
+
+        User savedUser = userRepository.save(user);
+
+        System.out.println("FCM 토큰 등록 됐는지 확인 : " + savedUser.getFcmToken());
+
+        return FcmTokenRegisterResponse.builder()
+                .fcmToken(user.getFcmToken())
+                .providerInfo(user.getProviderInfo().toString())
+                .identifier(user.getIdentifier())
                 .build();
     }
 

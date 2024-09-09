@@ -57,6 +57,8 @@ public class SecurityConfig {
                         // 그 외의 요청들은 PERMITTED_ROLES(USER, ADMIN) 중 하나라도 가지고 있어야 접근 가능
                         .requestMatchers("/api/stream/**").authenticated()
                         // SSE 엔드포인트는 인증됨
+                        .requestMatchers("/api/fcm/**").authenticated()
+                        // firebase cloud messaging 엔드포인트는 인증됨
                         .anyRequest().hasAnyRole(PERMITTED_ROLES))
 
 

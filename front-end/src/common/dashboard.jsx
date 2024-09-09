@@ -8,6 +8,10 @@ import MatchSetupSubPage from '../match/pages/MatchSetupSubPage';
 import Map from './Map';
 import MatchStatus from './components/MatchStatus';
 import GroupPopupPanel from '../group/GroupPopupPanel';
+import Notification from './components/Notification';
+import FirebaseNotification from './components/FirebaseNotification';
+import useFCMNotification from './useFCMNotification';
+import FCMNotificationTestButton from './components/FCMNotificationTestButton';
 
 function Dashboard() {
 
@@ -25,7 +29,7 @@ function Dashboard() {
                     <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
                     <div className={styles.dashboard_top_logo_title}>BerryMatch</div>
                 </div>
-                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }님</div>
+                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }<FCMNotificationTestButton/>님</div>
                 <Link to="/logout" className={styles.dashboard_top_logout}>
                         로그아웃
                 </Link>
@@ -48,9 +52,11 @@ function Dashboard() {
                 <div className={styles.dashboard_middle_right}>
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <div className={styles.dashboard_middle_right_menu}>
-                            <MatchStatus/>
-                            <MatchSetupSubPage />
+                            <Notification/>
                         </div>
+                        <MatchSetupSubPage />
+                        <FirebaseNotification/>
+                        
 
 
                     </div>
@@ -61,7 +67,7 @@ function Dashboard() {
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <Link to="/guild" className={styles.dashboard_middle_right_menu}>길드</Link>
                         {/* <Link to="/group" className={styles.dashboard_middle_right_menu}>그룹찾기/그룹생성</Link> */}
-
+                        
 
                     </div>
 

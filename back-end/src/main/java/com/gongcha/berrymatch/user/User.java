@@ -10,7 +10,7 @@ import com.gongcha.berrymatch.notification.Notification;
 import com.gongcha.berrymatch.post.Post;
 import com.gongcha.berrymatch.postLike.PostLike;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
+import com.gongcha.berrymatch.user.requestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -109,6 +109,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
 
+    @Column(name = "fcm_token", length = 512)
+    private String fcmToken;
+
 
     @Builder
     public User(String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
@@ -156,6 +159,10 @@ public class User {
     public void profileUpdate(String profileImageUrl, String introduction) {
         this.profileImageUrl = profileImageUrl;
         this.introduction = introduction;
+    }
+
+    public void fcmTokenUpdate(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
 

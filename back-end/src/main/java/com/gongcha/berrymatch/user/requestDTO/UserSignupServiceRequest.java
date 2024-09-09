@@ -1,12 +1,10 @@
-package com.gongcha.berrymatch.user.RequestDTO;
+package com.gongcha.berrymatch.user.requestDTO;
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 import java.time.LocalDate;
 
