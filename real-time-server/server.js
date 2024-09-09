@@ -1,7 +1,9 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const { newchatToken } = require('./newchat');  // tokenHandler 가져오기
+const { newchatToken } = require('./newchat');
+const { matchUser, matchuser} = require('./matchuser');
+const { matchready } = require('./matchready');
 const app = express();
 const server = http.createServer(app);
 
@@ -25,6 +27,8 @@ io.on('connection', (socket) => {
       const matchId = BigInt(matchIdString);  
       // newchatToken 함수 호출
       newchatToken(token, matchId, socket, io);
+      matchuser(token, matchId, socket, io);
+      matchready(token, matchId, socket, io);
       
     } catch (error) {
       socket.disconnect();
