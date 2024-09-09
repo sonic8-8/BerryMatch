@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class GameController {
 
@@ -18,7 +19,7 @@ public class GameController {
      * @param userId (리스트를 보고자 하는 유저의 id)
      * @return List<Game>
      */
-    @GetMapping("/record/{userId}")
+    @GetMapping("/game/{userId}")
     public ApiResponse<List<Game>> loadAllGames(@PathVariable Long userId){
         return ApiResponse.ok(gameService.loadAllGames(userId));
     }
@@ -31,6 +32,17 @@ public class GameController {
     @GetMapping("/record/{gameId}")
     public ApiResponse<List<GameResultTemp>> loadAllInputRecord(@PathVariable Long gameId){
         return ApiResponse.ok(gameService.loadAllInputRecord(gameId));
+    }
+
+    /**
+     * 경기 종료 요청 들어오면 해당하는 경기에 대한 정보를 보내주고 DB에 저장
+     * @param game (해당 경기에 대한 정보)
+     * @return Game
+     */
+    @PostMapping("/game/end")
+    public ApiResponse<String> saveGameInfo(@RequestBody GameDTO game){
+        gameService.saveGameInfo(game);
+        return ApiResponse.ok("success to save GameInfo ");
     }
 
     /**
@@ -68,7 +80,7 @@ public class GameController {
      * @param gameResultTemp (경기 결과 기록)
      */
     @PostMapping("/submit-record")
-    public ApiResponse<String> submitRecord(@RequestParam GameDTO gameResultTemp) {
+    public ApiResponse<String> submitRecord(@RequestBody GameDTO gameResultTemp) {
         gameService.submitRecord(gameResultTemp);
         return ApiResponse.ok("record submit success");
     }
@@ -78,7 +90,7 @@ public class GameController {
      * @param gameResultTemp (투표한 경기 기록)
      */
     @PostMapping("/submit-vote")
-    public ApiResponse<String> submitVote(@RequestParam GameDTO gameResultTemp) {
+    public ApiResponse<String> submitVote(@RequestBody GameDTO gameResultTemp) {
         gameService.submitVote(gameResultTemp);
         return ApiResponse.ok("record votes submit success");
     }

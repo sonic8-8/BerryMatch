@@ -14,7 +14,7 @@ function NaverLoginButton() {
     return (
         <div className={styles.button} onClick={handleNaverLogin}>
             <img src="https://d1nuzc1w51n1es.cloudfront.net/6e4f331986317290b3ee.png" className={styles.button_img}/>
-            <span className={styles.button_title}>naver</span>
+            <span className={styles.button_title}>Naver</span>
         </div>
     )
 }

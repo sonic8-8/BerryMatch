@@ -168,8 +168,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>Nickname</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>닉네임</div>
                         <input className={styles.signup_input}
                             type="text" 
                             name="nickname" 
@@ -180,8 +179,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>City</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>광역시</div>
                         <select className={styles.signup_input}
                             name="city" 
                             value={formData.city} 
@@ -196,8 +194,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>District</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>시/군/구</div>
                         <select className={styles.signup_input}
                             name="district" 
                             value={formData.district} 
@@ -212,8 +209,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>Gender</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>성별</div>
                         <select className={styles.signup_input}
                             name="gender" 
                             value={formData.gender} 
@@ -227,8 +223,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>Birthdate</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>생년월일</div>
                         <input className={styles.signup_input}
                             type="date" 
                             name="birthdate" 
@@ -239,8 +234,7 @@ function SignupPage() {
                     </label>
 
                     <label className={styles.signup_input_container}>
-                        <div className={styles.signup_input_title}>Phone Number</div>
-                        <br/>
+                        <div className={styles.signup_input_title}>전화번호</div>
                         <input className={styles.signup_input}
                             type="tel" 
                             name="phoneNumber" 
@@ -249,14 +243,12 @@ function SignupPage() {
                             required 
                         />
                     </label>
-
-                    <button className={styles.signupForm_button} type="submit">가입</button>
+                    <div className={styles.signup_input_container}>
+                        <button className={styles.signupForm_button} type="submit">가입</button>
+                    </div>
                 </form>
             </div>
             
-            <div className={styles.layout_footer}>
-                
-            </div>
         </div>
     );
 }
