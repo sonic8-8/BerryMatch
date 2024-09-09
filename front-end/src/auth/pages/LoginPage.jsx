@@ -14,7 +14,7 @@ const LoginPage = () => {
         <div className={styles.introduction_container}>
           {/* <div className={styles.introduction_text}> */}
             <TypingEffect
-              text={['혼자라서 더\n특별한 도전', 'Berry Match','랜덤 매칭으로\n당신의 실력을 증명하세요']}
+              text={['혼자라서 더\n특별한 도전', 'Berry Match','랜덤 매칭으로\n당신의 실력을\n증명하세요']}
               speed={100}
               eraseSpeed={50}
               eraseDelay={2000}
@@ -48,8 +48,6 @@ const LoginPage = () => {
             <GoogleLoginButton />
           </div>
         </div>
-      </div>
-      <div className={styles.layout_footer}>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ function KakaoLoginButton() {
     return (
         <div className={styles.button} onClick={handleKakaoLogin}>
             <img src="https://d1nuzc1w51n1es.cloudfront.net/c9b51919f15c93b05ae8.png" className={styles.button_img}/>
-            <span className={styles.button_title}>kakao</span>
+            <span className={styles.button_title}>Kakao</span>
         </div>
     )
 }

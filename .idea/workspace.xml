@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front 경기 기록 관련 기능 / Back Game Domain">
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 경기 기록 관련">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/pages/MatchSetupSubPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/components/RecordItem.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/components/RecordItem.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/user/components/RecordVote.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/user/components/RecordVote.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,35 +102,35 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.back-end 빌드.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.소스 다운로드.executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.BerryMatchApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/merged&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/윤슬아/Desktop/BerryMatch/.env&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.back-end 빌드.executor": "Run",
+    "Gradle.소스 다운로드.executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.BerryMatchApplication.executor": "Run",
+    "git-widget-placeholder": "feature/game",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/.env",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "프로젝트",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;azure&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "azure"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -200,7 +204,7 @@
       <workItem from="1725494519406" duration="10701000" />
       <workItem from="1725540390675" duration="4034000" />
       <workItem from="1725579653786" duration="8856000" />
-      <workItem from="1725839217319" duration="10646000" />
+      <workItem from="1725839217319" duration="11790000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -298,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725846341870</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Front CSS 경기 기록 관련">
+      <option name="closed" value="true" />
+      <created>1725861112241</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725861112241</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +327,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/merged-chat-main" />
+                        <option value="feature/game" />
                       </list>
                     </value>
                   </entry>
@@ -336,7 +348,8 @@
     <MESSAGE value="Chat 기능 메인 서버 코드 수정" />
     <MESSAGE value="Chat Front 수정 중" />
     <MESSAGE value="Front 경기 기록 관련 기능 / Back Game Domain" />
-    <option name="LAST_COMMIT_MESSAGE" value="Front 경기 기록 관련 기능 / Back Game Domain" />
+    <MESSAGE value="Front CSS 경기 기록 관련" />
+    <option name="LAST_COMMIT_MESSAGE" value="Front CSS 경기 기록 관련" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
