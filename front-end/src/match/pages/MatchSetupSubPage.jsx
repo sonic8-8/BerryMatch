@@ -25,11 +25,11 @@ function MatchSetupSubPage() {
     }
     // 유저 데이터를 포함한 매칭 요청 데이터
     const requestData = {
-        id: id,  // 유저 ID
-        date: selectedDate,  // 선택한 날짜
-        groupCode : null,
-        sport: selectedSport,  // 선택한 스포츠
-        time: startAvailableTime,  // 선택한 시간
+        'id': id,  // 유저 ID
+        'date': selectedDate,  // 선택한 날짜
+        'groupCode' : null,
+        'sport': selectedSport,  // 선택한 스포츠
+        'time': startAvailableTime,  // 선택한 시간
       };
     console.log(requestData);
     // 매칭 요청 전송
