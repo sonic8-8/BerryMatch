@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Styles from "./RecordVote.module.css"
 
-const RecordVote = (gameId, userId, setReadyVote, closeVoteModal) => {
+const RecordVote = ({gameId, userId, setReadyVote, closeVoteModal}) => {
 
     const [recordList, setRecordList] = useState([]);
     const [selectedRecord, setSelectedRecord] = useState(null);
