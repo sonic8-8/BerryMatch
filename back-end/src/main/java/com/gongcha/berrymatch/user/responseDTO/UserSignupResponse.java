@@ -1,4 +1,4 @@
-package com.gongcha.berrymatch.user.ResponseDTO;
+package com.gongcha.berrymatch.user.responseDTO;
 
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.user.Role;

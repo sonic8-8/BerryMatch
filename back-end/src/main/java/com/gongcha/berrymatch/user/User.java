@@ -6,10 +6,11 @@ import com.gongcha.berrymatch.chatMessage.ChatMessage;
 import com.gongcha.berrymatch.game.Game;
 import com.gongcha.berrymatch.group.UserGroup;
 import com.gongcha.berrymatch.match.domain.Match;
+import com.gongcha.berrymatch.notification.Notification;
 import com.gongcha.berrymatch.post.Post;
 import com.gongcha.berrymatch.postLike.PostLike;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.user.RequestDTO.UserSignupServiceRequest;
+import com.gongcha.berrymatch.user.requestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -61,11 +62,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private ProviderInfo providerInfo;
 
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserActivity> userActivities;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
@@ -77,7 +75,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
-
 
 
     @ManyToOne(fetch = FetchType.EAGER) // 즉시 로딩으로 변경
@@ -108,6 +105,12 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_like_id")
     private PostLike postLike;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
+    @Column(name = "fcm_token", length = 512)
+    private String fcmToken;
 
 
     @Builder
@@ -156,6 +159,10 @@ public class User {
     public void profileUpdate(String profileImageUrl, String introduction) {
         this.profileImageUrl = profileImageUrl;
         this.introduction = introduction;
+    }
+
+    public void fcmTokenUpdate(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
 

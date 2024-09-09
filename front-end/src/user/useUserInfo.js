@@ -52,6 +52,12 @@ const useUserInfo = () => {
         } else {
           setError(new Error(message || 'Error fetching user info'));
         }
+
+        // data 불러오기 실패할 경우
+        if (data === undefined) {
+          navigate('/logout');
+        }
+
       } catch (err) {
         console.error('Error fetching user info:', err);
         console.log("엑세스 토큰 만료됨");

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './MainPage.module.css';
 import Dashboard from '../Dashboard';
+import useFCMToken from '../useFCMToken';
 
 function MainPage() {
   
@@ -10,7 +11,7 @@ function MainPage() {
       <div className={styles.layout}>
         
         <div className={styles.layout_header}>
-          
+
         </div>
 
         <div className={styles.layout_content}>
@@ -29,4 +30,3 @@ function MainPage() {
 };
 
 export default MainPage;
-

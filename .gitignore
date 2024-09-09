@@ -22,6 +22,8 @@
 /front-end/yarn-debug.log*
 /front-end/yarn-error.log*
 
+/front-end/public/firebase-messaging-sw.js
+
 # --------------------------------------------------------- back-end ---------------------------------------------------------
 
 # Ignore general files
@@ -63,6 +65,8 @@
 
 ### VS Code ###
 /back-end/.vscode/
+
+/back-end/src/main/resources/berrymatch-33860-firebase-adminsdk-ugze3-7df6bfe10e.json
 
 # --------------------------------------------------------- real-time-server ---------------------------------------------------------
 

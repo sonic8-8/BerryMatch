@@ -4,10 +4,10 @@ import com.gongcha.berrymatch.ApiResponse;
 import com.gongcha.berrymatch.postFile.requestDTO.PostFileUploadRequest;
 import com.gongcha.berrymatch.s3bucket.S3Service;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
-import com.gongcha.berrymatch.user.RequestDTO.UserSignupRequest;
-import com.gongcha.berrymatch.user.ResponseDTO.UserInfoResponse;
-import com.gongcha.berrymatch.user.ResponseDTO.UserProfileUpdateResponse;
-import com.gongcha.berrymatch.user.ResponseDTO.UserSignupResponse;
+import com.gongcha.berrymatch.user.requestDTO.UserSignupRequest;
+import com.gongcha.berrymatch.user.responseDTO.UserInfoResponse;
+import com.gongcha.berrymatch.user.responseDTO.UserProfileUpdateResponse;
+import com.gongcha.berrymatch.user.responseDTO.UserSignupResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +39,13 @@ public class UserController {
 
     @GetMapping("/user-info")
     public ApiResponse<UserInfoResponse> getUserInfo(@RequestParam("identifier") String identifier, @RequestParam("providerInfo") String providerInfo) {
-        System.out.println("요청들어옴");
+        System.out.println("user-info 요청들어옴");
         return ApiResponse.ok(userService.getUserInfo(identifier, ProviderInfo.from(providerInfo)));
     }
 
+    /**
+     * 마이 페이지에서 프로필 수정 요청 시 프로필을 수정해주는 메서드
+     */
     @PostMapping("/profile/update")
     public ApiResponse<UserProfileUpdateResponse> updateUserInfo(@RequestParam("file") MultipartFile file,
                                                                  @RequestParam("identifier") String identifier,

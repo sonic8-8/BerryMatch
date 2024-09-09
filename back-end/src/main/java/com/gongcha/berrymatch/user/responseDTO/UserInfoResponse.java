@@ -1,11 +1,8 @@
-package com.gongcha.berrymatch.user.ResponseDTO;
+package com.gongcha.berrymatch.user.responseDTO;
 
 import com.gongcha.berrymatch.user.City;
 import com.gongcha.berrymatch.user.District;
 import com.gongcha.berrymatch.user.UserMatchStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
