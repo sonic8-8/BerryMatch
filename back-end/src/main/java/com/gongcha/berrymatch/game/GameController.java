@@ -19,7 +19,7 @@ public class GameController {
      * @param userId (리스트를 보고자 하는 유저의 id)
      * @return List<Game>
      */
-    @GetMapping("/user/{userId}")
+    @GetMapping("/game/{userId}")
     public ApiResponse<List<Game>> loadAllGames(@PathVariable Long userId){
         return ApiResponse.ok(gameService.loadAllGames(userId));
     }

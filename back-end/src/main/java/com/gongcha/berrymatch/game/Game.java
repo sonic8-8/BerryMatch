@@ -25,6 +25,8 @@ public class Game {
 
     private String gameTitle;
 
+    private LocalDateTime matchedAt; // Match 엔티티의 데이터를 옮겨 받을 필드
+
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> users;
 
@@ -38,14 +40,17 @@ public class Game {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "game_id")
-    private Match match;
-
     @Builder
-    public Game(String gameTitle, List<User> users){
+    public Game(String gameTitle, List<User> users, LocalDateTime matchedAt, GameStatus gameStatus) {
         this.gameTitle = gameTitle;
         this.users = users;
+        this.matchedAt = matchedAt; // Match 엔티티의 데이터를 받음
+        this.gameStatus = gameStatus;
+    }
+
+    // 상태 변경 메서드
+    public void finishGame() {
+        this.gameStatus = GameStatus.RECORDING_COMPLETED;
     }
 
     public void setResultTeamA(int resultTeamA) {
@@ -55,4 +60,5 @@ public class Game {
     public void setResultTeamB(int resultTeamB) {
         this.resultTeamB = resultTeamB;
     }
+
 }

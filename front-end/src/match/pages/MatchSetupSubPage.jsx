@@ -54,7 +54,7 @@ function MatchSetupSubPage() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className={styles.matching_option_item}>
         <label>날짜 선택:</label>
         <input
           type="date"
@@ -63,7 +63,7 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      <div>
+      <div className={styles.matching_option_item}>
         <label>경기시간:</label>
         <input
           type="time"
@@ -72,7 +72,7 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      <div>
+      <div className={styles.matching_option_item}>
         <label>스포츠 종목 선택:</label>
         <div>
           {sportOptions.map((sport) => (

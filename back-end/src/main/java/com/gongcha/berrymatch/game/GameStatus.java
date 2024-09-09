@@ -9,10 +9,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum GameStatus {
-    BEFORE("경기 전"),
-    DURING("경기 중"),
-    END("경기 끝 기록 등록 전"),
-    OVER("경기 끝 기록 등록 완료");
+    COMPLETED("경기 완료"),
+    RECORDING_COMPLETED("경기 기록까지 완료");
 
     private final String text;
 }
