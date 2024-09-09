@@ -4,9 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Chat Front 수정 중">
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 경기 기록 관련">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/src/main/java/com/gongcha/berrymatch/game/GameDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/GoogleLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/KakaoLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/components/NaverLoginButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/LoginPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/auth/pages/SignupPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/group/GroupPopupPanel.module.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +112,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.BerryMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feature/merged-chat-main",
+    "git-widget-placeholder": "feature/game",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/.env",
     "node.js.detected.package.eslint": "true",
@@ -132,17 +140,6 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="BerryMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/.env" />
@@ -207,6 +204,7 @@
       <workItem from="1725494519406" duration="10701000" />
       <workItem from="1725540390675" duration="4034000" />
       <workItem from="1725579653786" duration="8856000" />
+      <workItem from="1725839217319" duration="11790000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -288,7 +286,31 @@
       <option name="project" value="LOCAL" />
       <updated>1725584728945</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Front 경기 기록 관련 기능 / Back Game Domain">
+      <option name="closed" value="true" />
+      <created>1725846329841</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1725846329842</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Front 경기 기록 관련 기능 / Back Game Domain">
+      <option name="closed" value="true" />
+      <created>1725846341870</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1725846341870</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Front CSS 경기 기록 관련">
+      <option name="closed" value="true" />
+      <created>1725861112241</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1725861112241</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -305,7 +327,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/merged-chat-main" />
+                        <option value="feature/game" />
                       </list>
                     </value>
                   </entry>
@@ -325,7 +347,9 @@
     <MESSAGE value="Chat 관련 프론트 수정 중" />
     <MESSAGE value="Chat 기능 메인 서버 코드 수정" />
     <MESSAGE value="Chat Front 수정 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="Chat Front 수정 중" />
+    <MESSAGE value="Front 경기 기록 관련 기능 / Back Game Domain" />
+    <MESSAGE value="Front CSS 경기 기록 관련" />
+    <option name="LAST_COMMIT_MESSAGE" value="Front CSS 경기 기록 관련" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

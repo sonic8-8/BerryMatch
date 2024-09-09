@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Styles from "./RecordVote.module.css"
 
-const RecordVote = (gameId, userId, setReadyVote, closeVoteModal) => {
+const RecordVote = ({gameId, userId, setReadyVote, closeVoteModal}) => {
 
     const [recordList, setRecordList] = useState([]);
     const [selectedRecord, setSelectedRecord] = useState(null);
@@ -10,7 +10,7 @@ const RecordVote = (gameId, userId, setReadyVote, closeVoteModal) => {
     useEffect(() => {
         axios.get(`http://localhost:8085/api/record/${gameId}`)
         .then(res =>{
-            setRecordList(prevList => [...prevList,res.data])
+            setRecordList(res.data)
         })
         .catch(error=>{
             console.log("경기 결과 기록 호출 오류");
@@ -24,22 +24,28 @@ const RecordVote = (gameId, userId, setReadyVote, closeVoteModal) => {
 
     // 투표 제출 함수
     const submitVote = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:8085/api/submit-vote', 
-        {
-            gameId: gameId,
-            userId: userId,
-            gameResultTemp:selectedRecord
+        e.preventDefault();
+
+        if (!selectedRecord) {
+            alert('투표할 항목을 선택해 주세요.');
+            return;
         }
 
-    ) // 'vote'는 input 상태에서 가져오도록 추가 필요
-    .then(response => {
-        console.log('투표 제출 완료:', response.data);
-        setReadyVote(false); // 제출 후 상태 업데이트
-        closeVoteModal();
-    })
-    .catch(error => 
-        console.error('Error submitting vote:', error));
+        axios.post('http://localhost:8085/api/submit-vote', 
+            {
+                gameId: gameId,
+                userId: userId,
+                gameResultTemp:selectedRecord
+            }
+
+        ) // 'vote'는 input 상태에서 가져오도록 추가 필요
+        .then(response => {
+            console.log('투표 제출 완료:', response.data);
+            setReadyVote(false); // 제출 후 상태 업데이트
+            closeVoteModal();
+        })
+        .catch(error => 
+            console.error('Error submitting vote:', error));
     };
 
   return (

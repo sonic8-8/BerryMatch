@@ -187,13 +187,13 @@ const GroupLeave = async (e) => {
     return (
         <div>
           <div onClick={togglePopup} className={styles.openButton}>
-            그룹찾기/그룹생성
+            그룹찾기/생성
           </div>
       
           {/* 창이 열리면 패널이 나타남 */}
           <div className={`${styles.popupPanel} ${isOpen ? styles.open : ''}`}>
             <div className={styles.panelHeader}>
-              <h2>그룹 찾기 / 그룹 생성</h2>
+              <h2>그룹 찾기 / 생성</h2>
               <button onClick={togglePopup} className={styles.closeButton}>
                 닫기
               </button>

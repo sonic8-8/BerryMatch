@@ -14,7 +14,7 @@ function GoogleLoginButton() {
     return (
         <div className={styles.button} onClick={handleGoogleLogin}>
             <img src="https://d1nuzc1w51n1es.cloudfront.net/d99d8628713bb69bd142.png" className={styles.button_img} alt="Google Login"/>
-            <span className={styles.button_title}>google</span>
+            <span className={styles.button_title}>Google</span>
         </div>
     );
 }

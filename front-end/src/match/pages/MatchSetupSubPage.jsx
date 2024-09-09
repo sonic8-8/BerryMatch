@@ -54,7 +54,7 @@ function MatchSetupSubPage() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className={styles.matching_option_item}>
         <label>날짜 선택:</label>
         <input
           type="date"
@@ -63,8 +63,8 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      <div>
-        <label>경기시간:</label>
+      <div className={styles.matching_option_item}>
+        <label>경기 시간:</label>
         <input
           type="time"
           value={startAvailableTime}
@@ -72,7 +72,7 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      <div>
+      {/* <div className={styles.matching_option_item}>
         <label>스포츠 종목 선택:</label>
         <div>
           {sportOptions.map((sport) => (
@@ -92,7 +92,7 @@ function MatchSetupSubPage() {
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
       <button type="submit">랜덤 매칭</button>
     </form>
   );
