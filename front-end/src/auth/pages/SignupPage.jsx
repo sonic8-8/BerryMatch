@@ -147,7 +147,11 @@ function SignupPage() {
             <div className={styles.layout_header}>
                 <h1>{formData.identifier}님 환영합니다!</h1>
             </div>
-    
+            <div className={styles.videoContainer}>
+                 <video autoPlay muted loop className={styles.backgroundVideo}>
+                    <source src="/LogInBackgroundVideo.mp4" type="video/mp4" />
+                </video>
+            </div>
             <div className={styles.layout_content}>
 
                 <form onSubmit={handleSubmit} className={styles.signupForm}>

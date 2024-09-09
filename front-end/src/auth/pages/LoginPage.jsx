@@ -10,7 +10,13 @@ const LoginPage = () => {
   return (
 
     <div className={styles.layout}>
+      <div className={styles.videoContainer}>
+          <video autoPlay muted loop className={styles.backgroundVideo}>
+            <source src="/LogInBackgroundVideo.mp4" type="video/mp4" />
+          </video>
+      </div>
       <div className={styles.layout_content}>
+
         <div className={styles.introduction_container}>
           {/* <div className={styles.introduction_text}> */}
             <TypingEffect
