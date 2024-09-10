@@ -103,9 +103,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_like_id")
-    private PostLike postLike;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostLike> postLikes;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
@@ -115,7 +114,8 @@ public class User {
 
 
     @Builder
-    public User(String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+    public User(Long id ,String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+        this.id = id;
         this.identifier = identifier;
         this.nickname = nickname;
         this.city = city;

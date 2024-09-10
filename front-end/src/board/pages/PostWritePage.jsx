@@ -40,12 +40,6 @@ function PostWritePage() {
   function handleHighlightChange(event) {    
     console.log("선택된 하이라이트 이미지나 동영상 : ", event.target.files[0]);
 
-    
-
-  
-  
-    
-
     const fileReader = new FileReader();
 
     fileReader.readAsDataURL(event.target.files[0]);
@@ -83,7 +77,6 @@ function PostWritePage() {
     // 새로고침 방지
     event.preventDefault();
 
-
     const decodedToken = jwtDecode(accessToken);
     const id = decodedToken.id;
     console.log(id);
@@ -94,74 +87,76 @@ function PostWritePage() {
     const postData = {
       "title" : title,
       "content" : content,
-      "id" : id
+      "userId" : id
     }
 
-    await axios.post('http://localhost:8085/api/post/upload', postData, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
-      },
-      withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
-    })
-    .then(
-      response=>{
+    const submitConfirm = window.confirm("게시글을 업로드하시겠습니까?");
 
-        const apiResponse = response.data;
-
-        const data = apiResponse.data;
-        const message = apiResponse.message;
-        const code = apiResponse.code;
-        const status = apiResponse.status;
-
-        post_id = data.id;
-        console.log("게시글 업로드 성공! 반환값 ", post_id);
+    if(submitConfirm){
+      if((title == null || title == "") || (content == null || content == "")){
+        window.alert("제목 또는 내용을 입력해주세요.");
+      }else if(inputThumbnail == null || inputFile == null){
+        window.alert("썸네일 또는 하이라이트 파일을 첨부해주세요.");
+      }else{
+        await axios.post('http://localhost:8085/api/post/upload', postData, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
+          },
+          withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
+        })
+        .then(
+          response=>{
+            const apiResponse = response.data;
+            const data = apiResponse.data;
+            const message = apiResponse.message;
+            const code = apiResponse.code;
+            const status = apiResponse.status;
+    
+            post_id = data.id;
+            console.log("게시글 업로드 성공! 반환값 ", post_id);
+          }
+        )
+        .catch(
+          error=>{
+            console.log("게시글 업로드 실패 -> ", error);
+          }
+        )
+    
+        console.log("사용자가 보낸 파일 :", selectedFile);
+        console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
+    
+        // 파일 데이터를 담을 수 있는 객체
+        const formData = new FormData();
+        // 선택된 파일과 썸네일 formdata에 담기
+        formData.append('file', selectedFile);
+        formData.append('thumbnail', selectedThumbnail);
+        formData.append('post_id', post_id)
+    
         
-        
-      }
-    )
-    .catch(
-      error=>{
-        console.log("게시글 업로드 실패 -> ", error);
-      }
-    )
-
-    console.log("사용자가 보낸 파일 :", selectedFile);
-    console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
-
-    // 파일 데이터를 담을 수 있는 객체
-    const formData = new FormData();
-    // 선택된 파일과 썸네일 formdata에 담기
-    formData.append('file', selectedFile);
-    formData.append('thumbnail', selectedThumbnail);
-    formData.append('post_id', post_id)
-
+        await axios.post('http://localhost:8085/api/s3/upload', formData, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          withCredentials: true
+        })
+        .then(
+          response=>{
+            const apiResponse = response.data;
+            const code = apiResponse.code;
+            const status = apiResponse.status;
+            const message = apiResponse.message;
+            const data = apiResponse.data;
     
-    await axios.post('http://localhost:8085/api/s3/upload', formData, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      },
-      withCredentials: true
-    })
-    .then(
-      response=>{
-        const apiResponse = response.data;
-        const code = apiResponse.code;
-        const status = apiResponse.status;
-        const message = apiResponse.message;
-        const data = apiResponse.data;
-
-        console.log("파일 업로드 성공 : ", message);
+            console.log("파일 업로드 성공 : ", message);
+          }
+        )
+        .catch(
+          error=>{
+            console.log("파일 업로드 실패", error);
+          }
+        ) 
       }
-    )
-    .catch(
-      error=>{
-        console.log("파일 업로드 실패", error);
-      }
-    )
-
-
-    
-    
+    }
   }
 
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class PostFileService {
@@ -54,5 +56,39 @@ public class PostFileService {
         return PostFileUploadResponse.of(postFile);
     }
 
+    /**
+     * 게시글 파일 수정 로직
+     */
+    public Boolean updatePostFile(PostFileUploadServiceRequest request, String fileKey, String thumbnailKey, Post post_id) {
+        MultipartFile file = request.getFile();
 
+        // 하이라이트 파일 URL
+        String fileUrl = String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, fileKey);
+
+        // 썸네일 파일 URL
+        String thumbnailUrl = String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, thumbnailKey);
+
+        Optional<PostFile> updateResult = postFileRepository.findByPostId(post_id.getId());
+
+        System.out.println("업데이트할 post_id 조회값 : " + updateResult.isPresent());
+
+        if (updateResult.isPresent()) {
+            PostFile result = updateResult.get();
+            result.setFileKey(fileKey);
+            result.setFileUrl(fileUrl);
+            result.setThumbFileUrl(thumbnailUrl);
+            result.setSize(file.getSize());
+            result.setOriginalFileName(file.getOriginalFilename());
+
+            System.out.println("파일 업데이트 후 객체 : " + result);
+
+            PostFile saveResult = postFileRepository.save(result);
+
+            System.out.println("파일 업데이트 후 객체 : " + saveResult);
+
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
