@@ -1,19 +1,31 @@
 form{
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+    justify-content: space-around;
 }
 
 .matching_option_item{
     display: flex;
-    flex:1;
-    height: 100%;
+    height: 30%;
     align-items: center;
 }
 
-.matching_option_item > label{
-    margin-right: 0.75rem;
+button{
+    height: 30%;
+    width: 100%;
+}
+
+@media screen and (min-width:768px){
+    .matching_option_item{
+        flex-direction: row;
+        height: 30%;
+        justify-content: space-between;
+    }
+
+    .matching_option_item > * {
+        width: 45%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -21,5 +33,7 @@ form{
         flex-direction: column;
         align-items: start;
     }
-    
+    input{
+        width: 100%;
+    }
 }

@@ -52,6 +52,8 @@ function App() {
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/token" element={<TokenPage/>} />
         <Route path="/signup" element={<SignupPage />} />
+
+        
         <Route path="/rank" element={<PrivateRoute><RankPage /></PrivateRoute>} />
         <Route path="/mypage" element={<PrivateRoute><MyPage /></PrivateRoute>} >
           <Route path="profile-edit" element={<PrivateRoute><ProfileEditSubPage /></PrivateRoute>} />

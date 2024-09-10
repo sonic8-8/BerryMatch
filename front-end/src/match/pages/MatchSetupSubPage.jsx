@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './MatchSetupSubPage.module.css';
-import MatchDashboard from '../components/MatchDashboard';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode'; // jwtDecode를 가져올 때는 {} 없이 가져옵니다.
+
 function MatchSetupSubPage() {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedSport, setSelectedSport] = useState('');
@@ -72,27 +72,6 @@ function MatchSetupSubPage() {
           required
         />
       </div>
-      {/* <div className={styles.matching_option_item}>
-        <label>스포츠 종목 선택:</label>
-        <div>
-          {sportOptions.map((sport) => (
-            <button
-              type="button"
-              key={sport}
-              onClick={() => handleSportClick(sport)}
-              style={{
-                margin: '5px',
-                padding: '10px',
-                backgroundColor: selectedSport === sport ? 'lightblue' : 'white',
-                border: selectedSport === sport ? '2px solid blue' : '1px solid gray',
-                cursor: 'pointer',
-              }}
-            >
-              {sport}
-            </button>
-          ))}
-        </div>
-      </div> */}
       <button type="submit">랜덤 매칭</button>
     </form>
   );

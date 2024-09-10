@@ -1,16 +1,4 @@
 @font-face {
-    font-family: 'Jalnan';
-    font-weight: normal;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/goodchoice/Jalnan.ttf') format("truetype");
-    font-display: swap;
-}
-
-@font-face {
     font-family: 'JalnanGothic';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
     font-weight: normal;
@@ -18,113 +6,23 @@
 }
 
 @font-face {
-    font-family: 'GmarketSans';
-    font-weight: bolder;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot?#iefix') format('embedded-opentype'),
-         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2') format('woff2'),
-         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff') format('woff'),
-         url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.ttf') format("truetype");
-    font-display: swap;
-  }
-
-  @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 600;
     font-style: normal;
 }
-
 .dashboard_container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    color: black;
     opacity: 0.9;
-    width: 80%;
-    height: 80%;
-    font-family: 'Pretendard';
-    font-size: 1.25rem;
-}
-
-.dashboard_top {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    color: black;
     width: 100%;
-    height:100%;
-    color: #6e6e73;
-}
-
-.dashboard_top_logo_container {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     height: 100%;
-    width: 100%;
+    font-family: 'Pretendard-Regular';
 }
 
-.dashboard_top_logo {
-    width: 5rem;
-}
-
-.dashboard_top_logo_title {
-    font-size: 1.5rem;
-    color: #bbb;
-    font-family: 'JalnanGothic';
-}
-.dashboard_top_user_container{
-    flex:3;
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.dashboard_top_identifier {
-    display: flex;
-    flex : 4;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    height: 100%;
-    color: #ddd;
-    justify-content: center;
-    align-items: center;
-}
-
-.dashboard_top_logout {
-    display: flex;
-    flex: 1;
-    cursor: pointer;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    font-size: 1.25rem;
-    text-decoration: none;
-    color: #bbb;
-    border: 1px solid #ccc;
-    background-color: rgba(0,0,0,0.9);
-}
-
-
-.dashboard_middle {
-    display: flex;
-    flex: 8;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    color: #6e6e73;
-    width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.dashboard_middle_left {
+.dashboard_content_left {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -132,20 +30,20 @@
     color: #eee;
     border: 1px solid #ccc;
     background-color: rgba(0,0,0,0.9);
-    /* flex: 1; */
     height: 100%;
     width: 20%;
     border-radius: 1rem;
+    font-size: 1.25rem;
 }
 
-.dashboard_middle_left_content_profile_image{
+.dashboard_content_left_item_profile_image {
     display: flex;
     width: 100%;
     height: 100%;
     border-radius: 1rem;
 }
 
-.dashboard_middle_left_content {
+.dashboard_content_left_item {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -155,33 +53,27 @@
     box-sizing: border-box;
 }
 
-.dashboard_middle_right {
+.dashboard_content_right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 75%;
     color: #6e6e73;
     height: 100%;
     font-family: 'JalnanGothic';
 }
 
-.dashboard_middle_right_menu_container {
-    /* flex: 1; */
+.dashboard_content_right_menu_container {
     display: flex;
     flex-direction: row;
-    height: 30%;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     border-radius: 1rem;    
 }
 
-.dashboard_middle_right_menu_large {
-    /* flex: 1; */
+.dashboard_content_right_menu_large {
     text-align: center;
     cursor: pointer;
-    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -189,160 +81,98 @@
     background-color: rgba(0,0,0,0.9);
     color: #fff;
     border: 1px solid #ccc;
-    width: 100%;
 }
-.dashboard_middle_right_menu_small {
-    /* flex: 1; */
+
+.dashboard_content_right_menu_small {
     text-align: center;
     cursor: pointer;
     border: 1px solid #ccc;
-    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 1rem;
     background-color: rgba(0,0,0,0.9);
     color: #fff;
-    width: 45%;
 }
-
-.dashboard_bottom {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.dashboard_bottom_menu{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
-    height: 100%;
-    width:15%;
-    padding-left: 1rem;
-    padding-right:1rem;
-    color:#ddd;
-    background-color:rgba(0,0,0,0.9);   
-    font-size: 1.25rem;
-}
-
 
 /* 애니메이션 효과 */
-
-/* 기본 상태의 메뉴 스타일 */
-.dashboard_top_logout:hover,
-.dashboard_bottom_menu,
-.dashboard_middle_right_menu,
-.dashboard_top_logo_container {
-    transition: background-color 0.3s ease, color 0.3s ease;
+.dashboard_content_right_menu:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #999;
     text-decoration: none;
 }
 
-/* 마우스를 올렸을 때의 스타일 */
-.dashboard_top_logout:hover,
-.dashboard_bottom_menu:hover,
-.dashboard_middle_right_menu:hover {
-    background-color: #f0f0f0; /* 마우스를 올렸을 때 배경색 */
-    color: #333; /* 마우스를 올렸을 때 텍스트 색상 */
-    border-color: #999; /* 마우스를 올렸을 때 테두리 색상 */
-    text-decoration: none;
-}
-
-/* 추가적인 스타일 (예: 배경 색상 및 텍스트 색상) */
-.dashboard_bottom_menu:hover {
+.dashboard_content_right_menu_large:hover,
+.dashboard_content_right_menu_small:hover {
     background-color: #e0e0e0;
     color: #000;
 }
 
-.dashboard_middle_right_menu_large:hover,
-.dashboard_middle_right_menu_small:hover {
-    background-color: #e0e0e0;
-    color: #000;
+@media screen and (min-width: 768px) {
+    .dashboard_container {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .dashboard_content_right {
+        width: 75%;
+        font-size: 1.5rem;
+    }
+
+    .dashboard_content_right_menu_container {
+        width: 100%;
+        height: 30%;
+    }
+
+    .dashboard_content_right_menu_large {
+        width: 100%;
+        height: 100%;
+    }
+
+    .dashboard_content_right_menu_small {
+        width: 45%;
+        height: 100%;
+    }
 }
 
-.dashboard_top_logout:hover {
-    background-color: #e0e0e0;
-    color: #000;
-}
-
-/* 모바일 화면 */
 @media screen and (max-width: 768px) {
-            
-    .dashboard_container{
+    .dashboard_container {
         width: 100%;
         height: 90%;
         justify-content: space-between;
     }
-
-    .dashboard_top{
-        flex:1;
-        width: 80%;
+    
+    .dashboard_content {
         flex-direction: column;
-    }
-    .dashboard_top_logo_container{
-        justify-content: left;
-    }
-    .dashboard_top_user_container{
-        justify-content: space-between;
-    }
-    .dashboard_top_identifier{
-        width:auto;
-        font-size: 1.25rem;
-    }
-    .dashboard_top_logout{
-        width:15vw;
-        height: 100%;
-        font-size: 0.75rem;
-    }
-    .dashboard_middle{
-        flex-direction: column;
-        overflow-y: scroll;
         width: 80%;
-    }
-
-    .dashboard_middle_left{
-        display: none;
-    }
-
-    .dashboard_middle_right{
-        width: 100%;
-    }
-
-    .dashboard_middle_right_menu_container{
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .dashboard_middle_right + .dashboard_middle_right_menu_container + .dashboard_middle_right_menu_large {
-        height: 40vh;
     }
     
-    .dashboard_middle_right_menu_large{
+    .dashboard_content_left {
+        display: none; /* 모바일에서는 좌측 메뉴 숨김 */
+    }
+    
+    .dashboard_content_right {
+        width: 100%;
+        font-size: 1.25rem;
+    }
+    
+    .dashboard_content_right + .dashboard_content_right_menu_container + .dashboard_content_right_menu_large{
+        box-sizing: border-box;
+    }
+
+    .dashboard_content_right_menu_container {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .dashboard_content_right_menu_large {
         width: 100%;
         height: 20vh;
     }
-    .dashboard_middle_right_menu_small{
+
+    .dashboard_content_right_menu_small {
         width: 48%;
         height: 20vh;
     }
-
-    .dashboard_bottom{
-        flex:1;
-        bottom: 2.5px;
-        width: 100%;
-    }
-    
-    .dashboard_bottom > div,
-    .dashboard_bottom_menu{
-
-        font-size: 1rem;
-    }
-
-    
 }
