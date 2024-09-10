@@ -54,11 +54,12 @@ function Dashboard() {
                     <div className={styles.dashboard_middle_right_menu_container}>
                         <div className={styles.dashboard_middle_right_menu}>
                             <Notification/>
-                        </div>
+                        </div>    
+                        <div className={styles.dashboard_middle_right_menu}>
                         <MatchSetupSubPage />
                         <FirebaseNotification/>
                         <MatchDummyData/>
-                        
+                        </div>
 
 
                     </div>

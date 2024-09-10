@@ -7,6 +7,8 @@ import com.gongcha.berrymatch.match.domain.MatchQueueStatus;
 import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.match.domain.MatchingQueue;
 import com.gongcha.berrymatch.notification.NotificationService;
+import com.gongcha.berrymatch.notification.firebase.FcmService;
+import com.gongcha.berrymatch.notification.firebase.requestDTO.FirebaseNotificationServiceRequest;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserMatchStatus;
 import com.gongcha.berrymatch.user.UserRepository;
@@ -27,6 +29,7 @@ public class UserStatusUpdateService {
     private final MatchingQueueRepository matchingQueueRepository;
     private final UserRepository userRepository;
     private final NotificationService notificationService;
+    private final FcmService fcmService;
 
     /**
      * 매치에 참여한 유저들의 상태를 MATCHED로 업데이트합니다.
@@ -49,13 +52,23 @@ public class UserStatusUpdateService {
                     user.updateMatchStatus(UserMatchStatus.MATCHED); // User의 매칭 상태 업데이트
                     userRepository.save(user);
 
-                    notificationService.createSseEmitter(matchUser.getUser().getId());
-                    notificationService.sendMatchStatus(matchUser.getUser().getId()); // SSE 알림
+                    if (matchUser.getUser().getFcmToken() != null) {
 
+                        notificationService.createSseEmitter(matchUser.getUser().getId());
+                        notificationService.sendMatchStatus(matchUser.getUser().getId()); // SSE 알림
+
+                        FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
+                                .userId(user.getId())
+                                .title("매칭 상태 업데이트")
+                                .body("매칭이 완료됐습니다!")
+                                .build();
+                        fcmService.sendNotification(fcmRequest); // FCM 푸시 알림
+                    }
                 }
+
             });
         }
     }
-}
+    }
 
 // 매칭된 유저 상태 업데이트

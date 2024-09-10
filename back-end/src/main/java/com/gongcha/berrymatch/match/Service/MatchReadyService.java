@@ -33,14 +33,14 @@ public class MatchReadyService {
                 .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReady.getId()));
 
         // 유저 상태를 Ready로 업데이트
-        matchUser.setStatus(MatchUserReady.Ready);
+        matchUser.setStatus(MatchUserReady.READY);
         matchUserRepository.save(matchUser);
 
         // 매치 ID를 사용하여 매치 조회
         Match match = matchUser.getMatch();
 
         // 매치에 속한 모든 유저가 Ready 상태인지 확인
-        List<MatchUser> readyUsers = matchUserRepository.findByMatchIdAndStatus(match.getId(), MatchUserReady.Ready);
+        List<MatchUser> readyUsers = matchUserRepository.findByMatchIdAndStatus(match.getId(), MatchUserReady.READY);
         boolean allUsersReady = readyUsers.size() == match.getMaxSize();
 
         if (allUsersReady) {
@@ -72,7 +72,7 @@ public class MatchReadyService {
 
         // 유저 상태를 Waiting으로 업데이트
 
-        matchUser.setStatus(MatchUserReady.Waiting);
+        matchUser.setStatus(MatchUserReady.WAITING);
         return matchUserRepository.save(matchUser);
     }
 

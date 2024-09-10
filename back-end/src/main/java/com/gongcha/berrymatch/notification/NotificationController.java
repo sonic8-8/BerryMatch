@@ -1,7 +1,6 @@
 package com.gongcha.berrymatch.notification;
 
 import com.gongcha.berrymatch.ApiResponse;
-import com.gongcha.berrymatch.notification.firebase.FCMService;
 import com.gongcha.berrymatch.notification.requestDTO.NotificationRequest;
 import com.gongcha.berrymatch.notification.responseDTO.NotificationResponse;
 import lombok.RequiredArgsConstructor;

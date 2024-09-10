@@ -17,8 +17,8 @@ public class DummyMatchCancelRequest {
     private String message;
     private String nickname;
 
-    public MatchCancelRequest toMatchCancelRequest(Long id) {
-        return MatchCancelRequest.builder()
+    public MatchCancelServiceRequest toMatchCancelServiceRequest(Long id) {
+        return MatchCancelServiceRequest.builder()
                 .id(id)
                 .message(message)
                 .build();

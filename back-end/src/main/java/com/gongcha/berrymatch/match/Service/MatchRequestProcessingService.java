@@ -1,8 +1,12 @@
 package com.gongcha.berrymatch.match.Service;
 
+import com.gongcha.berrymatch.exception.BusinessException;
+import com.gongcha.berrymatch.exception.ErrorCode;
 import com.gongcha.berrymatch.group.GroupRepository;
 import com.gongcha.berrymatch.group.UserGroup;
 import com.gongcha.berrymatch.match.DTO.MatchRequest;
+import com.gongcha.berrymatch.match.DTO.MatchRequest2;
+import com.gongcha.berrymatch.match.DTO.MatchServiceRequest2;
 import com.gongcha.berrymatch.match.Repository.MatchRepository;
 import com.gongcha.berrymatch.match.Repository.MatchUserRepository;
 import com.gongcha.berrymatch.match.Repository.MatchingQueueRepository;
@@ -11,9 +15,12 @@ import com.gongcha.berrymatch.match.domain.MatchType;
 import com.gongcha.berrymatch.match.domain.MatchingQueue;
 import com.gongcha.berrymatch.match.domain.Sport;
 import com.gongcha.berrymatch.notification.NotificationService;
+import com.gongcha.berrymatch.notification.firebase.FcmService;
+import com.gongcha.berrymatch.notification.firebase.requestDTO.FirebaseNotificationServiceRequest;
 import com.gongcha.berrymatch.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,6 +39,7 @@ public class MatchRequestProcessingService {
     private final Lock matchLock;  // 매칭 요청 처리 시 동시성 문제를 방지하기 위한 잠금
     private static final int QUEUE_LIMIT = 1000; // 매칭 대기열의 최대 크기 설정
     private final NotificationService notificationService;
+    private final FcmService fcmService;
 
     @Autowired
     public MatchRequestProcessingService(
@@ -40,7 +48,7 @@ public class MatchRequestProcessingService {
             GroupRepository groupRepository,
             MatchRepository matchRepository,
             MatchUserRepository matchUserRepository,
-            Lock matchLock, NotificationService notificationService) {
+            Lock matchLock, NotificationService notificationService, FcmService fcmService) {
         this.matchingQueueRepository = matchingQueueRepository;
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
@@ -48,29 +56,58 @@ public class MatchRequestProcessingService {
         this.matchUserRepository = matchUserRepository;
         this.matchLock = matchLock;
         this.notificationService = notificationService;
+        this.fcmService = fcmService;
     }
 
     // 매칭 요청을 처리하는 메소드
-    public void processMatchRequest(MatchRequest matchRequest) throws Exception {
+    public void processMatchRequest(MatchServiceRequest2 request) {
         matchLock.lock();  // 매칭 요청을 처리할 때 동시성 문제를 방지하기 위한 잠금 설정
         try {
-            Long userId = matchRequest.toMatchRequest().getId();
+            Long userId = request.getId();
 
-            // 이미 매칭된 유저나 대기 중인 유저의 ID 목록을 가져옴
-            List<Long> excludedUserIds = getExcludedUserIds();
+            User user = userRepository.findById(userId).orElse(null);
 
-            // 만약 유저가 이미 매칭 대기 중이거나 매칭된 상태라면 예외를 던짐
-            if (excludedUserIds.contains(userId)) {
-                System.out.println("사용자 " + userId + "는 이미 대기열에 있거나 매칭되었습니다. 건너뜁니다.");
-                throw new Exception("이미 매칭 중입니다.");
+//            // 이미 매칭된 유저나 대기 중인 유저의 ID 목록을 가져옴
+//            List<Long> excludedUserIds = getExcludedUserIds();
+
+            boolean isQueueContain = matchingQueueRepository.findAll().stream()
+                    .anyMatch(queue -> queue.getUser().getId() == userId);
+
+            System.out.println("매칭 큐에 포함됨? " + isQueueContain);
+
+            if (isQueueContain) {
+                throw new BusinessException(ErrorCode.ALREADY_PENDING_USER);
             }
+
+            boolean isMatchUserContain = matchUserRepository.findAll().stream()
+                    .anyMatch(matchUser -> matchUser.getUser().getId() == userId);
+
+            System.out.println("MatchUser에 포함됨? " + isMatchUserContain);
+
+            if (isMatchUserContain) {
+                throw new BusinessException(ErrorCode.ALREADY_PENDING_USER);
+            }
+
+//            System.out.println("매칭 목록에 userId 있음?");
+//            System.out.println(excludedUserIds.contains(userId));
+//
+//            System.out.println("매칭 + 대기열에 있는 유저들?");
+//            for (Long excludedUserId : excludedUserIds) {
+//                System.out.println(excludedUserIds);
+//            }
+
+//            // 만약 유저가 이미 매칭 대기 중이거나 매칭된 상태라면 예외를 던짐
+//            if (excludedUserIds.contains(userId)) {
+//                System.out.println("사용자 " + userId + "는 이미 대기열에 있거나 매칭되었습니다. 건너뜁니다.");
+//                throw new BusinessException(ErrorCode.ALREADY_PENDING_USER);
+//            }
 
             // 대기열 크기가 제한 이하일 때만 처리
             if (getQueueSize() < QUEUE_LIMIT) {
-                if (matchRequest.getGroupCode() != null && !matchRequest.getGroupCode().isEmpty()) {
-                    handleGroupMatching(matchRequest);  // 그룹 매칭 처리
+                if (request.getGroupCode() != null && !request.getGroupCode().isEmpty()) {
+                    handleGroupMatching(request.toMatchRequest());  // 그룹 매칭 처리
                 } else {
-                    handleIndividualMatching(matchRequest);  // 개인 매칭 처리
+                    handleIndividualMatching(request.toMatchRequest());  // 개인 매칭 처리
                 }
             } else {
                 System.out.println("Queue limit reached. Pausing request processing.");
@@ -132,14 +169,20 @@ public class MatchRequestProcessingService {
 
         List<Long> matchedUserIds = matchUserRepository.findAll().stream()
                 .map(matchUser -> matchUser.getUser().getId())
-                .collect(Collectors.toList());
+                .toList();
+
+        System.out.println(queueUserIds);
+        for (Long queueUserId : queueUserIds) {
+            System.out.println("매칭 대기열에 있는 유저 : " + queueUserId);
+        }
 
         queueUserIds.addAll(matchedUserIds);  // 대기열에 있는 유저와 이미 매칭된 유저 ID를 합침
         return queueUserIds;
     }
 
     // 매칭 대기열에 유저를 저장하는 메소드
-    private void saveToMatchingQueue(User user, MatchRequest matchRequest, MatchType matchType) {
+    @Transactional
+    public void saveToMatchingQueue(User user, MatchRequest matchRequest, MatchType matchType) {
         if (user.getId() == null) {
             throw new IllegalStateException("User ID는 null이 될 수 없습니다.");  // 유저 ID가 null일 경우 예외 처리
         }
@@ -173,9 +216,20 @@ public class MatchRequestProcessingService {
             matchingQueueRepository.save(matchingQueue);
 
             user.updateMatchStatus(UserMatchStatus.PENDING);
+            userRepository.save(user);
 
-            notificationService.createSseEmitter(user.getId());
-            notificationService.sendMatchStatus(user.getId()); // matchStatus SSE 알림
+            if (user.getFcmToken() != null) {
+
+                notificationService.createSseEmitter(user.getId());
+                notificationService.sendMatchStatus(user.getId()); // matchStatus SSE 알림
+
+                FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
+                        .userId(user.getId())
+                        .title("매칭 상태 업데이트")
+                        .body("매칭중입니다.")
+                        .build();
+                fcmService.sendNotification(fcmRequest); // FCM 푸시 알림
+            }
 
 
             try {

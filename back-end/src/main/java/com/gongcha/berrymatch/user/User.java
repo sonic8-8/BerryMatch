@@ -15,6 +15,7 @@ import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -90,6 +91,7 @@ public class User {
     private UserGroup userGroup;
 
 
+    @Transactional
     public void updateMatchStatus(UserMatchStatus userMatchstatus) {
         this.userMatchStatus = userMatchstatus;
     }

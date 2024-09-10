@@ -65,11 +65,11 @@ const MatchComparison = () => {
                 newSocket.on('matchUserData', (users) => {
                     const teamA = users.filter(user => user.team === 'A_Team').map(user => ({
                         ...user,
-                        isReady: user.readyState === 'Ready' // 준비 상태를 boolean으로 변환
+                        isReady: user.readyState === 'READY' // 준비 상태를 boolean으로 변환
                     }));
                     const teamB = users.filter(user => user.team === 'B_Team').map(user => ({
                         ...user,
-                        isReady: user.readyState === 'Ready' // 준비 상태를 boolean으로 변환
+                        isReady: user.readyState === 'READY' // 준비 상태를 boolean으로 변환
                     }));
 
                     // 현재 유저가 준비 상태인지 확인하여 상태 설정
@@ -129,7 +129,7 @@ const MatchComparison = () => {
         setTeamAUsers(prevUsers => {
             const updatedTeamA = prevUsers.map(user =>
                 user.id === userId && user.nickname === userNickname
-                    ? { ...user, isReady: false, nickname: 'Waiting' }
+                    ? { ...user, isReady: false, nickname: 'WAITING' }
                     : user
             );
             checkAllUsersReady(updatedTeamA, teamBUsers);  // 유저 나갈 때 준비 상태 체크
@@ -139,7 +139,7 @@ const MatchComparison = () => {
         setTeamBUsers(prevUsers => {
             const updatedTeamB = prevUsers.map(user =>
                 user.id === userId && user.nickname === userNickname
-                    ? { ...user, isReady: false, nickname: 'Waiting' }
+                    ? { ...user, isReady: false, nickname: 'WAITING' }
                     : user
             );
             checkAllUsersReady(teamAUsers, updatedTeamB);  // 유저 나갈 때 준비 상태 체크
@@ -185,6 +185,7 @@ const MatchComparison = () => {
                 onButtonClick={handleBTeamButtonClick}
                 allUsersReady={allUsersReady}  // 모든 유저 준비 상태 전달
             />
+            <div>더미 데이터 Ready</div>
         </div>
     );
 };

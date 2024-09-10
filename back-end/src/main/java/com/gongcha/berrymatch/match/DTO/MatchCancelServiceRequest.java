@@ -13,20 +13,13 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MatchCancelRequest {
-    private String id;
+public class MatchCancelServiceRequest {
+    private Long id;
     private String message;
 
     @Builder
-    public MatchCancelRequest(String id, String message) {
+    public MatchCancelServiceRequest(Long id, String message) {
         this.id = id;
         this.message = message;
-    }
-
-    public MatchCancelServiceRequest toServiceRequest() {
-        return MatchCancelServiceRequest.builder()
-                .id(Long.valueOf(id))
-                .message(message)
-                .build();
     }
 }

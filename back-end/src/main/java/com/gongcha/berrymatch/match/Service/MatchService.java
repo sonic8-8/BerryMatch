@@ -126,7 +126,7 @@ public class MatchService {
                 MatchUser matchUser = MatchUser.builder()
                         .match(match)  // match 필드를 설정
                         .user(user)
-                        .status(MatchUserReady.Waiting)  // 기본 상태 설정
+                        .status(MatchUserReady.WAITING)  // 기본 상태 설정
                         .team(team)  // A팀 또는 B팀 설정
                         .build();
 

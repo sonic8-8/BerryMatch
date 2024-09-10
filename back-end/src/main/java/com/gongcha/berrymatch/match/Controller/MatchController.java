@@ -10,7 +10,6 @@ import com.gongcha.berrymatch.match.Service.MatchReadyService;
 import com.gongcha.berrymatch.match.Service.MatchRequestProcessingService;
 import com.gongcha.berrymatch.match.ThreadLocal.UserContext;
 import com.gongcha.berrymatch.notification.NotificationService;
-import com.gongcha.berrymatch.notification.firebase.FCMService;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserMatchStatus;
 import com.gongcha.berrymatch.user.UserRepository;
@@ -60,22 +59,18 @@ public class MatchController {
      */
     @Transactional
     @PostMapping("/matching")
-    public ApiResponse<String> matching(@RequestBody MatchRequest request) {
-        try {
+    public ApiResponse<String> matching(@RequestBody MatchRequest2 request) {
 
-            UserContext.setUserId(request.toMatchRequest().getId());
+            UserContext.setUserId(Long.valueOf(request.getId()));
+
             System.out.println("컨트롤러"+UserContext.getUserId());
 
-            // 매칭 요청 처리 서비스 호출
-            matchRequestProcessingService.processMatchRequest(request);
+            System.out.println("매칭 요청 들어옴");
 
+            // 매칭 요청 처리 서비스 호출
+            matchRequestProcessingService.processMatchRequest(request.toMatchServiceRequest2());
 
             return ApiResponse.ok("대기열 입장중");
-
-        } catch (Exception e) {
-            // 이미 매칭 중이거나 대기 중인 유저에 대한 예외 처리
-            return ApiResponse.of(HttpStatus.CONFLICT, "이미 매칭 중입니다.", "매칭요청실패");
-        }
     }
 
 
@@ -93,14 +88,31 @@ public class MatchController {
 /**
  * 유저의 매칭 취소 요청을 처리하는 엔드포인트
  *
- * @param matchCancelRequest 매칭 취소요청 DTO
+ * @param request 매칭 취소요청 DTO
  * @return 성공 메시지
  */
 @PostMapping("/cancel")
-public ApiResponse<MatchResponse> cancelMatch(@RequestBody MatchCancelRequest matchCancelRequest) {
+public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequest request) {
     try {
-        matchCancelService.cancelMatching(matchCancelRequest);
-        return ApiResponse.ok(null);
+
+        System.out.println("userId : " + request.getId());
+        System.out.println("message : " + request.getMessage());
+
+        matchCancelService.cancelMatching(request.toServiceRequest());
+
+        System.out.println("취소 완료");
+
+        User user = userRepository.findById(request.toServiceRequest().getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
+
+        user.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
+
+        MatchCancelResponse response = MatchCancelResponse.builder()
+                .nickname(user.getNickname())
+                .userMatchStatus(user.getUserMatchStatus())
+                .build();
+
+        return ApiResponse.ok(response);
     } catch (Exception e) {
         return ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage(), null);
     }
@@ -155,12 +167,8 @@ public ApiResponse<MatchResponse> cancelMatch(@RequestBody MatchCancelRequest ma
             User user = userRepository.findByNickname(request.getNickname())
                     .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
 
-//            UserContext.setUserId(user.getId());
-//            System.out.println("컨트롤러"+UserContext.getUserId());
-
             // 매칭 요청 처리 서비스 호출
-            matchRequestProcessingService.processMatchRequest(request.toMatchRequest(user.getId()));
-
+            matchRequestProcessingService.processMatchRequest(request.toMatchServiceRequest2(user.getId()));
 
             return ApiResponse.ok("대기열 입장중");
 
@@ -175,18 +183,13 @@ public ApiResponse<MatchResponse> cancelMatch(@RequestBody MatchCancelRequest ma
      */
     @PostMapping("/dummy-cancel")
     public ApiResponse<DummyMatchResponse> dummyCancelMatch(@RequestBody DummyMatchCancelRequest request) {
-        try {
 
             User user = userRepository.findByNickname(request.getNickname())
                     .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
 
-            user.updateMatchStatus(UserMatchStatus.PENDING);
+            matchCancelService.cancelMatching(request.toMatchCancelServiceRequest(user.getId()));
 
-            matchCancelService.cancelMatching(request.toMatchCancelRequest(user.getId()));
             return ApiResponse.ok(null);
-        } catch (Exception e) {
-            return ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage(), null);
-        }
     }
 
 

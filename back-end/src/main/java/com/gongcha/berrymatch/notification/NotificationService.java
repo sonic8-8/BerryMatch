@@ -42,7 +42,6 @@ public class NotificationService {
         executor.scheduleAtFixedRate(() -> {
             try {
                 emitter.send(SseEmitter.event().name("ping").data("heartbeat"));
-                emitter.send(SseEmitter.event().data("연결 성공"));
                 emitter.send(SseEmitter.event().name("matchStatus").data(user.getUserMatchStatus()));
 //            sendMatchStatus(userId);
             } catch (IOException e) {
