@@ -19,8 +19,7 @@
 
 @font-face {
     font-family: 'GmarketSans';
-    font-weight: normal;
-    font-style: normal;
+    font-weight: bolder;
     src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot');
     src: url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.eot?#iefix') format('embedded-opentype'),
          url('https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSansLight.woff2') format('woff2'),
@@ -29,18 +28,24 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
 .dashboard_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     color: black;
     opacity: 0.9;
-    width: 100%;
+    width: 80%;
     height: 80%;
-    border-radius: 1rem;
-    font-family: 'Jalnan';
-    font-size: 1rem;
+    font-family: 'Pretendard';
+    font-size: 1.25rem;
 }
 
 .dashboard_top {
@@ -55,7 +60,7 @@
 }
 
 .dashboard_top_logo_container {
-    flex: 2;
+    flex: 1;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -64,21 +69,26 @@
 }
 
 .dashboard_top_logo {
-    flex:1;
-    width: 3rem;
+    width: 5rem;
 }
 
 .dashboard_top_logo_title {
-    flex:5;
     font-size: 1.5rem;
     color: #bbb;
+    font-family: 'JalnanGothic';
+}
+.dashboard_top_user_container{
+    flex:3;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
 }
 
 .dashboard_top_identifier {
     display: flex;
     flex : 4;
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: bold;
     height: 100%;
     color: #ddd;
@@ -94,7 +104,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 1rem;
-    font-size: 1rem;
+    font-size: 1.25rem;
     text-decoration: none;
     color: #bbb;
     border: 1px solid #ccc;
@@ -119,11 +129,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #6e6e73;
+    color: #eee;
     border: 1px solid #ccc;
     background-color: rgba(0,0,0,0.9);
-    flex: 1;
+    /* flex: 1; */
     height: 100%;
+    width: 20%;
     border-radius: 1rem;
 }
 
@@ -145,27 +156,43 @@
 }
 
 .dashboard_middle_right {
-    flex: 3;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: 75%;
     color: #6e6e73;
     height: 100%;
+    font-family: 'JalnanGothic';
 }
 
 .dashboard_middle_right_menu_container {
-    flex: 1;
+    /* flex: 1; */
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-        align-items: center;
+    height: 30%;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     border-radius: 1rem;    
 }
 
-.dashboard_middle_right_menu {
-    flex: 1;
+.dashboard_middle_right_menu_large {
+    /* flex: 1; */
+    text-align: center;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 1rem;
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+.dashboard_middle_right_menu_small {
+    /* flex: 1; */
     text-align: center;
     cursor: pointer;
     border: 1px solid #ccc;
@@ -176,6 +203,7 @@
     border-radius: 1rem;
     background-color: rgba(0,0,0,0.9);
     color: #fff;
+    width: 45%;
 }
 
 .dashboard_bottom {
@@ -187,7 +215,7 @@
     width: 100%;
 }
 
-.dashboard_bottom_menu {
+.dashboard_bottom_menu{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -196,13 +224,14 @@
     border: 1px solid #ccc;
     border-radius: 0.5rem;
     height: 100%;
-    width:7.5vw;
+    width:15%;
     padding-left: 1rem;
     padding-right:1rem;
     color:#ddd;
     background-color:rgba(0,0,0,0.9);   
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
+
 
 /* 애니메이션 효과 */
 
@@ -231,7 +260,8 @@
     color: #000;
 }
 
-.dashboard_middle_right_menu:hover {
+.dashboard_middle_right_menu_large:hover,
+.dashboard_middle_right_menu_small:hover {
     background-color: #e0e0e0;
     color: #000;
 }
@@ -243,92 +273,76 @@
 
 /* 모바일 화면 */
 @media screen and (max-width: 768px) {
-    .dashboard_container {
-        width: 100%;
-        height: auto; /* 높이를 자동으로 조정 */
-    }
-
-    .dashboard_top {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .dashboard_top_logo_container,
-    .dashboard_top_identifier,
-    .dashboard_top_logout {
-        width: 100%;
-    }
-
-    .dashboard_middle {
-        flex-direction: column;
-    }
-
-    .dashboard_middle_left,
-    .dashboard_middle_right {
-        width: 100%;
-    }
-
-    .dashboard_middle_right_menu_container {
-        flex-direction: column;
-    }
-}
-    /* 모바일 화면에서 네비게이션 바로 설정 */
-@media screen and (max-width: 768px) {
-
-    .dashboard_container {
-        height: none;
-    }
             
-    .dashboard_top {
-        width: 80%;
-    }
-    .dashboard_middle_left{
-        flex:1
-    }
-
-    .dashboard_middle_right_menu{
-        flex: 1;
-        height: 3rem;
-        width: 100%;
-    }
-
     .dashboard_container{
-        width: 80%;
-        overflow-y: scroll;
-    }
-
-    .dashboard_bottom {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        position: fixed;
-        bottom: 0;
         width: 100%;
-        height: 60px; /* 높이는 적절히 조정 */
-        color: #fff; /* 텍스트 색상 조정 */
-        z-index: 1000; /* 네비게이션 바가 다른 요소들 위에 오도록 */
-        
+        height: 90%;
+        justify-content: space-between;
     }
 
-    .dashboard_bottom_menu {
-        flex: 1;
-        text-align: center;
-        cursor: pointer;
+    .dashboard_top{
+        flex:1;
+        width: 80%;
+        flex-direction: column;
+    }
+    .dashboard_top_logo_container{
+        justify-content: left;
+    }
+    .dashboard_top_user_container{
+        justify-content: space-between;
+    }
+    .dashboard_top_identifier{
+        width:auto;
+        font-size: 1.25rem;
+    }
+    .dashboard_top_logout{
+        width:15vw;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #fff; /* 텍스트 색상 조정 */
-        transition: background-color 0.3s ease, color 0.3s ease; /* 애니메이션 추가 */
+        font-size: 0.75rem;
+    }
+    .dashboard_middle{
+        flex-direction: column;
+        overflow-y: scroll;
+        width: 80%;
     }
 
-    .dashboard_bottom_menu:hover {
-        background-color: #e0e0e0;
-        color: #000;
+    .dashboard_middle_left{
+        display: none;
     }
 
-    .dashboasrd_top{
-        gap:0.5rem;
+    .dashboard_middle_right{
+        width: 100%;
     }
+
+    .dashboard_middle_right_menu_container{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dashboard_middle_right + .dashboard_middle_right_menu_container + .dashboard_middle_right_menu_large {
+        height: 40vh;
+    }
+    
+    .dashboard_middle_right_menu_large{
+        width: 100%;
+        height: 20vh;
+    }
+    .dashboard_middle_right_menu_small{
+        width: 48%;
+        height: 20vh;
+    }
+
+    .dashboard_bottom{
+        flex:1;
+        bottom: 2.5px;
+        width: 100%;
+    }
+    
+    .dashboard_bottom > div,
+    .dashboard_bottom_menu{
+
+        font-size: 1rem;
+    }
+
+    
 }

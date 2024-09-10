@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="css 수정 중 엉망진창" />
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="임시 커밋">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/Dashboard.module.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +96,6 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.Build back-end.executor": "Run",
     "Gradle.back-end 빌드.executor": "Run",
     "Gradle.소스 다운로드.executor": "Run",
     "RequestMappingsPanelOrder0": "0",
@@ -104,7 +106,7 @@
     "Spring Boot.BerryMatchApplication.executor": "Run",
     "git-widget-placeholder": "feature/game",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/.env",
+    "last_opened_file_path": "C:/Users/윤슬아/Desktop/BerryMatch/back-end/src/main/resources/berrymatch-7fbcb-firebase-adminsdk-ayc3h-0e13a77d07.json",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -112,7 +114,7 @@
     "project.structure.last.edited": "프로젝트",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -126,6 +128,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\윤슬아\Desktop\BerryMatch\back-end\src\main\resources" />
       <recent name="C:\Users\윤슬아\Desktop\BerryMatch\back-end\src\main\java\com\gongcha\berrymatch\user\RequestDTO" />
     </key>
   </component>
@@ -160,8 +163,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.BerryMatchApplication" />
         <item itemvalue="Spring Boot.BerryMatchApplication" />
       </list>
     </recent_temporary>
@@ -195,6 +205,16 @@
       <workItem from="1725540390675" duration="4034000" />
       <workItem from="1725579653786" duration="8856000" />
       <workItem from="1725839217319" duration="11790000" />
+      <workItem from="1725869406040" duration="445000" />
+      <workItem from="1725869918217" duration="3388000" />
+      <workItem from="1725895849224" duration="465000" />
+      <workItem from="1725896326093" duration="196000" />
+      <workItem from="1725896550485" duration="303000" />
+      <workItem from="1725897326517" duration="2306000" />
+      <workItem from="1725899660441" duration="329000" />
+      <workItem from="1725900210905" duration="937000" />
+      <workItem from="1725901165296" duration="311000" />
+      <workItem from="1725901546073" duration="68000" />
     </task>
     <task id="LOCAL-00001" summary="채팅 관련 기능 DTO 관련 수정">
       <option name="closed" value="true" />
@@ -300,13 +320,13 @@
       <option name="project" value="LOCAL" />
       <updated>1725861112241</updated>
     </task>
-    <task id="LOCAL-00014" summary="css 수정 중 엉망진창">
+    <task id="LOCAL-00014" summary="임시 커밋">
       <option name="closed" value="true" />
-      <created>1725912628130</created>
+      <created>1725868945762</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1725912628130</updated>
+      <updated>1725868945762</updated>
     </task>
     <option name="localTasksCounter" value="15" />
     <servers />
@@ -325,7 +345,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="feature/game" />
+                        <option value="origin/develop" />
                       </list>
                     </value>
                   </entry>
@@ -347,8 +367,8 @@
     <MESSAGE value="Chat Front 수정 중" />
     <MESSAGE value="Front 경기 기록 관련 기능 / Back Game Domain" />
     <MESSAGE value="Front CSS 경기 기록 관련" />
-    <MESSAGE value="css 수정 중 엉망진창" />
-    <option name="LAST_COMMIT_MESSAGE" value="css 수정 중 엉망진창" />
+    <MESSAGE value="임시 커밋" />
+    <option name="LAST_COMMIT_MESSAGE" value="임시 커밋" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
