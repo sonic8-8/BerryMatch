@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 수정 중" />
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 수정 중">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/match/test/MatchComparison.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/test/MatchComparison.jsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,6 +89,7 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2lYsNR1xQuOixyGbpPmoxmlnVWU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
     <option name="flattenModules" value="true" />
@@ -359,7 +367,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/develop" />
+                        <option value="feature/game" />
                       </list>
                     </value>
                   </entry>

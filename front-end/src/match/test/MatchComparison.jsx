@@ -72,10 +72,6 @@ const MatchComparison = () => {
         
     };
         
-
-
-
-
     // 준비 버튼 핸들러
     const handleReady = () => {
        
@@ -124,15 +120,6 @@ const MatchComparison = () => {
     });
     // 준비 상태로 전환하는 로직을 추가합니다.
 };
-
-
-
-
-
-
-
-
-
 
     return (
         <div className="match-container">

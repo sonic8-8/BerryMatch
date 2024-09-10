@@ -40,12 +40,6 @@ function PostWritePage() {
   function handleHighlightChange(event) {    
     console.log("선택된 하이라이트 이미지나 동영상 : ", event.target.files[0]);
 
-    
-
-  
-  
-    
-
     const fileReader = new FileReader();
 
     fileReader.readAsDataURL(event.target.files[0]);
@@ -61,8 +55,6 @@ function PostWritePage() {
     setSelectedFile(event.target.files[0]);
   }
 
-
-
   function handleTitleBlur(event) {
     setTitle(event.target.value);
   }
@@ -72,9 +64,6 @@ function PostWritePage() {
     setContent(event.target.value)  
   }
   console.log("현재 작성된 내용 : ", content);
-
-
-
   
   /**
    * 업로드 버튼 눌렀을 때 동작하는 함수
@@ -82,7 +71,6 @@ function PostWritePage() {
   async function submitFile(event) {
     // 새로고침 방지
     event.preventDefault();
-
 
     const decodedToken = jwtDecode(accessToken);
     const id = decodedToken.id;
@@ -105,7 +93,6 @@ function PostWritePage() {
     })
     .then(
       response=>{
-
         const apiResponse = response.data;
 
         const data = apiResponse.data;
@@ -115,8 +102,6 @@ function PostWritePage() {
 
         post_id = data.id;
         console.log("게시글 업로드 성공! 반환값 ", post_id);
-        
-        
       }
     )
     .catch(
@@ -135,7 +120,6 @@ function PostWritePage() {
     formData.append('thumbnail', selectedThumbnail);
     formData.append('post_id', post_id)
 
-    
     await axios.post('http://localhost:8085/api/s3/upload', formData, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
@@ -159,14 +143,7 @@ function PostWritePage() {
       }
     )
 
-
-    
-    
   }
-
-
-
-
 
   return (
     <div className={styles.container}>

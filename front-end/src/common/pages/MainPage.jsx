@@ -1,9 +1,9 @@
 import React from 'react';
 import useUserInfo from '../../user/useUserInfo';
-import { Link } from 'react-router-dom';
+import { Link, Outlet  } from 'react-router-dom';
 import styles from './MainPage.module.css';
-import Dashboard from '../Dashboard';
 import GroupPopupPanel from '../../group/GroupPopupPanel';
+
 
 function MainPage() {
   
@@ -28,7 +28,7 @@ function MainPage() {
               </div>
           </div>
         <div className={styles.layout_content}>
-          <Dashboard />          
+          <Outlet/>
         </div>
         <div className={styles.layout_footer}>
            <Link to="/" className={styles.layout_footer_menu}>Home</Link>

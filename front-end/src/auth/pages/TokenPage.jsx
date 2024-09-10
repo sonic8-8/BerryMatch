@@ -72,7 +72,17 @@ const TokenPage = () => {
     return (
         <div>
             {/* 인증 과정 중 로딩 스피너 등을 보여줄 수 있습니다. */}
-            <p>토큰 발급 중...</p>
+            <video 
+              src="/loadingVideo.mp4" 
+              autoPlay 
+              loop 
+              muted style={
+                { display: 'block', 
+                margin: '0 auto',   
+                width: '150px', 
+                height: '150px' }}
+            />
+            <p>로그인 중입니다 잠시만 기다려주세요</p>
         </div>
     );
 };

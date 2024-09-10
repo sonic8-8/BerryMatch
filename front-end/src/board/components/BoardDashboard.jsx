@@ -16,40 +16,8 @@ function BoardDashboard() {
     }
 
     return (
-        <div className={styles.dashboard_container}>
-            <div className={styles.dashboard_top}>
-                            
-                <div className={styles.dashboard_top_logo_container}>
-                    <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
-                    <div className={styles.dashboard_top_logo_title}>BerryMatch</div>
-                </div>
-                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }님</div>
-                <Link to="/logout" className={styles.dashboard_top_logout}>
-                        로그아웃
-                </Link>
-
-            </div>
-
-            {/* <Route path="" element={<Navigate to="/1" replace />} />
-          <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
-          <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} /> */}
-
-            <div className={styles.dashboard_middle}>
-                <div className={styles.dashboard_middle_menu_container}>
-                    <Link to={`/board/${currentPage || 1}`} className={styles.dashboard_middle_menu}>게시글 보기</Link>
-                    <Link to="post/write" className={styles.dashboard_middle_menu}>게시물 작성</Link>
-                </div>
-                <div className={styles.dashboard_middle_content}>
-                    <Outlet />
-                </div>
-            </div>
-
-            <div className={styles.dashboard_bottom}>
-                <Link to="/" className={styles.dashboard_bottom_menu}>Home</Link>
-                <Link to="/alert" className={styles.dashboard_bottom_menu}>알림</Link>
-                <Link to="/mypage" className={styles.dashboard_bottom_menu}>마이페이지</Link>
-                <div className={styles.dashboard_bottom_menu}>그룹정보</div>
-            </div>
+        <div className={styles.dashboard_middle_content}>
+            <Outlet />
         </div>
     );
 }
