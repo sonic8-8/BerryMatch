@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -211,15 +212,31 @@ public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequ
 
     @PostMapping("/boom")
     @Transactional
-    public ApiResponse<?> boom(@RequestBody MatchBoomRequest request) {
+    public ApiResponse<?> boom(@RequestBody MatchBoomRequest request) throws IOException {
 
         User user = userRepository.findById(request.toServiceRequest().getId())
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
 
         List<User> users = userRepository.findAll();
 
-        for (User u : users) {
-            u.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
+        for (User updateUser : users) {
+            updateUser.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
+            userRepository.save(updateUser);
+
+            notificationService.createSseEmitter(updateUser.getId());
+            notificationService.sendMatchStatus(updateUser.getId(), updateUser.getUserMatchStatus());
+
+            if (updateUser.getFcmToken() != null) {
+
+                FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
+                        .userId(updateUser.getId())
+                        .body("경기가 종료되었습니다.")
+                        .title("유저 상태 업데이트")
+                        .build();
+
+                fcmService.sendNotification(fcmRequest);
+            }
+
         }
 
         System.out.println("채팅 삭제할게~");

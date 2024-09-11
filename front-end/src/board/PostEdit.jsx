@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import styles from './PostEdit.module.css';
 import defaultImg from './img/defaultImg.png'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 function PostEdit() {
   const location = useLocation();
@@ -21,7 +22,7 @@ function PostEdit() {
   const [ content, setContent ] = useState(postList.content);
   const [ inputThumbnail, setInputThumbnail ] = useState(postList.thumbnailUrl);
   const [ inputFile, setInputFile ] = useState(postList.fileUrl);
-  const [ uploading, setUploading] = useState(false);
+  const [ loading, setLoading ] = useState(false);
 
 
   /**
@@ -103,6 +104,7 @@ function PostEdit() {
       }else if(inputThumbnail == null || inputFile == null){
         window.alert("썸네일 또는 하이라이트 파일을 첨부해주세요.");
       }else{
+        setLoading(true);
         await axios.post('http://localhost:8085/api/post/update', postUpdateData, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
@@ -153,8 +155,10 @@ function PostEdit() {
         const message = apiResponse.message;
         const data = apiResponse.data;
 
+        setLoading(false);
+        window.alert('하이라이트 수정을 성공하였습니다.');
+        nav('/board');
         console.log("파일 업데이트 성공 : ", message);
-        
       }
     )
     .catch(
@@ -183,6 +187,14 @@ function PostEdit() {
       </div>
 
       <br></br>
+
+      { 
+        loading ?
+        <div className={styles.spinner_overlay}>
+            <ClipLoader color="#ffffff" size={100} />
+        </div> :
+        null
+      }
 
       <div className={styles.container_files}>
         <div className={styles.thumbnail_div}>
