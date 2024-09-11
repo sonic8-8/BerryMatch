@@ -52,9 +52,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         System.out.println("refresh 토큰으로 유저 정보까지 가져옴");
 
-        if (jwtFacade.isRefreshTokenDuplicate(user.getIdentifier(), user.getProviderInfo())) {
+        if (!jwtFacade.isRefreshTokenDuplicate(user.getIdentifier(), user.getProviderInfo())) {
 
             System.out.println("refresh 토큰 중복 검증");
+
 
             if (jwtFacade.validateRefreshToken(refreshToken, user.getIdentifier(), user.getProviderInfo())) {
 
@@ -81,9 +82,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 filterChain.doFilter(request, response);
                 return;
             }
+        } else {
+
+            jwtFacade.deleteRefreshToken(user.getIdentifier(), user.getProviderInfo()); // MongoDB에서 삭제
+
+            System.out.println("refresh 토큰 중복이라 mongoDB에서 삭제");
+
         }
 
         System.out.println("refresh 토큰도 유효하지 않아서 로그아웃 처리함");
+
 
         jwtFacade.logout(response, user.getIdentifier(), user.getProviderInfo());
     }

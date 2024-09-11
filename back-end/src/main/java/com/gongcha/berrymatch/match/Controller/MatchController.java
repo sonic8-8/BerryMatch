@@ -1,15 +1,24 @@
 package com.gongcha.berrymatch.match.Controller;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.chatMessage.ChatMessageRepository;
+import com.gongcha.berrymatch.chatMessage.ChatMessageService;
 import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
+import com.gongcha.berrymatch.game.requestDTO.GameEndVoteRequest;
 import com.gongcha.berrymatch.match.DTO.*;
+import com.gongcha.berrymatch.match.Repository.MatchRepository;
+import com.gongcha.berrymatch.match.Repository.MatchUserRepository;
 import com.gongcha.berrymatch.match.Service.GetMatchUserService;
 import com.gongcha.berrymatch.match.Service.MatchCancelService;
 import com.gongcha.berrymatch.match.Service.MatchReadyService;
 import com.gongcha.berrymatch.match.Service.MatchRequestProcessingService;
 import com.gongcha.berrymatch.match.ThreadLocal.UserContext;
+import com.gongcha.berrymatch.match.domain.Match;
+import com.gongcha.berrymatch.match.domain.MatchUser;
 import com.gongcha.berrymatch.notification.NotificationService;
+import com.gongcha.berrymatch.notification.firebase.FcmService;
+import com.gongcha.berrymatch.notification.firebase.requestDTO.FirebaseNotificationServiceRequest;
 import com.gongcha.berrymatch.user.User;
 import com.gongcha.berrymatch.user.UserMatchStatus;
 import com.gongcha.berrymatch.user.UserRepository;
@@ -23,6 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -37,11 +48,15 @@ public class MatchController {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
     private final UserService userService;
-
+    private final FcmService fcmService;
+    private final MatchUserRepository matchUserRepository;
+    private final ChatMessageService chatMessageService;
+    private final ChatMessageRepository chatMessageRepository;
+    private final MatchRepository matchRepository;
 
     @Autowired
     public MatchController(MatchRequestProcessingService matchRequestProcessingService, MatchCancelService cancelMatching, MatchCancelService matchCancelService, MatchReadyService matchReadyService, GetMatchUserService getMatchUserService,
-                           UserRepository userRepository, NotificationService notificationService, UserService userService) {
+                           UserRepository userRepository, NotificationService notificationService, UserService userService, FcmService fcmService, MatchUserRepository matchUserRepository, ChatMessageService chatMessageService, ChatMessageRepository chatMessageRepository, MatchRepository matchRepository) {
         this.matchRequestProcessingService = matchRequestProcessingService;
         this.matchCancelService = matchCancelService;
         this.matchReadyService = matchReadyService;
@@ -49,6 +64,12 @@ public class MatchController {
         this.userRepository = userRepository;
         this.notificationService = notificationService;
         this.userService = userService;
+        this.fcmService = fcmService;
+        this.matchUserRepository = matchUserRepository;
+        this.chatMessageService = chatMessageService;
+
+        this.chatMessageRepository = chatMessageRepository;
+        this.matchRepository = matchRepository;
     }
 
     /**
@@ -95,9 +116,6 @@ public class MatchController {
 public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequest request) {
     try {
 
-        System.out.println("userId : " + request.getId());
-        System.out.println("message : " + request.getMessage());
-
         matchCancelService.cancelMatching(request.toServiceRequest());
 
         System.out.println("취소 완료");
@@ -106,6 +124,23 @@ public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequ
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
 
         user.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
+        userRepository.save(user);
+
+        // SSE 알림
+        notificationService.createSseEmitter(user.getId());
+        notificationService.sendMatchStatus(user.getId(), user.getUserMatchStatus());
+
+        // FCM 푸시 알림
+        if (user.getFcmToken() != null) {
+
+            FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
+                    .title("매칭 상태 업데이트")
+                    .body("매칭이 취소됐습니다.")
+                    .userId(user.getId())
+                    .build();
+
+            fcmService.sendNotification(fcmRequest);
+        }
 
         MatchCancelResponse response = MatchCancelResponse.builder()
                 .nickname(user.getNickname())
@@ -120,14 +155,14 @@ public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequ
 
     /**
      * 준비완료
-     * @param matchReady 준비완로 신호
+     * @param matchReadyRequest 준비완로 신호
      * @return
      */
     @PostMapping("/ready")
-    public ApiResponse<MatchReady> ReadyMatch(@RequestBody MatchReady matchReady){
+    public ApiResponse<MatchReadyRequest> ReadyMatch(@RequestBody MatchReadyRequest matchReadyRequest){
 
-        System.out.println("신호들어옴"+matchReady.getId());
-        MatchReady response= matchReadyService.userReadyStatus(matchReady);
+        System.out.println("신호들어옴"+ matchReadyRequest.getId());
+        MatchReadyRequest response= matchReadyService.userReadyStatus(matchReadyRequest);
         if (response.isAllUsersReady()) {
             return ApiResponse.ok(response);
         } else {
@@ -138,12 +173,12 @@ public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequ
 
     /**
      * 준비 취소
-     * @param matchReady 준비취소 신호
+     * @param matchReadyRequest 준비취소 신호
      * @return
      */
     @PostMapping("/waiting")
-    public ApiResponse<MatchResponse> WaitingMatch(@RequestBody MatchReady matchReady){
-        matchReadyService.UserWitingStatus(matchReady);
+    public ApiResponse<MatchResponse> WaitingMatch(@RequestBody MatchReadyRequest matchReadyRequest){
+        matchReadyService.UserWitingStatus(matchReadyRequest);
         return ApiResponse.ok(null);
     }
 
@@ -151,46 +186,60 @@ public ApiResponse<MatchCancelResponse> cancelMatch(@RequestBody MatchCancelRequ
     /**
      * 매치나가기 신호
      */
-    @PostMapping("/matchleave")
-    public ApiResponse<MatchResponse> MatchLeave(@RequestBody MatchReady matchReady){
-        matchReadyService.UserMatchLeave(matchReady);
+    @PostMapping("/match-leave")
+    public ApiResponse<MatchResponse> MatchLeave(@RequestBody MatchLeaveRequest request){
+
+        matchReadyService.UserMatchLeave(request.toServiceRequest());
         return ApiResponse.ok(null);
     }
 
     /**
-     * 더미 데이터의 매칭을 요청하는 메서드
+     * 게임 종료 투표
      */
-    @PostMapping("/dummy-matching")
-    public ApiResponse<String> dummyMatching(@RequestBody DummyMatchRequest request) {
-        try {
+    @PostMapping("/gameEndVote")
+    @Transactional
+    public ApiResponse<?> GameEndVote(@RequestBody GameEndVoteRequest request){
+        User user = userService.findUserById(request.toServiceRequest().getUserId());
 
-            User user = userRepository.findByNickname(request.getNickname())
-                    .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
+        user.updateGameEndVoteStatus(request.toServiceRequest().getGameEndVoteStatus());
 
-            // 매칭 요청 처리 서비스 호출
-            matchRequestProcessingService.processMatchRequest(request.toMatchServiceRequest2(user.getId()));
+        userRepository.save(user);
 
-            return ApiResponse.ok("대기열 입장중");
+        return ApiResponse.ok(user.getGameEndvoteStatus());
 
-        } catch (Exception e) {
-            // 이미 매칭 중이거나 대기 중인 유저에 대한 예외 처리
-            return ApiResponse.of(HttpStatus.CONFLICT, "이미 매칭 중입니다.", "매칭요청실패");
+    }
+
+    @PostMapping("/boom")
+    @Transactional
+    public ApiResponse<?> boom(@RequestBody MatchBoomRequest request) {
+
+        User user = userRepository.findById(request.toServiceRequest().getId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
+
+        List<User> users = userRepository.findAll();
+
+        for (User u : users) {
+            u.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
         }
+
+        System.out.println("채팅 삭제할게~");
+
+        // chatMessage 삭제
+        chatMessageRepository.deleteAll();
+
+        System.out.println("매치 유저 삭제할게~");
+
+        // matchUser 삭제
+        matchUserRepository.deleteAll();
+
+        System.out.println("매치 삭제할게~");
+
+        // match 삭제
+        matchRepository.deleteAll();
+
+        return ApiResponse.ok("다 삭제함 ㅅㄱ");
+
+
     }
-
-    /**
-     * 더미 데이터의 매칭을 취소하는 메서드
-     */
-    @PostMapping("/dummy-cancel")
-    public ApiResponse<DummyMatchResponse> dummyCancelMatch(@RequestBody DummyMatchCancelRequest request) {
-
-            User user = userRepository.findByNickname(request.getNickname())
-                    .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_UPDATED));
-
-            matchCancelService.cancelMatching(request.toMatchCancelServiceRequest(user.getId()));
-
-            return ApiResponse.ok(null);
-    }
-
 
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import styles from './MatchDummyData.module.css';
 
 function MatchDummyData() {
     const [selectedDate, setSelectedDate] = useState('');
@@ -41,9 +42,24 @@ function MatchDummyData() {
                 </div>
                 <div>
                     <label>더미 유저 수 선택:</label>
-                    <button type="button" onClick={() => handleCountChange(10)}>10명</button>
-                    <button type="button" onClick={() => handleCountChange(9)}>9명</button>
-                    <button type="button" onClick={() => handleCountChange(8)}>8명</button>
+                    <button 
+                        type="button" 
+                        className={`${styles.dummyButton} ${dummyCount === 10 ? styles.selected : ''}`}
+                        onClick={() => handleCountChange(10)}
+                        >10명
+                    </button>
+                    <button 
+                        type="button"
+                        className={`${styles.dummyButton} ${dummyCount === 9 ? styles.selected : ''}`}
+                        onClick={() => handleCountChange(9)}
+                        >9명
+                    </button>
+                    <button 
+                        type="button" 
+                        className={`${styles.dummyButton} ${dummyCount === 8 ? styles.selected : ''}`}
+                        onClick={() => handleCountChange(8)}
+                        >8명
+                    </button>
                 </div>
                 <button type="submit">랜덤 매칭</button>
             </form>

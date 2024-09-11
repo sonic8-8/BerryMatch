@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +32,7 @@ public class MatchCancelService {
      * matchRequest.getID();취소할 유저의 ID
      */
     @Transactional
-    public void cancelMatching(MatchCancelServiceRequest request) {
+    public void cancelMatching(MatchCancelServiceRequest request) throws IOException {
 
         // 매칭 대기열에서 해당 유저 찾기
         Optional<MatchingQueue> matchingQueueOpt = matchingQueueRepository.findByUserId(request.getId());
@@ -49,10 +50,12 @@ public class MatchCancelService {
                 user.updateMatchStatus(UserMatchStatus.NOT_MATCHED);
                 userRepository.save(user);
 
-                if (user.getFcmToken() != null) {
+                // SSE 알림
+                notificationService.createSseEmitter(user.getId());
+                notificationService.sendMatchStatus(user.getId(), user.getUserMatchStatus());
 
-                    notificationService.createSseEmitter(user.getId());
-                    notificationService.sendMatchStatus(user.getId());
+                // FCM 알림
+                if (user.getFcmToken() != null) {
 
                     FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
                             .userId(user.getId())

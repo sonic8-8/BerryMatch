@@ -4,6 +4,7 @@ import com.gongcha.berrymatch.exception.BusinessException;
 import com.gongcha.berrymatch.exception.ErrorCode;
 import com.gongcha.berrymatch.notification.responseDTO.NotificationResponse;
 import com.gongcha.berrymatch.user.User;
+import com.gongcha.berrymatch.user.UserMatchStatus;
 import com.gongcha.berrymatch.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,20 +35,23 @@ public class NotificationService {
         emitter.onTimeout(() -> userEmitters.remove(userId));
         emitter.onError(throwable -> userEmitters.remove(userId));
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
-
         // 30초마다 heartbeat 전송
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleAtFixedRate(() -> {
             try {
+
+                User user = userRepository.findById(userId)
+                        .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
+
+                System.out.println("유저 매칭 상태 조회 : " + user.getUserMatchStatus());
+
                 emitter.send(SseEmitter.event().name("ping").data("heartbeat"));
                 emitter.send(SseEmitter.event().name("matchStatus").data(user.getUserMatchStatus()));
 //            sendMatchStatus(userId);
             } catch (IOException e) {
                 userEmitters.remove(userId, emitter);
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
 
         return emitter;
     }
@@ -83,27 +87,28 @@ public class NotificationService {
      * 예를 들어, UserService.updateMatchStatus 같은게 있을듯요. <br/>
      * 그 메서드 안쪽에 notificationService.sendMatchStatus()를 추가하셈
      */
-    public NotificationResponse sendMatchStatus(Long userId) {
+    public NotificationResponse sendMatchStatus(Long userId, UserMatchStatus userMatchStatus) throws IOException {
+
         SseEmitter emitter = userEmitters.get(userId);
-        Notification notification = null;
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND));
 
         try {
-            notification = Notification.builder()
-                    .message(user.getUserMatchStatus().toString())
-                    .id(userId)
-                    .build();
 
-            emitter.send(SseEmitter.event().name("matchStatus").data(notification.getMessage()));
+            System.out.println("보낼 유저 매칭 상태 : " + userMatchStatus);
+
+            emitter.send(SseEmitter.event().name("matchStatus").data(userMatchStatus));
+
+            System.out.println("보냄?");
+
         } catch (IOException e) {
             emitter.completeWithError(e);
             userEmitters.remove(userId);
         }
 
         return NotificationResponse.builder()
-                .message(notification.getMessage())
+                .message(user.getUserMatchStatus().toString())
                 .build();
     }
 

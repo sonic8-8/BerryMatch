@@ -8,6 +8,7 @@ function matchready(token, matchId, socket, io) {
 
     const id = handleSocketConnection(token, matchId, socket);
     socket.join(matchId);  // 같은 matchId로 룸에 참가
+    const usersReadyStatus = {};
 
 
 
@@ -56,7 +57,7 @@ function matchready(token, matchId, socket, io) {
 
         axios.post('http://localhost:8085/api/waiting', requestData, {
             headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-            withCredentials: true,
+            withCredentials: true
         })
         .then(response => {
             console.log('Message saved successfully:', response.data);
@@ -79,19 +80,37 @@ function matchready(token, matchId, socket, io) {
         socket.leave(matchId);
 
         const requestData = {
-            id: id,
+            id: id
         };
         //경로 일부러 빼놓음
-        axios.post('http://localhost:8085/api/?????', requestData, {
+        axios.post('http://localhost:8085/api/match-leave', requestData, {
             headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-            withCredentials: true,
+            withCredentials: true
         })
         .then(response => {
             console.log('Message saved successfully:', response.data);
         })
         .catch(error => {
             console.error('Error saving message to Spring Boot:', error);
-        });     
+        });
+
+    });
+
+    socket.on('endGameVote', ({ id, nickname }) => {
+        if (!endGameVotes[matchId]) {
+            endGameVotes[matchId] = new Set();  // 투표한 유저들을 저장할 Set 생성
+        }
+
+        endGameVotes[matchId].add(id);  // 유저가 투표했음을 기록
+        const voteCount = endGameVotes[matchId].size;  // 현재 투표 수
+
+        io.to(matchId).emit('endGameVoteStatus', { voteCount, gameEnded: false });
+
+        const allUsersReady = Object.keys(usersReadyStatus).length;
+        if (voteCount === allUsersReady) {
+            io.to(matchId).emit('endGameVoteStatus', { voteCount, gameEnded: true });
+            console.log('All users have voted to end the game.');
+        }
     });
 
 

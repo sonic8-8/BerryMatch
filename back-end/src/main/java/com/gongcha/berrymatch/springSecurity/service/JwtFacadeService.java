@@ -98,9 +98,6 @@ public class JwtFacadeService implements JwtFacade {
     @Override
     public boolean validateRefreshToken(String token, String identifier, ProviderInfo providerInfo) {
 
-        if (tokenService.isRefreshDuplicate(identifier, providerInfo)) {
-            throw new BusinessException(DUPLICATED_REFRESH_TOKEN);
-        };
 
         boolean isRefreshValid = jwtUtil.getTokenStatus(token, REFRESH_SECRET_KEY) == TokenStatus.AUTHENTICATED;
 

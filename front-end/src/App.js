@@ -28,6 +28,8 @@ import PostPage from './board/PostPage';
 import PostList from './board/PostList';
 import PostWritePage from './board/pages/PostWritePage';
 import { Navigate } from 'react-router-dom';
+import DummyDataTest from './common/DummyDataTest';
+
 
 function App() {
 
@@ -45,6 +47,13 @@ function App() {
       
       {/* Conditional Background Music */}
       {showBackground && <BackgroundMusic className={styles.backgroundMusic} />}
+
+
+      {/* 더미 데이터 테스트용 */}
+      <div className={styles.dummyDataTest}>
+        <DummyDataTest/>
+      </div>           
+      
       
       <Routes>
         <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />

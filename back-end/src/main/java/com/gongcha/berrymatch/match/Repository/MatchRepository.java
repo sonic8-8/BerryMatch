@@ -2,10 +2,13 @@
 package com.gongcha.berrymatch.match.Repository;
 
 import com.gongcha.berrymatch.match.domain.*;
+import com.gongcha.berrymatch.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,12 +37,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
      */
     List<Match> findByMatchStatus(MatchStatus status);
 
-
-
     Match findAllById(Long matchId);
-
-
-    ;
 
 
 

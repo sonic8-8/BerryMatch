@@ -48,21 +48,6 @@ public class MatchingQueueUpdateService {
             User user = matchUser.getUser();
             Optional<MatchingQueue> pendingEntryOptional = matchingQueueRepository.findByUserAndStatus(user, MatchQueueStatus.PENDING);
 
-            System.out.println("매칭 상태 업데이트 하러 들어옴 PENDING으로");
-            user.updateMatchStatus(UserMatchStatus.PENDING);
-            userRepository.save(user);
-
-            if (user.getFcmToken() != null) {
-                notificationService.createSseEmitter(user.getId());
-                notificationService.sendMatchStatus(user.getId());
-                FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
-                        .userId(user.getId())
-                        .title("매칭 대기열 상태 업데이트")
-                        .body("매칭 대기열에 등록됐습니다!")
-                        .build();
-                fcmService.sendNotification(fcmRequest); // FCM 푸시 알림
-            }
-
             pendingEntryOptional.ifPresent(queueEntry -> {
                 // Use optimistic locking and let the database handle concurrency
                 queueEntry.setStatus(MatchQueueStatus.MATCHED);
@@ -71,3 +56,18 @@ public class MatchingQueueUpdateService {
         }
     }
 }
+
+//System.out.println("매칭 상태 업데이트 하러 들어옴 PENDING으로");
+//            user.updateMatchStatus(UserMatchStatus.PENDING);
+//            userRepository.save(user);
+//
+//            if (user.getFcmToken() != null) {
+//                notificationService.createSseEmitter(user.getId());
+//                notificationService.sendMatchStatus(user.getId());
+//                FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
+//                        .userId(user.getId())
+//                        .title("매칭 대기열 상태 업데이트")
+//                        .body("매칭 대기열에 등록됐습니다!")
+//                        .build();
+//                fcmService.sendNotification(fcmRequest); // FCM 푸시 알림
+//            }

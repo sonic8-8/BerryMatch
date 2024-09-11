@@ -185,7 +185,7 @@ const MatchComparison = () => {
                 onButtonClick={handleBTeamButtonClick}
                 allUsersReady={allUsersReady}  // 모든 유저 준비 상태 전달
             />
-            <div>더미 데이터 Ready</div>
+
         </div>
     );
 };

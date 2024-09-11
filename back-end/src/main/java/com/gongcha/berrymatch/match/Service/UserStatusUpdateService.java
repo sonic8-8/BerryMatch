@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,10 +53,16 @@ public class UserStatusUpdateService {
                     user.updateMatchStatus(UserMatchStatus.MATCHED); // User의 매칭 상태 업데이트
                     userRepository.save(user);
 
-                    if (matchUser.getUser().getFcmToken() != null) {
+                    // SSE 알림
+                    notificationService.createSseEmitter(matchUser.getUser().getId());
+                    try {
+                        notificationService.sendMatchStatus(matchUser.getUser().getId(), user.getUserMatchStatus()); // SSE 알림
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                        notificationService.createSseEmitter(matchUser.getUser().getId());
-                        notificationService.sendMatchStatus(matchUser.getUser().getId()); // SSE 알림
+                    // FCM 푸시 알림
+                    if (matchUser.getUser().getFcmToken() != null) {
 
                         FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
                                 .userId(user.getId())

@@ -62,9 +62,11 @@ const Notification = () => {
         eventSource.addEventListener('matchStatus', (event) => {
 
             console.log('이벤트 이름이 matchStatus인 것들----------------------------')
-            console.log(event);
+            console.log('상태 변경 알림 받음')
+            console.log("matchStatus 알림" + event.data);
 
             setMatchStatus(event.data);
+
 
         });
 
@@ -119,11 +121,12 @@ const Notification = () => {
                     <li key={index}>{notification}</li>
                 ))}
             </ul> */}
-            <div className={styles.matchStatus_notification}>{matchStatus == 'MATCHED' ? 
+            <div className={styles.matchStatus_notification}>
+                {matchStatus == '"MATCHED"' ? 
                 <Link to='/match' className={styles.matchStatus_notification_complete}>
                     {matchStatus}<br/>
                     매칭방으로 이동하기
-                    </Link> 
+                </Link> 
                 : 
                 matchStatus}</div>
         </div>

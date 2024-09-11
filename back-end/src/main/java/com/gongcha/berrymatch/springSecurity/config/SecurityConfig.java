@@ -59,6 +59,7 @@ public class SecurityConfig {
                         // SSE 엔드포인트는 인증됨
                         .requestMatchers("/api/fcm/**").authenticated()
                         // firebase cloud messaging 엔드포인트는 인증됨
+                        .requestMatchers("/api/boom").permitAll()
                         .anyRequest().hasAnyRole(PERMITTED_ROLES))
 
 

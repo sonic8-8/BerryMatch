@@ -218,10 +218,12 @@ public class MatchRequestProcessingService {
             user.updateMatchStatus(UserMatchStatus.PENDING);
             userRepository.save(user);
 
-            if (user.getFcmToken() != null) {
+            // SSE 알림
+            notificationService.createSseEmitter(user.getId());
+            notificationService.sendMatchStatus(user.getId(), user.getUserMatchStatus()); // matchStatus SSE 알림
 
-                notificationService.createSseEmitter(user.getId());
-                notificationService.sendMatchStatus(user.getId()); // matchStatus SSE 알림
+            // FCM 푸시 알림
+            if (user.getFcmToken() != null) {
 
                 FirebaseNotificationServiceRequest fcmRequest = FirebaseNotificationServiceRequest.builder()
                         .userId(user.getId())

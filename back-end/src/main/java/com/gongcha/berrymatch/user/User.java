@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gongcha.berrymatch.chatMessage.ChatMessage;
 
 import com.gongcha.berrymatch.game.Game;
+import com.gongcha.berrymatch.game.GameEndVoteStatus;
 import com.gongcha.berrymatch.group.UserGroup;
 import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.notification.Notification;
@@ -116,6 +117,9 @@ public class User {
     @Column(name = "fcm_token", length = 512)
     private String fcmToken;
 
+    @Column(name = "game_end_vote_status", length = 512)
+    private GameEndVoteStatus gameEndvoteStatus = GameEndVoteStatus.NO;
+
 
     @Builder
     public User(Long id, String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
@@ -169,5 +173,10 @@ public class User {
     public void fcmTokenUpdate(String fcmToken) {
         this.fcmToken = fcmToken;
     }
+
+    public void updateGameEndVoteStatus(GameEndVoteStatus gameEndvoteStatus) {
+        this.gameEndvoteStatus = gameEndvoteStatus;
+    }
+
 
 }

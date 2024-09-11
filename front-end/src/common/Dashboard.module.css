@@ -291,6 +291,7 @@
         flex-direction: column;
     }
 
+
     /* 모바일 화면에서 네비게이션 바로 설정 */
 @media screen and (max-width: 768px) {
     .dashboard_bottom {

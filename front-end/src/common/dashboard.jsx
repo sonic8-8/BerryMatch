@@ -13,6 +13,7 @@ import FirebaseNotification from './components/FirebaseNotification';
 import useFCMNotification from './useFCMNotification';
 import FCMNotificationTestButton from './components/FCMNotificationTestButton';
 import MatchDummyData from './MatchDummyData';
+import DummyDataTest from './DummyDataTest';
 
 function Dashboard() {
 
@@ -30,7 +31,7 @@ function Dashboard() {
                     <img className={styles.dashboard_top_logo} src='https://thank-you-berrymatch-bucket-0.s3.ap-northeast-2.amazonaws.com/design/logo.png'/>
                     <div className={styles.dashboard_top_logo_title}>BerryMatch</div>
                 </div>
-                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }<FCMNotificationTestButton/>님</div>
+                <div className={styles.dashboard_top_identifier}>환영합니다! {userInfo ? userInfo.nickname : '' }님</div>
                 <Link to="/logout" className={styles.dashboard_top_logout}>
                         로그아웃
                 </Link>
@@ -58,8 +59,9 @@ function Dashboard() {
                         <div className={styles.dashboard_middle_right_menu}>
                         <MatchSetupSubPage />
                         <FirebaseNotification/>
-                        <MatchDummyData/>
-                        </div>
+                        {/* <MatchDummyData/>
+                        <FCMNotificationTestButton/> */}
+                        </div>             
 
 
                     </div>

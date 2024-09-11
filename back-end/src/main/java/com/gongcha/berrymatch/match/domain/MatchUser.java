@@ -44,6 +44,8 @@ public class MatchUser {
         this.status = status;
     }
 
-
+    public void updateMatchUserReady(MatchUserReady status) {
+        this.status = status;
+    }
 
 }
