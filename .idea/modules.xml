@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/BerryMatch.iml" filepath="$PROJECT_DIR$/.idea/modules/BerryMatch.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BerryMatch.main.iml" filepath="$PROJECT_DIR$/.idea/modules/BerryMatch.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" filepath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" />
     </modules>
   </component>
 </project>

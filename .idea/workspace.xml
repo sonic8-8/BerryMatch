@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 수정 중">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" afterDir="false" />
+    <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Merge branch 'refs/heads/develop' into feature/game-develop-merge&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;front-end/package-lock.json&#10;#&#9;front-end/src/auth/pages/LoginPage.jsx&#10;#&#9;front-end/src/auth/pages/LoginPage.module.css&#10;#&#9;front-end/src/auth/pages/SignupPage.module.css&#10;#&#9;front-end/src/common/Dashboard.module.css&#10;#&#9;front-end/src/common/components/BackgroundMusic.module.css&#10;#&#9;front-end/src/common/dashboard.jsx&#10;#&#9;front-end/src/common/pages/MainPage.jsx&#10;#&#9;front-end/src/common/pages/MainPage.module.css&#10;#&#9;front-end/src/group/GroupPopupPanel.module.css&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.jsx&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.module.css&#10;#&#9;front-end/src/match/test/MatchComparison.jsx">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +57,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/game-develop-merge" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -174,6 +174,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.BerryMatchApplication" />
         <item itemvalue="Spring Boot.BerryMatchApplication" />
         <item itemvalue="Spring Boot.BerryMatchApplication" />
       </list>
@@ -423,7 +424,8 @@
     <MESSAGE value="Firebase Secret Key 등록" />
     <MESSAGE value="Merge branch 'refs/heads/develop' into feature/develop-game-merge&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules/BerryMatch.iml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;back-end/src/main/resources/application.yml" />
     <MESSAGE value="Front CSS 수정 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="Front CSS 수정 중" />
+    <MESSAGE value="Merge branch 'refs/heads/develop' into feature/game-develop-merge&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;front-end/package-lock.json&#10;#&#9;front-end/src/auth/pages/LoginPage.jsx&#10;#&#9;front-end/src/auth/pages/LoginPage.module.css&#10;#&#9;front-end/src/auth/pages/SignupPage.module.css&#10;#&#9;front-end/src/common/Dashboard.module.css&#10;#&#9;front-end/src/common/components/BackgroundMusic.module.css&#10;#&#9;front-end/src/common/dashboard.jsx&#10;#&#9;front-end/src/common/pages/MainPage.jsx&#10;#&#9;front-end/src/common/pages/MainPage.module.css&#10;#&#9;front-end/src/group/GroupPopupPanel.module.css&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.jsx&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.module.css&#10;#&#9;front-end/src/match/test/MatchComparison.jsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'refs/heads/develop' into feature/game-develop-merge&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;front-end/package-lock.json&#10;#&#9;front-end/src/auth/pages/LoginPage.jsx&#10;#&#9;front-end/src/auth/pages/LoginPage.module.css&#10;#&#9;front-end/src/auth/pages/SignupPage.module.css&#10;#&#9;front-end/src/common/Dashboard.module.css&#10;#&#9;front-end/src/common/components/BackgroundMusic.module.css&#10;#&#9;front-end/src/common/dashboard.jsx&#10;#&#9;front-end/src/common/pages/MainPage.jsx&#10;#&#9;front-end/src/common/pages/MainPage.module.css&#10;#&#9;front-end/src/group/GroupPopupPanel.module.css&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.jsx&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.module.css&#10;#&#9;front-end/src/match/test/MatchComparison.jsx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
