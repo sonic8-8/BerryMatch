@@ -7,10 +7,6 @@
     <list default="true" id="5be8fdad-363e-4bf6-8b0e-8c1516faac10" name="변경" comment="Front CSS 수정 중">
       <change beforePath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/BerryMatch.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/common/pages/MainPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/match/test/MatchComparison.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/match/test/MatchComparison.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +107,7 @@
     &quot;Spring Boot.BerryMatchApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feature/game&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/윤슬아/Desktop/BerryMatch/back-end/src/main/resources/berrymatch-7fbcb-firebase-adminsdk-ayc3h-0e13a77d07.json&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/윤슬아/Desktop/BerryMatch/back-end/src/main/resources/berrymatch-33860-firebase-adminsdk-ugze3-7df6bfe10e.json&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -119,7 +115,7 @@
     &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Console&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -139,13 +135,14 @@
   </component>
   <component name="RunManager">
     <configuration name="BerryMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="FIREBASE_SERVICE_ACCOUNT_FILE" value="classPath:berrymatch-33860-firebase-adminsdk-ugze3-7df6bfe10e.json" />
+      </envs>
       <option name="envFilePaths">
         <option value="$PROJECT_DIR$/.env" />
       </option>
       <module name="BerryMatch.main" />
-      <selectedOptions>
-        <option name="environmentVariables" />
-      </selectedOptions>
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.gongcha.berrymatch.BerryMatchApplication" />
       <extension name="coverage">
         <pattern>
@@ -155,13 +152,14 @@
       </extension>
       <extension name="net.ashald.envfile">
         <option name="IS_ENABLED" value="true" />
-        <option name="IS_SUBST" value="false" />
+        <option name="IS_SUBST" value="true" />
         <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
         <option name="IS_IGNORE_MISSING_FILES" value="false" />
         <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
         <ENTRIES>
           <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
           <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH=".env" />
+          <ENTRY IS_ENABLED="true" PARSER="yaml" IS_EXECUTABLE="false" PATH="back-end/src/main/resources/berrymatch-33860-firebase-adminsdk-ugze3-7df6bfe10e.json" />
         </ENTRIES>
       </extension>
       <method v="2">
@@ -350,7 +348,39 @@
       <option name="project" value="LOCAL" />
       <updated>1725977695798</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Front CSS 수정 중">
+      <option name="closed" value="true" />
+      <created>1726015665086</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1726015665086</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Front CSS 수정">
+      <option name="closed" value="true" />
+      <created>1726018962807</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1726018962807</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Merge branch 'refs/heads/develop' into feature/game-develop-merge&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;front-end/package-lock.json&#10;#&#9;front-end/src/auth/pages/LoginPage.jsx&#10;#&#9;front-end/src/auth/pages/LoginPage.module.css&#10;#&#9;front-end/src/auth/pages/SignupPage.module.css&#10;#&#9;front-end/src/common/Dashboard.module.css&#10;#&#9;front-end/src/common/components/BackgroundMusic.module.css&#10;#&#9;front-end/src/common/dashboard.jsx&#10;#&#9;front-end/src/common/pages/MainPage.jsx&#10;#&#9;front-end/src/common/pages/MainPage.module.css&#10;#&#9;front-end/src/group/GroupPopupPanel.module.css&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.jsx&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.module.css&#10;#&#9;front-end/src/match/test/MatchComparison.jsx">
+      <option name="closed" value="true" />
+      <created>1726019037812</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1726019037812</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Merge branch 'refs/heads/develop' into feature/game-develop-merge&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;front-end/package-lock.json&#10;#&#9;front-end/src/auth/pages/LoginPage.jsx&#10;#&#9;front-end/src/auth/pages/LoginPage.module.css&#10;#&#9;front-end/src/auth/pages/SignupPage.module.css&#10;#&#9;front-end/src/common/Dashboard.module.css&#10;#&#9;front-end/src/common/components/BackgroundMusic.module.css&#10;#&#9;front-end/src/common/dashboard.jsx&#10;#&#9;front-end/src/common/pages/MainPage.jsx&#10;#&#9;front-end/src/common/pages/MainPage.module.css&#10;#&#9;front-end/src/group/GroupPopupPanel.module.css&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.jsx&#10;#&#9;front-end/src/match/pages/MatchSetupSubPage.module.css&#10;#&#9;front-end/src/match/test/MatchComparison.jsx">
+      <option name="closed" value="true" />
+      <created>1726019101567</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1726019101567</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,6 +421,7 @@
     <MESSAGE value="Front CSS 경기 기록 관련" />
     <MESSAGE value="임시 커밋" />
     <MESSAGE value="Firebase Secret Key 등록" />
+    <MESSAGE value="Merge branch 'refs/heads/develop' into feature/develop-game-merge&#10;&#10;# Conflicts:&#10;#&#9;.idea/modules/BerryMatch.iml&#10;#&#9;.idea/modules/BerryMatch.main.iml&#10;#&#9;.idea/modules/BerryMatch.test.iml&#10;#&#9;.idea/workspace.xml&#10;#&#9;back-end/src/main/resources/application.yml" />
     <MESSAGE value="Front CSS 수정 중" />
     <option name="LAST_COMMIT_MESSAGE" value="Front CSS 수정 중" />
   </component>
