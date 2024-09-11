@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gongcha.berrymatch.chatMessage.ChatMessage;
 
 import com.gongcha.berrymatch.game.Game;
+import com.gongcha.berrymatch.game.GameEndVoteStatus;
 import com.gongcha.berrymatch.group.UserGroup;
 import com.gongcha.berrymatch.match.domain.Match;
 import com.gongcha.berrymatch.notification.Notification;
@@ -15,6 +16,7 @@ import com.gongcha.berrymatch.userActivity.UserActivity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -74,6 +76,7 @@ public class User {
 //    private ChatRoom chatRoom;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_match_status", length = 50)
     private UserMatchStatus userMatchStatus = UserMatchStatus.NOT_MATCHED;
 
 
@@ -89,6 +92,7 @@ public class User {
     private UserGroup userGroup;
 
 
+    @Transactional
     public void updateMatchStatus(UserMatchStatus userMatchstatus) {
         this.userMatchStatus = userMatchstatus;
     }
@@ -103,9 +107,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_like_id")
-    private PostLike postLike;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostLike> postLikes;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications;
@@ -113,9 +116,13 @@ public class User {
     @Column(name = "fcm_token", length = 512)
     private String fcmToken;
 
+    @Column(name = "game_end_vote_status", length = 512)
+    private GameEndVoteStatus gameEndvoteStatus = GameEndVoteStatus.NO;
+
 
     @Builder
-    public User(String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+    public User(Long id, String identifier, String nickname, City city, District district, Gender gender, LocalDate birthDate, String phoneNumber, String profileImageUrl, String introduction, String email, Role role, LocalDateTime createdAt, ProviderInfo providerInfo, UserMatchStatus userMatchStatus) {
+        this.id = id;
         this.identifier = identifier;
         this.nickname = nickname;
         this.city = city;
@@ -164,6 +171,10 @@ public class User {
 
     public void fcmTokenUpdate(String fcmToken) {
         this.fcmToken = fcmToken;
+    }
+
+    public void updateGameEndVoteStatus(GameEndVoteStatus gameEndvoteStatus) {
+        this.gameEndvoteStatus = gameEndvoteStatus;
     }
 
 

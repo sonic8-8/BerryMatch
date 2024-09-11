@@ -57,7 +57,7 @@ public class Match {
         MatchUser matchUser = MatchUser.builder()
                 .match(this)
                 .user(user)
-                .status(MatchUserReady.Waiting)
+                .status(MatchUserReady.WAITING)
                 .team(team)
                 .build();
         this.matchUsers.add(matchUser);

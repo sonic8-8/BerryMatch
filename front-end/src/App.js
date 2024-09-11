@@ -24,10 +24,13 @@ import AccountDeletionSubPage from './user/pages/AccountDeletionSubPage';
 import MatchComparison from './match/test/MatchComparison';
 import Map from './common/Map';
 
-import PostPage from './board/PostPage';
 import PostList from './board/PostList';
 import PostWritePage from './board/pages/PostWritePage';
+import MyPostList from './board/MyPostList.jsx';
+import PostEdit from './board/PostEdit.jsx';
 import { Navigate } from 'react-router-dom';
+import DummyDataTest from './common/DummyDataTest';
+
 
 function App() {
 
@@ -44,8 +47,15 @@ function App() {
       )}
       
       {/* Conditional Background Music */}
-      {showBackground && <BackgroundMusic />}
+      {showBackground && <BackgroundMusic className={styles.backgroundMusic} />}
 
+
+      {/* 더미 데이터 테스트용 */}
+      <div className={styles.dummyDataTest}>
+        <DummyDataTest/>
+      </div>           
+      
+      
       <Routes>
         <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
         <Route path="/login" element={<LoginPage />} />
@@ -62,9 +72,14 @@ function App() {
         <Route path="/match/lobby" element={<PrivateRoute><MatchComparison /></PrivateRoute>} />
 
         <Route path="/board" element={<PrivateRoute><BoardPage /></PrivateRoute>}>
-        <Route path="" element={<Navigate to="/board/1" replace />} />
+          <Route path="" element={<Navigate to="/board/1" replace />} />
           <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
           <Route path='post/write' element={<PrivateRoute><PostWritePage/></PrivateRoute>} />
+          <Route path='mypost' element={<PrivateRoute><MyPostList/></PrivateRoute>}>
+            <Route path="" element={<Navigate to="/1" replace />} />
+            <Route path=':currentPage' element={<PrivateRoute><PostList/></PrivateRoute>} />
+          </Route>
+          <Route path="post/edit" element={<PrivateRoute><PostEdit/></PrivateRoute>}></Route>
         </Route>
 
         <Route path="/group/create" element={<PrivateRoute><GroupCreatePage /></PrivateRoute>} />

@@ -6,6 +6,6 @@ package com.gongcha.berrymatch.match.domain;
  * 유저들 준비/대기 상태
  */
 public enum MatchUserReady {
-    Ready,
-    Waiting
+    READY,
+    WAITING
 }

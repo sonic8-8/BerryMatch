@@ -1,13 +1,13 @@
 package com.gongcha.berrymatch.notification;
 
 import com.gongcha.berrymatch.ApiResponse;
-import com.gongcha.berrymatch.notification.firebase.FCMService;
 import com.gongcha.berrymatch.notification.requestDTO.NotificationRequest;
 import com.gongcha.berrymatch.notification.responseDTO.NotificationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
@@ -26,21 +26,21 @@ public class NotificationController {
         return notificationService.createSseEmitter(Long.valueOf(userId));
     }
 
-    /**
-     * SSE 테스트 알림을 보내주는 HTTP 메서드
-     */
-    @PostMapping("/stream/notify")
-    public ApiResponse<NotificationResponse> notify(@RequestBody NotificationRequest request) {
-        return ApiResponse.ok(notificationService.sendNotification(request.toServiceRequest().getUserId()));
-    }
+//    /**
+//     * SSE 테스트 알림을 보내주는 HTTP 메서드
+//     */
+//    @PostMapping("/stream/notify")
+//    public ApiResponse<NotificationResponse> notify(@RequestBody NotificationRequest request) {
+//        return ApiResponse.ok(notificationService.sendNotification(request.toServiceRequest().getUserId()));
+//    }
 
-    /**
-     * 메인 대시보드에 실시간으로 매칭 상태 알림을 보내주는 HTTP 메서드
-     */
-    @PostMapping("/stream/matchStatus")
-    public ApiResponse<NotificationResponse> matchStatus(@RequestBody NotificationRequest request) {
-        return ApiResponse.ok(notificationService.sendMatchStatus(request.toServiceRequest().getUserId()));
-    }
+//    /**
+//     * 메인 대시보드에 실시간으로 매칭 상태 알림을 보내주는 테스트용 HTTP 메서드
+//     */
+//    @PostMapping("/stream/matchStatus")
+//    public ApiResponse<NotificationResponse> matchStatus(@RequestBody NotificationRequest request) throws IOException {
+//        return ApiResponse.ok(notificationService.sendMatchStatus(request.toServiceRequest().getUserId()), request.toServiceRequest().getUserId());
+//    }
 
     // 좋아요 눌렀을때 알림
 

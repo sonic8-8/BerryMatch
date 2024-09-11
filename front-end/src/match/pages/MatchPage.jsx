@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './MatchPage.module.css';
 import MatchDashboard from '../components/MatchDashboard';
+import DummyDataTest from '../../common/DummyDataTest';
 
 function MatchPage() {
     return (
@@ -19,7 +20,7 @@ function MatchPage() {
             </div>
             
             <div className={styles.layout_footer}>
-
+                
 
             </div>
   

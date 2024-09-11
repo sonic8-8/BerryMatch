@@ -19,7 +19,7 @@ public class PostResponse {
     // 빌더로 유연한 생성자의 틀을 만듦
     // 빌더 생성자가 받는 매개변수는 나중에 빌더로 생성자를 만들 때 각 속성들이 넘겨줘야할 매개변수의 타입임
     @Builder
-    public PostResponse(Long id, String title, String content, String fileUrl, String thumbnailUrl) {
+    public PostResponse(Long id,String title, String content, String fileUrl, String thumbnailUrl) {
         this.id = id;
         this.title = title;
         this.content = content;

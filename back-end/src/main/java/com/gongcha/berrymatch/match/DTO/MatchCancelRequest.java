@@ -1,6 +1,7 @@
 package com.gongcha.berrymatch.match.DTO;
 
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MatchCancelRequest {
-    private Long id;
+    private String id;
     private String message;
 
+    @Builder
+    public MatchCancelRequest(String id, String message) {
+        this.id = id;
+        this.message = message;
+    }
+
+    public MatchCancelServiceRequest toServiceRequest() {
+        return MatchCancelServiceRequest.builder()
+                .id(Long.valueOf(id))
+                .message(message)
+                .build();
+    }
 }

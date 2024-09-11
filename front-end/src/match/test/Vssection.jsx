@@ -11,10 +11,10 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
     const accessToken = Cookies.get('accessToken');
     const chatboxRef = useRef(null); // chatbox에 대한 참조 생성
 
-    let id = null;
+    let userId = null;
     if (accessToken) {
         const decodedToken = jwtDecode(accessToken);
-        id = Number(decodedToken.id);
+        userId = Number(decodedToken.id);
     }
 
     // 과거 메시지 불러오기
@@ -30,7 +30,7 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
             .then(response => {
                 const pastMessages = response.data.data || [];
                 const formattedMessages = pastMessages.map(msg => ({
-                    sender: msg.id === id ? 'me' : 'other',  // 내 메시지와 상대방 메시지 구분
+                    sender: msg.id === userId ? 'me' : 'other',  // 내 메시지와 상대방 메시지 구분
                     text: msg.message[0],
                     nickname: msg.nickname
                 }));
@@ -41,7 +41,7 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
                 console.error('Error fetching past messages:', error);
             });
         }
-    }, [MatchId, accessToken, id]);
+    }, [MatchId, accessToken, userId]);
 
     // 스크롤을 최하단으로 이동
     useEffect(() => {
@@ -78,7 +78,7 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
             const messageData = {
                 text: inputValue,
                 nickname: nickname,
-                id: id
+                id: userId
             };
 
             // 메시지 리스트에 추가 (자기 메시지)
@@ -107,7 +107,7 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
             const newIsReady = !headerClicked;
 
             // 준비 상태에 따라 서버에 알림
-            socket.emit(newIsReady ? 'ready' : 'notReady', { id, nickname, matchId: MatchId });
+            socket.emit(newIsReady ? 'ready' : 'notReady', { id: userId, nickname, matchId: MatchId });
             console.log(`Sent ${newIsReady ? 'ready' : 'notReady'} event: ${nickname} is ${newIsReady ? 'ready' : 'not ready'}`);
 
             // 부모 컴포넌트로 준비 상태 알림
@@ -117,8 +117,40 @@ const VSSection = ({ socket, MatchId, nickname, onReadyStateChange, allUsersRead
     };
 
     const handleEndGameClick = () => {
-        console.log("경기 종료");
-        socket.emit('endGame', { matchId: MatchId });
+        // console.log("경기 종료 투표");
+        // socket.emit('endGameVote', { matchId: MatchId, id: userId, nickname });
+
+        const accessToken = Cookies.get('accessToken');
+        const decodedToken = jwtDecode(accessToken);
+        const id = decodedToken.id;
+        
+        axios.post('http://localhost:8085/api/boom', {} ,{
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }).then(response => {
+    
+                const apiResponse = response.data;
+                const code = apiResponse.code;
+                const status = apiResponse.status;
+                const data = apiResponse.data;
+                const message = apiResponse.message;
+        
+ 
+                console.log(apiResponse);
+                console.log(data);
+                console.log("박살내라고 ㅆ발")
+                //   console.log(`박살 완료 (${data.nickname}):`, data.userMatchStatus);
+              }).catch(error => {
+                  console.error('박살 중 오류 발생' + error);
+              });
+
+    
+
+
+
     };
 
     return (

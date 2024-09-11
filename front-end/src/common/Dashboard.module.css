@@ -36,7 +36,7 @@
     align-items: center;
     color: black;
     opacity: 0.9;
-    width: 100%;
+    width: 80%;
     height: 80%;
     border-radius: 1rem;
     font-family: 'Jalnan';
@@ -290,6 +290,7 @@
     .dashboard_middle_right_menu_container {
         flex-direction: column;
     }
+
 
     /* 모바일 화면에서 네비게이션 바로 설정 */
 @media screen and (max-width: 768px) {

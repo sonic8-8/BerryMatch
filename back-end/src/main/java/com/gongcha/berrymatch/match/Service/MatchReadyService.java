@@ -1,6 +1,8 @@
 package com.gongcha.berrymatch.match.Service;
 
-import com.gongcha.berrymatch.match.DTO.MatchReady;
+import com.gongcha.berrymatch.match.DTO.MatchLeaveRequest;
+import com.gongcha.berrymatch.match.DTO.MatchLeaveServiceRequest;
+import com.gongcha.berrymatch.match.DTO.MatchReadyRequest;
 import com.gongcha.berrymatch.match.Repository.MatchUserRepository;
 import com.gongcha.berrymatch.match.Repository.MatchRepository;
 import com.gongcha.berrymatch.match.domain.*;
@@ -23,24 +25,24 @@ public class MatchReadyService {
     /**
      * 특정 유저의 상태를 Ready로 업데이트합니다.
      *
-     * @param matchReady 유저 ID 및 매치 정보가 담긴 DTO
+     * @param matchReadyRequest 유저 ID 및 매치 정보가 담긴 DTO
      * @return 업데이트된 MatchUser 객체
      */
     @Transactional
-    public MatchReady userReadyStatus(MatchReady matchReady) {
+    public MatchReadyRequest userReadyStatus(MatchReadyRequest matchReadyRequest) {
         // 유저 ID로 매치 유저 조회
-        MatchUser matchUser = matchUserRepository.findByUserId(matchReady.getId())
-                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReady.getId()));
+        MatchUser matchUser = matchUserRepository.findByUserId(matchReadyRequest.getId())
+                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReadyRequest.getId()));
 
         // 유저 상태를 Ready로 업데이트
-        matchUser.setStatus(MatchUserReady.Ready);
+        matchUser.setStatus(MatchUserReady.READY);
         matchUserRepository.save(matchUser);
 
         // 매치 ID를 사용하여 매치 조회
         Match match = matchUser.getMatch();
 
         // 매치에 속한 모든 유저가 Ready 상태인지 확인
-        List<MatchUser> readyUsers = matchUserRepository.findByMatchIdAndStatus(match.getId(), MatchUserReady.Ready);
+        List<MatchUser> readyUsers = matchUserRepository.findByMatchIdAndStatus(match.getId(), MatchUserReady.READY);
         boolean allUsersReady = readyUsers.size() == match.getMaxSize();
 
         if (allUsersReady) {
@@ -50,7 +52,7 @@ public class MatchReadyService {
         }
 
         // MatchReadyDTO로 필요한 데이터만 응답
-        return new MatchReady(
+        return new MatchReadyRequest(
                 matchUser.getUser().getId(),
                 matchUser.getUser().getNickname(),
                 matchUser.getStatus().toString(),
@@ -61,26 +63,26 @@ public class MatchReadyService {
     /**
      * 특정 유저의 상태를 Waiting으로 업데이트합니다.
      *
-     * @param matchReady 유저 ID 및 매치 정보가 담긴 DTO
+     * @param matchReadyRequest 유저 ID 및 매치 정보가 담긴 DTO
      * @return 업데이트된 MatchUser 객체
      */
     @Transactional
-    public MatchUser UserWitingStatus(MatchReady matchReady) {
+    public MatchUser UserWitingStatus(MatchReadyRequest matchReadyRequest) {
         // 유저 ID로 매치 유저 조회
-        MatchUser matchUser = matchUserRepository.findByUserId(matchReady.getId())
-                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReady.getId()));
+        MatchUser matchUser = matchUserRepository.findByUserId(matchReadyRequest.getId())
+                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReadyRequest.getId()));
 
         // 유저 상태를 Waiting으로 업데이트
 
-        matchUser.setStatus(MatchUserReady.Waiting);
+        matchUser.setStatus(MatchUserReady.WAITING);
         return matchUserRepository.save(matchUser);
     }
 
     @Transactional
-    public void UserMatchLeave(MatchReady matchReady) {
+    public void UserMatchLeave(MatchLeaveServiceRequest request) {
         // 유저 ID로 매치유저 조회
-        MatchUser matchUser = matchUserRepository.findByUserId(matchReady.getId())
-                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + matchReady.getId()));
+        MatchUser matchUser = matchUserRepository.findByUserId(request.getId())
+                .orElseThrow(() -> new RuntimeException("MatchUser not found for userId: " + request.getId()));
 
         // 매치유저가 속한 매치 조회
         Match match = matchUser.getMatch();

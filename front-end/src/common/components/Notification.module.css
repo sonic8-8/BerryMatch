@@ -33,7 +33,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 93%;
     height: 100%;
     border: 1px solid #636363;
     background-color: #a3a3a3;
@@ -43,5 +43,7 @@
     text-align: center;
     cursor: pointer;
     animation: glow 1.5s infinite alternate;
+
+    border-radius: 15px;
 }
 

@@ -1,9 +1,12 @@
 package com.gongcha.berrymatch.user;
 
 import com.gongcha.berrymatch.ApiResponse;
+import com.gongcha.berrymatch.match.Service.MatchingQueueCleanupService;
 import com.gongcha.berrymatch.postFile.requestDTO.PostFileUploadRequest;
 import com.gongcha.berrymatch.s3bucket.S3Service;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
+import com.gongcha.berrymatch.user.requestDTO.DummyAddRequest;
+import com.gongcha.berrymatch.user.requestDTO.DummyDeleteRequest;
 import com.gongcha.berrymatch.user.requestDTO.UserSignupRequest;
 import com.gongcha.berrymatch.user.responseDTO.UserInfoResponse;
 import com.gongcha.berrymatch.user.responseDTO.UserProfileUpdateResponse;
@@ -22,6 +25,8 @@ public class UserController {
 
     private final UserService userService;
     private final S3Service s3Service;
+    private final UserRepository userRepository;
+    private final MatchingQueueCleanupService matchingQueueCleanupService;
 
     /**
      * 소셜 로그인으로 받아온 identifier + 사용자 입력으로 requestDTO를 만들고 회원가입 시켜주는 메서드
@@ -60,6 +65,19 @@ public class UserController {
         return ApiResponse.ok(userService.updateProfile(identifier,
                 ProviderInfo.valueOf(providerInfo.toUpperCase()),
                 key, introduction));
+    }
+
+    @PostMapping("/add-dummy")
+    public ApiResponse<String> addDummyUser(@RequestBody DummyAddRequest request) {
+        userService.addUser(request.toServiceRequest());
+        return ApiResponse.ok("추가함요");
+    }
+
+    @PostMapping("/delete-dummy")
+    public ApiResponse<String> deleteDummyUser(@RequestBody DummyDeleteRequest request) {
+        matchingQueueCleanupService.cleanUpMatchingQueue();
+        userService.deleteUser(request.toServiceRequest());
+        return ApiResponse.ok("삭제함요");
     }
 
 

@@ -7,7 +7,6 @@ import com.gongcha.berrymatch.notification.firebase.responseDTO.FcmTokenRegister
 import com.gongcha.berrymatch.notification.firebase.responseDTO.FirebaseNotificationResponse;
 import com.gongcha.berrymatch.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class FCMController {
+public class FcmController {
 
-    private final FCMService fcmService;
+    private final FcmService fcmService;
     private final UserService userService;
 
     /**

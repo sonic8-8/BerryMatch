@@ -28,7 +28,7 @@ public class MatchUser {
 
     //경기 준비 상태
     @Enumerated(EnumType.STRING)
-    private MatchUserReady status = MatchUserReady.Waiting;
+    private MatchUserReady status = MatchUserReady.WAITING;
 
     //A/B팀 상태
     @Enumerated(EnumType.STRING)
@@ -44,6 +44,8 @@ public class MatchUser {
         this.status = status;
     }
 
-
+    public void updateMatchUserReady(MatchUserReady status) {
+        this.status = status;
+    }
 
 }

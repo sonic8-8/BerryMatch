@@ -5,6 +5,8 @@ import com.gongcha.berrymatch.notification.firebase.requestDTO.FcmTokenRegisterS
 import com.gongcha.berrymatch.notification.firebase.responseDTO.FcmTokenRegisterResponse;
 import com.gongcha.berrymatch.springSecurity.constants.ProviderInfo;
 import com.gongcha.berrymatch.springSecurity.responseDTO.AuthResponse;
+import com.gongcha.berrymatch.user.requestDTO.DummyAddServiceRequest;
+import com.gongcha.berrymatch.user.requestDTO.DummyDeleteServiceRequest;
 import com.gongcha.berrymatch.user.requestDTO.UserSignupServiceRequest;
 import com.gongcha.berrymatch.user.responseDTO.UserInfoResponse;
 import com.gongcha.berrymatch.user.responseDTO.UserProfileUpdateResponse;
@@ -145,6 +147,33 @@ public class UserService {
                 .providerInfo(user.getProviderInfo().toString())
                 .identifier(user.getIdentifier())
                 .build();
+    }
+
+    /**
+     * 더미 유저 데이터를 추가하는 메서드
+     */
+    @Transactional
+    public String addUser(DummyAddServiceRequest request) {
+        User user = User.builder()
+                .id(request.getId())
+                .userMatchStatus(request.getUserMatchStatus())
+                .nickname(request.getNickname())
+                .city(request.getCity())
+                .district(request.getDistrict())
+                .build();
+        userRepository.save(user);
+
+        return user.getNickname();
+    }
+
+    @Transactional
+    public void deleteUser(DummyDeleteServiceRequest request) {
+        userRepository.deleteByNickname(request.getNickname());
+    }
+
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new BusinessException(MEMBER_NOT_FOUND));
     }
 
 }
