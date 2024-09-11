@@ -98,80 +98,74 @@ function PostEdit() {
     }
 
     if(submitConfirm){
-      await axios.post('http://localhost:8085/api/post/update', postUpdateData, {
+      if((title == null || title == "") || (content == null || content == "")){
+        window.alert("제목 또는 내용을 입력해주세요.");
+      }else if(inputThumbnail == null || inputFile == null){
+        window.alert("썸네일 또는 하이라이트 파일을 첨부해주세요.");
+      }else{
+        await axios.post('http://localhost:8085/api/post/update', postUpdateData, {
         headers: {
           'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
         },
         withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
-      })
-      .then(
+        })
+        .then(
         response=>{
-  
-          const apiResponse = response.data;
-  
-          const data = apiResponse.data;
-          const message = apiResponse.message;
-          const code = apiResponse.code;
-          const status = apiResponse.status;
-  
-          post_id = data.id;
-          console.log("게시글 업데이트 성공! 반환값 ", post_id);
-          
-          
-        }
-      )
-      .catch(
-        error=>{
-          console.log("게시글 업데이트 실패 -> ", error);
-        }
-      )
-  
-      console.log("사용자가 보낸 파일 :", selectedFile);
-      console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
-  
-      // 파일 데이터를 담을 수 있는 객체
-      const formData = new FormData();
-      // 선택된 파일과 썸네일 formdata에 담기
-      formData.append('file', selectedFile);
-      formData.append('thumbnail', selectedThumbnail);
-      formData.append('post_id', post_id)
-  
-      
-      await axios.post('http://localhost:8085/api/s3/update', formData, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`
-        },
-        withCredentials: true
-      })
-      .then(
-        response=>{
-          const apiResponse = response.data;
-          const code = apiResponse.code;
-          const status = apiResponse.status;
-          const message = apiResponse.message;
-          const data = apiResponse.data;
-  
-          console.log("파일 업데이트 성공 : ", message);
-          
-        }
-      )
-      .catch(
-        error=>{
-          console.log("파일 업데이트 실패", error);
-        }
-      )
-      .finally(
-        // if(){
+        const apiResponse = response.data;
 
-        // }
-      )
+        const data = apiResponse.data;
+        const message = apiResponse.message;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+
+        post_id = data.id;
+        console.log("게시글 업데이트 성공! 반환값 ", post_id);      
+      }
+    )
+    .catch(
+      error=>{
+        console.log("게시글 업데이트 실패 -> ", error);
+      }
+    )
+
+    console.log("사용자가 보낸 파일 :", selectedFile);
+    console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
+
+    // 파일 데이터를 담을 수 있는 객체
+    const formData = new FormData();
+    // 선택된 파일과 썸네일 formdata에 담기
+    formData.append('file', selectedFile);
+    formData.append('thumbnail', selectedThumbnail);
+    formData.append('post_id', post_id)
+
+    
+    await axios.post('http://localhost:8085/api/s3/update', formData, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    })
+    .then(
+      response=>{
+        const apiResponse = response.data;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+        const message = apiResponse.message;
+        const data = apiResponse.data;
+
+        console.log("파일 업데이트 성공 : ", message);
+        
+      }
+    )
+    .catch(
+      error=>{
+        console.log("파일 업데이트 실패", error);
+      }
+    )
     }
-     
   }
 
-
-
-
+}
 
   return (
     <div className={styles.container}>

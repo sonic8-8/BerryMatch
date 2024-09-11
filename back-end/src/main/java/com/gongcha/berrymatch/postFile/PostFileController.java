@@ -122,7 +122,7 @@ public class PostFileController {
     public ApiResponse<Boolean> videoUpdate(@RequestParam("file") MultipartFile file,
                                                            @RequestParam("thumbnail") MultipartFile thumbnail,
                                                            @RequestParam("post_id") Post post_id) throws IOException{
-        System.out.println("넘어온 post_id를 가지고 있는 Post 자료형의 객체 : " + post_id);
+        System.out.println("넘어온 post_id를 가지고 있는 Post 자료형의 객체 : " + post_id.getId());
 
         PostFileUploadRequest request = PostFileUploadRequest.of(file);
 

@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import PostEdit from './PostEdit.jsx';
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 // 외부에서 좋아요 버튼 디자인 갖고옴
 import { AiOutlineLike } from "react-icons/ai";
@@ -17,7 +18,8 @@ import axios from 'axios';
 
 function PostDetail(props) {
 
-  const [ postList, setPostList ] = useState();
+  // const [ postList, setPostList ] = useState();
+  const [ loading, setLoading ] = useState(false);
 
   const nav = useNavigate();
   
@@ -172,6 +174,7 @@ function PostDetail(props) {
     const editConfirm = window.confirm("게시글 수정 페이지로 이동하시겠습니까?")
 
     if(editConfirm){
+      dispatch(setModalSwitch());
       const postList = props.postList
       nav('/board/post/edit', { state: { postList } });
     }
@@ -198,7 +201,10 @@ function PostDetail(props) {
       })
       .then(
         response=>{
-          console.log("게시글 삭제 성공함 : ", response.data)
+          console.log("게시글 삭제 성공함 : ", response.data);
+          window.alert("게시글 삭제가 완료되었습니다.");
+          dispatch(setModalSwitch());
+          nav('/board');
         }
       )
       .catch(
@@ -207,7 +213,6 @@ function PostDetail(props) {
         }
       )
     }
-
   }
 
   return (
@@ -224,7 +229,14 @@ function PostDetail(props) {
             </div>
             : <div className={styles.empty_space}></div>
           }
-        
+
+          { 
+            loading ?
+            <div className={styles.spinner_overlay}>
+                <ClipLoader color="#ffffff" size={100} />
+            </div> :
+            null
+          }
             
           <div className={styles.post_header}>
             <div className={styles.post_title}>{props.postList.title}</div>

@@ -4,8 +4,12 @@ import axios from 'axios';
 import defaultImg from '../img/defaultImg.png';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
 function PostWritePage() {
+
+  const nav = useNavigate();
 
   const accessToken = Cookies.get("accessToken");
 
@@ -15,6 +19,7 @@ function PostWritePage() {
   const [ content, setContent ] = useState(null);
   const [ inputThumbnail, setInputThumbnail ] = useState(null);
   const [ inputFile, setInputFile ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
 
   /**
    * 썸네일을 선택했을 때 동작하는 함수
@@ -98,6 +103,7 @@ function PostWritePage() {
       }else if(inputThumbnail == null || inputFile == null){
         window.alert("썸네일 또는 하이라이트 파일을 첨부해주세요.");
       }else{
+        setLoading(true);
         await axios.post('http://localhost:8085/api/post/upload', postData, {
           headers: {
             'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
@@ -141,12 +147,15 @@ function PostWritePage() {
         })
         .then(
           response=>{
+            
             const apiResponse = response.data;
             const code = apiResponse.code;
             const status = apiResponse.status;
             const message = apiResponse.message;
             const data = apiResponse.data;
-    
+            setLoading(false);
+            window.alert('하이라이트 업로드를 성공하였습니다.');
+            nav('/board');
             console.log("파일 업로드 성공 : ", message);
           }
         )
@@ -180,6 +189,14 @@ function PostWritePage() {
 
       <br></br>
 
+      { 
+        loading ?
+        <div className={styles.spinner_overlay}>
+            <ClipLoader color="#ffffff" size={100} />
+        </div> :
+        null
+      }
+      
       <div className={styles.container_files}>
         <div className={styles.thumbnail_div}>
           <p>썸네일</p>
