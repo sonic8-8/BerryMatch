@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './PostWritePage.module.css';
 import axios from 'axios';
-import defaultImg from '../img/defaultImg.png';
 import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
+import styles from './PostEdit.module.css';
+import defaultImg from './img/defaultImg.png'
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function PostWritePage() {
+function PostEdit() {
+  const location = useLocation();
+  const postList = location.state.postList;
+  console.log("수정버튼 클릭 후 넘어온 state : ", postList);
 
   const nav = useNavigate();
 
   const accessToken = Cookies.get("accessToken");
 
-  const [ selectedFile, setSelectedFile ] = useState(null);
-  const [ selectedThumbnail, setSelectedThumbnail ] = useState(null);
-  const [ title, setTitle ] = useState(null);
-  const [ content, setContent ] = useState(null);
-  const [ inputThumbnail, setInputThumbnail ] = useState(null);
-  const [ inputFile, setInputFile ] = useState(null);
-  const [ loading, setLoading ] = useState(false);
+  const [ selectedFile, setSelectedFile ] = useState(postList.fileUrl);
+  const [ selectedThumbnail, setSelectedThumbnail ] = useState(postList.thumbnailUrl);
+  const [ title, setTitle ] = useState(postList.title);
+  const [ content, setContent ] = useState(postList.content);
+  const [ inputThumbnail, setInputThumbnail ] = useState(postList.thumbnailUrl);
+  const [ inputFile, setInputFile ] = useState(postList.fileUrl);
+  const [ uploading, setUploading] = useState(false);
+
 
   /**
    * 썸네일을 선택했을 때 동작하는 함수
@@ -72,9 +75,6 @@ function PostWritePage() {
   }
   console.log("현재 작성된 내용 : ", content);
 
-
-
-  
   /**
    * 업로드 버튼 눌렀을 때 동작하는 함수
    */
@@ -82,20 +82,20 @@ function PostWritePage() {
     // 새로고침 방지
     event.preventDefault();
 
+    const submitConfirm = window.confirm("게시글을 수정하시겠습니까?");
+    
     const decodedToken = jwtDecode(accessToken);
     const id = decodedToken.id;
-    console.log(id);
 
     let post_id = null;
 
-    // 제목과 내용 데이터 묶음
-    const postData = {
+     // 제목과 내용 데이터 묶음
+     const postUpdateData = {
       "title" : title,
       "content" : content,
-      "userId" : id
+      "userId" : id,
+      "id" : postList.postId
     }
-
-    const submitConfirm = window.confirm("게시글을 업로드하시겠습니까?");
 
     if(submitConfirm){
       if((title == null || title == "") || (content == null || content == "")){
@@ -103,74 +103,69 @@ function PostWritePage() {
       }else if(inputThumbnail == null || inputFile == null){
         window.alert("썸네일 또는 하이라이트 파일을 첨부해주세요.");
       }else{
-        setLoading(true);
-        await axios.post('http://localhost:8085/api/post/upload', postData, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
-          },
-          withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
+        await axios.post('http://localhost:8085/api/post/update', postUpdateData, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}` // 여기에 accessToken 추가
+        },
+        withCredentials: true // 쿠키를 포함하여 전송 (리프레시 토큰)
         })
         .then(
-          response=>{
-            const apiResponse = response.data;
-            const data = apiResponse.data;
-            const message = apiResponse.message;
-            const code = apiResponse.code;
-            const status = apiResponse.status;
-    
-            post_id = data.id;
-            console.log("게시글 업로드 성공! 반환값 ", post_id);
-          }
-        )
-        .catch(
-          error=>{
-            console.log("게시글 업로드 실패 -> ", error);
-          }
-        )
-    
-        console.log("사용자가 보낸 파일 :", selectedFile);
-        console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
-    
-        // 파일 데이터를 담을 수 있는 객체
-        const formData = new FormData();
-        // 선택된 파일과 썸네일 formdata에 담기
-        formData.append('file', selectedFile);
-        formData.append('thumbnail', selectedThumbnail);
-        formData.append('post_id', post_id)
-    
-        
-        await axios.post('http://localhost:8085/api/s3/upload', formData, {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`
-          },
-          withCredentials: true
-        })
-        .then(
-          response=>{
-            
-            const apiResponse = response.data;
-            const code = apiResponse.code;
-            const status = apiResponse.status;
-            const message = apiResponse.message;
-            const data = apiResponse.data;
-            setLoading(false);
-            window.alert('하이라이트 업로드를 성공하였습니다.');
-            nav('/board');
-            console.log("파일 업로드 성공 : ", message);
-          }
-        )
-        .catch(
-          error=>{
-            console.log("파일 업로드 실패", error);
-          }
-        ) 
+        response=>{
+        const apiResponse = response.data;
+
+        const data = apiResponse.data;
+        const message = apiResponse.message;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+
+        post_id = data.id;
+        console.log("게시글 업데이트 성공! 반환값 ", post_id);      
       }
+    )
+    .catch(
+      error=>{
+        console.log("게시글 업데이트 실패 -> ", error);
+      }
+    )
+
+    console.log("사용자가 보낸 파일 :", selectedFile);
+    console.log("사용자가 보낸 썸네일 :", selectedThumbnail);
+
+    // 파일 데이터를 담을 수 있는 객체
+    const formData = new FormData();
+    // 선택된 파일과 썸네일 formdata에 담기
+    formData.append('file', selectedFile);
+    formData.append('thumbnail', selectedThumbnail);
+    formData.append('post_id', post_id)
+
+    
+    await axios.post('http://localhost:8085/api/s3/update', formData, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      },
+      withCredentials: true
+    })
+    .then(
+      response=>{
+        const apiResponse = response.data;
+        const code = apiResponse.code;
+        const status = apiResponse.status;
+        const message = apiResponse.message;
+        const data = apiResponse.data;
+
+        console.log("파일 업데이트 성공 : ", message);
+        
+      }
+    )
+    .catch(
+      error=>{
+        console.log("파일 업데이트 실패", error);
+      }
+    )
     }
   }
 
-
-
-
+}
 
   return (
     <div className={styles.container}>
@@ -178,25 +173,17 @@ function PostWritePage() {
       <div className={styles.container_input}>
         <div>
           <h3 className={styles.title_h3}>제목</h3> <br></br>
-          <input type='text' className={styles.title_input}  onBlur={ handleTitleBlur }></input>
+          <input type='text' className={styles.title_input}  onBlur={ handleTitleBlur } defaultValue={title}></input>
         </div>
 
         <div>
           <h3 className={styles.content_h3}>내용</h3><br></br>
-          <input className={styles.content_textarea}  onBlur={ handleContentBlur }></input>
+          <input className={styles.content_textarea}  onBlur={ handleContentBlur } defaultValue={content}></input>
         </div>
       </div>
 
       <br></br>
 
-      { 
-        loading ?
-        <div className={styles.spinner_overlay}>
-            <ClipLoader color="#ffffff" size={100} />
-        </div> :
-        null
-      }
-      
       <div className={styles.container_files}>
         <div className={styles.thumbnail_div}>
           <p>썸네일</p>
@@ -214,11 +201,11 @@ function PostWritePage() {
         </div>
       </div>
       <div className={styles.button_container}>
-      <button className={styles.upload_button} onClick={ submitFile }>업로드</button>
+      <button className={styles.upload_button} onClick={ submitFile }>수정하기</button>
       </div>
 
     </div>
   )
 }
 
-export default PostWritePage;
+export default PostEdit;

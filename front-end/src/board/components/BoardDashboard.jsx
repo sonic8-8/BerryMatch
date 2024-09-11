@@ -38,6 +38,7 @@ function BoardDashboard() {
                 <div className={styles.dashboard_middle_menu_container}>
                     <Link to={`/board/${currentPage || 1}`} className={styles.dashboard_middle_menu}>게시글 보기</Link>
                     <Link to="post/write" className={styles.dashboard_middle_menu}>게시물 작성</Link>
+                    <Link to={`mypost/${currentPage || 1}`} className={styles.dashboard_middle_menu}>나의 게시물 보기</Link>
                 </div>
                 <div className={styles.dashboard_middle_content}>
                     <Outlet />

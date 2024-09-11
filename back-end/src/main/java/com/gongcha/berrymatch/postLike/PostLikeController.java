@@ -17,26 +17,24 @@ public class PostLikeController {
     private PostLikeService postLikeService;
 
 
-    @GetMapping("/check")
-    public ApiResponse<Boolean> checkPostLike(@RequestParam("postId") Long postId,
-                                              @RequestParam("userId") Long userId) {
+    @PostMapping("/check")
+    public ApiResponse<Boolean> checkPostLike(@RequestBody PostLikeRequest request) {
 
-        // Post 자료형으로 받았을 때, Post의 id에 자동으로 매핑을 해줘?
-        System.out.println("해당 게시물의 좋아요 여부 확인 중..." + postId + "  ^-^?  " + userId);
+        System.out.println("게시글에 접속한 사용자는 누구니 ? " + request.getUserId());
+        System.out.println("사용자가 접속한 게시글의 인덱스는 ? " + request.getPostId());
 
-        return ApiResponse.ok(postLikeService.checkLike(postId, userId));
+        return ApiResponse.ok(postLikeService.checkLike(request));
     }
 
 
     @PostMapping("/update")
-    public ApiResponse<PostLikeResponse> postLike(@RequestBody PostLikeRequest request) {
+    public ApiResponse<Boolean> postLike(@RequestBody PostLikeRequest request) {
 
         // 좋아요 누른 놈의 정체
-        System.out.println("좋아요 누른 게시물 : " + request.getPostId());
-        System.out.println("좋아요 누른놈 : " + request.getUserId());
-        // 만약 이미 있는 경우라면, post_like 테이블에 있는 해당 유저의 데이터 삭제
+        System.out.println("좋아요 누가 누름 ? " + request.getUserId());
+        System.out.println("어느 게시물에 좋아요 누름 ? " + request.getPostId());
 
-        return ApiResponse.ok(postLikeService.updateLike(request.toServiceRequest()));
+        return ApiResponse.ok(postLikeService.updateLike(request));
     }
 
 }

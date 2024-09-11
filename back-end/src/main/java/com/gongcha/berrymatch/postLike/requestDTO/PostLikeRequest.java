@@ -5,30 +5,15 @@ import com.gongcha.berrymatch.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.NumberFormat;
 
+@ToString
 @Getter
 @NoArgsConstructor
 public class PostLikeRequest {
 
-    private int postId;
-    private int userId;
-
-    @Builder
-    public PostLikeRequest(int postId, int userId) {
-        this.postId = postId;
-        this.userId = userId;
-    }
-
-    public Long toLong(int value) {
-        return Long.valueOf(value);
-    }
-
-    public PostLikeServiceRequest toServiceRequest() {
-        return PostLikeServiceRequest.builder()
-                .userId(toLong(postId))
-                .postId(toLong(userId))
-                .build();
-    }
+    private Long postId;
+    private Long userId;
 
 }

@@ -6,13 +6,7 @@ import { setModalSwitch, setLikeSwitch} from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import img from './img/defaultImg.png'
 import Modal from 'react-modal';
-import { jwtDecode } from 'jwt-decode';
-
-// 좋아요 버튼 갖고옴
-import { AiOutlineLike } from "react-icons/ai";
-import { AiFillLike } from "react-icons/ai";
 
 // url 파라미터 가지고올 수 있음 (useParams)
 import { useNavigate, useParams } from 'react-router-dom';
@@ -31,7 +25,12 @@ function PostList() {
   const [ postList, setPostList ] = useState([""]);
   const [ totalPages, setTotalPages] = useState(0);
   const [ postDetailData, setPostDetailData] = useState([""]);
+  const [ sortByLikes, setSortByLikes ] = useState(false);
   
+  const sortData = {
+    "sortByLikes" : sortByLikes,
+  }
+
   console.log("현재 몇번째 페이지? : ", currentPage);
 
 
@@ -40,7 +39,8 @@ function PostList() {
    */
   let data;
   useEffect(() => {
-    axios.get(`http://localhost:8085/api/postpage/${currentPage}`, {
+    console.log("인기순으로 버튼 클릭 후 axios 통신");
+    axios.post(`http://localhost:8085/api/postpage/${currentPage}`, sortData,{
       headers: {
         'Authorization': `Bearer ${accessToken}`
       },
@@ -64,7 +64,7 @@ function PostList() {
         console.log("오류남 -> ", error);
       }
     )
-  }, [currentPage]);    
+  }, [currentPage, sortByLikes]);    
 
 
   // store.js로 요청 보내주는 함수
@@ -116,56 +116,25 @@ function createButton(totalPages) {
   return array;
 }
 
-
 function handlePageChange(event) {
- 
 setCurrentPage(parseInt(event.target.value))
-
 console.log("내가 클릭한 페이지 : ", parseInt(event.target.value));
-
-
 }
 
-/**
- * 나의 게시물 보기
- */
-function mypost() {
-  
-  const decodedToken = jwtDecode(accessToken);
-  const id = decodedToken.id;
-
-  console.log("마이포스트");
-  
-  const myPostData = {
-    "id" : id
+function handleSortByLikes() {
+  console.log("현재 인기순 값 : ", sortByLikes);
+  if(sortByLikes){
+    setSortByLikes(false);
+  }else{
+    setSortByLikes(true);
   }
 
-  axios.post('http://localhost:8085/api/mypost', myPostData, {
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    },
-    withCredentials: true
-  })
-  .then(
-    response=>{
-      console.log("나의 게시물 ", response.data)
-    }
-  )
-  .catch(
-    error=>{
-
-    }
-  )
-
 }
-
-
 
   return (
     <div className={styles.postpage_container}>
       
-      <button onClick={ mypost }>내 게시물 보기</button>
-
+      <button onClick={ handleSortByLikes }>인기순</button>
       <div className={styles.posts_container}>
         {
          postList.map(function(_, i){
@@ -182,12 +151,6 @@ function mypost() {
           })
         }
       </div>
-     
-      
-  
-      {/* {
-        modalSwitch == true ? <PostDetail postList={postDetailData}></PostDetail> : null
-      } */}
 
       {
         modalSwitch ? (
@@ -195,7 +158,6 @@ function mypost() {
             dispatch(setModalSwitch())
           }
           overlayClassName={styles.modal_overlay}
-          contentClassName={styles.modal_content}
           className={styles.modal}
           >
             <PostDetail postList={postDetailData}></PostDetail>
@@ -203,8 +165,6 @@ function mypost() {
         ) : null
       }
       
-      
-
       <div className={styles.page_change_button_container}>
         {
           createButton(totalPages).map((data)=>(
@@ -214,7 +174,6 @@ function mypost() {
           ))
         }
       </div>
-
 
     </div>
   );

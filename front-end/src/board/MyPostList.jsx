@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './PostList.module.css'
+import styles from './MyPostList.module.css'
 import { useEffect,useState } from 'react';
 import PostDetail from './PostDetail';
 import { setModalSwitch, setLikeSwitch} from '../store';
@@ -30,13 +30,19 @@ function MyPostList() {
   
   console.log("현재 몇번째 페이지? : ", currentPage);
 
+  const decodedToken = jwtDecode(accessToken);
+  const id = decodedToken.id;
+
+  const myPostData = {
+    "id" : id
+  }
 
    /**
    * 나의 게시물 페이지에 들어왔을 때 DB에 저장되어 있는 게시글들 보여주기
    */
   let data;
   useEffect(() => {
-    axios.get(`http://localhost:8085/api/mypostlist/${currentPage}`, {
+    axios.post(`http://localhost:8085/api/mypostpage/${currentPage}`, myPostData, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       },
@@ -53,11 +59,11 @@ function MyPostList() {
         console.log(apiResponse);
         setPostList(data.postDataList);
         setTotalPages(data.totalPages);
-        nav(`/mypostpage/${currentPage}`);
+        nav(`/board/mypost/${currentPage}`);
       })
     .catch(
       error=>{
-        console.log("오류남 -> ", error);
+        console.log("mypost 오류남 -> ", error);
       }
     )
   }, [currentPage]);    
@@ -127,7 +133,7 @@ console.log("내가 클릭한 페이지 : ", parseInt(event.target.value));
   return (
     <div className={styles.postpage_container}>
       
-      <button onClick={ mypost }>내 게시물 보기</button>
+   
 
       <div className={styles.posts_container}>
         {

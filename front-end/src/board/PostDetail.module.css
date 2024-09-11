@@ -19,12 +19,11 @@
 .post_headers{
 
     display: flex;
-    flex-direction: row;
+    justify-content: space-around; 
 
         .post_header{   
             
             margin-top: 20px;
-            margin-left: 432px;
             position: absolute;
             display: flex;
             flex-direction: column;
@@ -41,19 +40,52 @@
     
         .close_btn{
     
-    
+            border: none;
+
             font-size: 30px;
             border-radius: 10px;
             
-            margin-top: 2%;
+            margin-top: 1.5%;
             
-            margin-left: 900px;
+            margin-left: 830px;
             
             cursor: pointer;
         }
 
         .close_btn:hover{    
             /* background-color: darkslategrey; */
+        }
+
+        .button_group{
+            margin-top: 2%;
+            /* background-color: aqua; */
+                .edit_post{
+                    margin-right: 10px;
+
+                    background-color: #4CAF50; /* 버튼 배경색 */
+                    border-radius: 5px;
+                    border: none;
+                    color: white;
+                    padding: 5px 5px;
+                    text-align: center;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+                .delete_post{
+                    background-color: #4CAF50; /* 버튼 배경색 */
+                    border-radius: 5px;
+                    border: none;
+                    color: white;
+                    padding: 5px 5px;
+                    text-align: center;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+        }
+        
+        .empty_space{
+            padding-right: 95px;
+            /* background-color: aqua; */
         }
     
 }
@@ -76,26 +108,43 @@
 
 .post_footer{
 
-        display: flex;
-    
+    display: flex;
+    height: 10%;
+    width: 70%;
+    margin-top: 1%;
+    justify-content: center;
+    /* background-color: aliceblue; */
         .post_content{
-
-            margin-top: 20%;
-
+            display: flex;
+            align-items: center;
+            margin-right: 5%;
+            /* justify-content: flex-end; */
             /* background-color: aliceblue; */
         }
         
         .like_button{
+            display: flex;
             /* margin-bottom: ; */
         
             /* background-color: aliceblue; */
             
-            margin-left: 100%;
-            margin-top: 40%;
+            /* margin-left: 100%; */
+            margin-top: 20%;
         
             height: 50px;
             width: 50px;
         }
 }
 
-
+.spinner_overlay {
+    position: fixed; /* fixed를 해주더라도 top, left를 사용하여 위치를 고정시켜주어야함 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 주변을 어둡게 하는 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /*다른 요소 위에 표시되도록 높은 z-index 값 -> 요소 레이어의 순서를 정의해줌*/
+  }
